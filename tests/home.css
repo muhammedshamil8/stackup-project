@@ -1,0 +1,33 @@
+body {
+  font-family: roboto;
+}
+
+header {
+  background-color: #fff;
+  color: #0f0f0f;
+  text-align: center;
+  padding: 10px;
+}
+
+section {
+  background-color: #fff;
+  padding: 20px;
+  margin: 20px;
+  border-radius: 5px;
+}
+
+.task-list {
+  display: flex;
+  justify-content: space-between;
+}
+
+.task-column {
+  flex: 1;
+  margin: 10px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+.dec{
+  
+}
