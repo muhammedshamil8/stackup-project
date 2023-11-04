@@ -1,0 +1,53 @@
+import {Navigate, createBrowserRouter } from "react-router-dom";
+import Signup from "./pages/signup.jsx";
+import Users from "./pages/users.jsx";
+import Login from "./pages/login.jsx";
+import NotFound from "./pages/Notfound.jsx";
+import DefualtLayout from "./components/DefualtLayout.jsx";
+import GuestLayout from "./components/GuestLayout.jsx";
+import Dashboard from "./pages/dashboard.jsx";
+
+const router = createBrowserRouter([
+    {
+        path: '/',
+        element:<DefualtLayout />,
+        children: [
+            {
+                path: '/',
+                element:<Navigate to="/users"/>
+                // if url not need to show users then 
+                // element:<Users />
+
+           },
+            {
+                path: '/dashboard',
+                element:<Dashboard />
+           },
+            {
+                path: '/users',
+                element:<Users />
+           }
+        ]
+    },
+    {
+        path: '/',
+        element:<GuestLayout />,
+        children: [
+            {
+                path: '/login',
+                element:<Login />
+            },
+            {
+                path: '/signup',
+                element:<Signup />
+           }
+        ]
+    },
+   
+   {
+        path: '*',
+        element:<NotFound />
+   }
+])
+
+export default router;
