@@ -4,6 +4,7 @@ import axios from "axios";
 
 function Signup() {
     const Navigate = useNavigate();
+    const [isFormVisible, setFormVisible] = useState(true);
     const [inputs, setInputs] = useState({});
     const [errors, setErrors] = useState({});
 
@@ -26,8 +27,17 @@ function Signup() {
         });
     }
 
+    const handleLinkClick = () => {
+        setFormVisible(false); 
+        setTimeout(() => {
+            Navigate('/login');
+        }, 700); 
+    };
+
     return (
-        <div className="form animated fadeInDown">
+        <div className={`login-signup-form animated ${isFormVisible ? 'fadeInDown' : 'slideOut'}`}>
+
+        <div className="form ">
             <form onSubmit={handleSubmit}>
                 <h1 className="title">Sign up for free</h1>
                 {errors.message && <div className="error">{errors.message}</div>}
@@ -62,9 +72,10 @@ function Signup() {
                 />
                 <button className="btn btn-block">Signup</button>
                 <p className="message">
-                    Already Registered? <Link to="/login">Sign in</Link>
+                    Already Registered? <a  onClick={handleLinkClick}>Sign in</a>
                 </p>
             </form>
+        </div>
         </div>
     );
 }

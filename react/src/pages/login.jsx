@@ -4,6 +4,7 @@ import axios from "axios";
 
 function Login() {
     const Navigate = useNavigate();
+    const [isFormVisible, setFormVisible] = useState(true);
     const [inputs, setInputs] = useState({ email: "", password: "" });
     const [error, setError] = useState(null);
 
@@ -37,9 +38,18 @@ function Login() {
                 console.error("Error: " + error);
             });
     };
-
+    const handleLinkClick = () => {
+        setFormVisible(false); // Set the form to be invisible (slide out)
+        // You can add additional logic, such as setting a timeout to navigate after the animation completes
+        setTimeout(() => {
+            Navigate('/signup');
+        }, 900); // Adjust the delay as needed
+    };
     return (
-        <div className="form animated fadeInDown">
+        <div className={`login-signup-form animated ${isFormVisible ? 'fadeInDown' : 'slideOut'}`}>
+
+
+        <div className="form ">
             <form onSubmit={handleSubmit}>
                 <h1 className="title">Login into your account</h1>
 
@@ -60,9 +70,10 @@ function Login() {
                 {error && <div className="error">{error}</div>}
 
                 <p className="message">
-                    Not Registered? <Link to="/signup">Create an account</Link>
+                    Not Registered? <a onClick={handleLinkClick}>Create an account</a>
                 </p>
             </form>
+        </div>
         </div>
     );
 }

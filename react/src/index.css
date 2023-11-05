@@ -18,6 +18,7 @@ body {
     font-size: 14px;
     color: #212121;
     background-color: #f6f6f6;
+    overflow: hidden;
 }
 
 input {
@@ -224,8 +225,8 @@ table > tbody > tr > td {
 }
 
 .animated {
-    -webkit-animation-duration: 0.3s;
-    animation-duration: 0.3s;
+    -webkit-animation-duration: 1s;
+    animation-duration: 1s;
     -webkit-animation-fill-mode: both;
     animation-fill-mode: both;
 }
@@ -238,16 +239,60 @@ table > tbody > tr > td {
 @keyframes fadeInDown {
     0% {
         opacity: 0;
-        transform: translateY(-20px);
+        transform: translateX(-300px);
     }
     100% {
         opacity: 1;
-        transform: translateY(0);
+        transform: translateX(0);
     }
 }
+.slideOut {
+    -webkit-animation-name: slideOut;
+    animation-name: slideOut;
+}
+
+@keyframes slideOut {
+    0% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+    100% {
+        opacity: 0;
+        transform: translateX(300px);
+    }
+}
+
 .error{
     color: red;
     text-align: center;
     margin-bottom: 7px;
     font-size: 18px;
+}
+
+/* Loading overlay styles */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999; /* Ensure it appears above other content */
+}
+
+.loading-spinner {
+    border: 4px solid rgba(255, 255, 255, 0.3); /* Light border */
+    border-top: 4px solid #3498db; /* Blue spinner color */
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 1s linear infinite; /* Rotation animation */
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }

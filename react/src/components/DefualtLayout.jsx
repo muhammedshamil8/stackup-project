@@ -6,6 +6,14 @@ export default function DefaultLayout() {
     const Navigate = useNavigate();
     const [user, setUser] = useState(null);
     const [error, setError] = useState(null);
+    const [isLoading, setLoading] = useState(true); // Initial state: loading is true
+
+    // Simulate loading delay (remove this in production)
+    useEffect(() => {
+        setTimeout(() => {
+            setLoading(false); // Set loading to false after the delay
+        }, 1500); // Adjust the delay time as needed
+    }, []);
 
     useEffect(() => {
         const userId = localStorage.getItem('userId');
@@ -47,10 +55,18 @@ export default function DefaultLayout() {
     }
 
     return (
-        <div id="defaultLayout">
-            <aside>
+        <div >
+        {isLoading ? (
+            <div className="overlay">
+                <div className="loading-spinner">Index...</div>
+            </div>
+        ) : (
+            <div id="defaultLayout">
+                <aside>
                 <Link to="/dashboard">Dashboard</Link>
-                <Link to="/users">Users</Link>
+                <Link to="/users">Tasks</Link>
+                <Link to="/dashboard">Create Task</Link>
+                <Link to="/users">Profile</Link>
             </aside>
             <div className="content">
                 <header>
@@ -76,7 +92,10 @@ export default function DefaultLayout() {
                     )}
                     <Outlet />
                 </main>
+                </div>
             </div>
-        </div>
-    )
+        )}
+    </div>
+);
 }
+

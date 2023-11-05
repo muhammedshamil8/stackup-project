@@ -7,8 +7,13 @@ import DefualtLayout from "./components/DefualtLayout.jsx";
 import GuestLayout from "./components/GuestLayout.jsx";
 import Dashboard from "./pages/dashboard.jsx";
 import { AuthProvider } from "./AuthContext.jsx";
+import Index from "./pages/index.jsx";
 
 const router = createBrowserRouter([
+    {
+        path: '/',
+        element:<Index />
+   },
     {
         path: '/',
         element:<DefualtLayout />,
