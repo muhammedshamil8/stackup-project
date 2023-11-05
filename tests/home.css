@@ -1,33 +1,127 @@
-body {
-  font-family: roboto;
+*{
+  margin:0;
+  padding: 0;
+  box-sizing: border-box;
 }
-
-header {
+body{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background: rgb(241, 224, 224);
+  font-family: Roboto;
+}
+.container{
+  width: 350px;
   background-color: #fff;
-  color: #0f0f0f;
-  text-align: center;
-  padding: 10px;
+  border-radius: 20px;
+  padding: 28px 25px;
+  box-shadow: 14px 27px 49px -3px rgb(142, 90, 192);
 }
-
-section {
-  background-color: #fff;
-  padding: 20px;
-  margin: 20px;
-  border-radius: 5px;
-}
-
-.task-list {
+.top{
   display: flex;
   justify-content: space-between;
 }
-
-.task-column {
-  flex: 1;
-  margin: 10px;
-  padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
+.profile{
+  margin-top: 25px;
+  height: 100px;
+  display: flex;
+  justify-content: space-between;
 }
-.dec{
+.profile img{
+  width: 90px;
+  height: 90px;
+}
+.profile h2{
+  margin-top: 25px;
+  font-size: 18px;
+}
+.profile span{
+  font-size:14px;
+  color: rgb(148, 148, 148);
+  margin-top: 20px;
+}
+.profile i{
+  font-size: 22px;
+  margin-top: 35px;
+}
+h4{
+  text-align: center;
+  text-transform: capitalize;
+  font-weight: bold;
+  font-size: 20px;
+}
+.status{
+  width: 100%;
+  height: 90px;
+  overflow: hidden;
+}
+
+
+
+.search{
+  width: 100%;
+  max-width: 300px;
+  background-color: rgba(70, 36, 36, 0.2);
+  display: flex;
   
+  border-radius: 80px;
+  padding: 8px 18px;
+}
+.search input{
+  background: transparent;
+  flex: 1;
+  border: 0;
+  outline: none;
+  padding: 10px 10px;
+  font-size: 14px;
+  color: #1a351a ;
+}
+::placeholder{
+  color: #1a1665;
+}
+.search button img{
+  width: 55px;
+
+}
+.search button{
+  border: 0;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  background: transparent;
+  cursor: pointer;
+}
+.project{
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: row;
+  justify-content:first baseline;
+  
+}
+.flex{
+  width: 100px;
+  height: 100px;
+  background: blueviolet;
+  color: #fff;
+  font-size: 20px;
+  text-align: center;
+  line-height: 100px;
+  border-radius: 20px;
+  margin: 10px;
+
+
+}
+.flex1{
+  width: 100px;
+  height: 100px;
+  background: rgb(127, 29, 29);
+  color: #fff;
+  font-size: 20px;
+  text-align: center;
+  line-height: 100px;
+  border-radius: 20px;
+  margin: 10px;
+
 }
