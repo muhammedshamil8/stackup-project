@@ -245,3 +245,9 @@ table > tbody > tr > td {
         transform: translateY(0);
     }
 }
+.error{
+    color: red;
+    text-align: center;
+    margin-bottom: 7px;
+    font-size: 18px;
+}

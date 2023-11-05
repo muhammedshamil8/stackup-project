@@ -6,6 +6,7 @@ import NotFound from "./pages/Notfound.jsx";
 import DefualtLayout from "./components/DefualtLayout.jsx";
 import GuestLayout from "./components/GuestLayout.jsx";
 import Dashboard from "./pages/dashboard.jsx";
+import { AuthProvider } from "./AuthContext.jsx";
 
 const router = createBrowserRouter([
     {
@@ -21,11 +22,11 @@ const router = createBrowserRouter([
            },
             {
                 path: '/dashboard',
-                element:<Dashboard />
+                element:<AuthProvider><Dashboard /></AuthProvider>
            },
             {
                 path: '/users',
-                element:<Users />
+                element:<AuthProvider><Users /></AuthProvider>
            }
         ]
     },
