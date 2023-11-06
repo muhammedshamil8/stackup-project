@@ -19,9 +19,9 @@ export default function DefaultLayout() {
         const userId = localStorage.getItem('userId');
         if (userId) {
             axios.get(`http://localhost:9000/api/home.php?userId=${userId}`)
-            .then(function (response) {
-                if (response.data.username) {
-                    setUser(response.data);
+                .then(function (response) {
+                    if (response.data.username) {
+                        setUser(response.data);
                     } else {
                         setError("Username not found. Please log in.");
                     }
@@ -30,17 +30,17 @@ export default function DefaultLayout() {
                     console.error("Error: " + error);
                     setError("Server error. Unable to fetch user data. Check the network tab for more details.");
                 });
-        }else{
+        } else {
             axios.get("http://localhost:9000/api/logout.php")
-            .then(function (response) {
-                // Handle logout success
-                localStorage.removeItem('userId'); // Remove 'userId' from localStorage
-                Navigate("/login"); // Redirect to the login page
-            })
+                .then(function (response) {
+                    // Handle logout success
+                    localStorage.removeItem('userId'); // Remove 'userId' from localStorage
+                    Navigate("/login"); // Redirect to the login page
+                })
 
         }
     }, []);
-    
+
 
     function logout() {
         axios.get("http://localhost:9000/api/logout.php")
@@ -56,46 +56,50 @@ export default function DefaultLayout() {
 
     return (
         <div >
-        {isLoading ? (
-            <div className="overlay">
-                <div className="loading-spinner">Index...</div>
-            </div>
-        ) : (
-            <div id="defaultLayout">
-                <aside>
-                <Link to="/dashboard">Dashboard</Link>
-                <Link to="/users">Tasks</Link>
-                <Link to="/dashboard">Create Task</Link>
-                <Link to="/users">Profile</Link>
-            </aside>
-            <div className="content">
-                <header>
-                    <div>
-                        Header
-                    </div>
-                    <button onClick={logout}>
-                        Log Out
-                    </button>
-                </header>
-                <main>
-                    {user ? (
-                        <div>
-                            <h1>Welcome, {user.username}!</h1>
-                            {/* Display other user information */}
-                            {error && <div className="error">{error}</div>}
-                        </div>
-                    ) : (
-                        <div>
-                            <p>{error || "You are not authenticated. Please log in."}</p>
-                            {/* Implement redirection or login link */}
-                        </div>
-                    )}
-                    <Outlet />
-                </main>
+            {isLoading ? (
+                <div className="overlay">
+                    <div className="loading-spinner">Index...</div>
                 </div>
-            </div>
-        )}
-    </div>
-);
+            ) : (
+                <div id="defaultLayout">
+                    <aside>
+                        <Link to="/dashboard">Dashboard</Link>
+                        <Link to="/users">Tasks</Link>
+                        <Link to="/addtask">Create Task</Link>
+                        <Link to="/users">Profile</Link>
+                    </aside>
+                    <div className="content">
+                        <header>
+                            <div>
+                                Header
+                            </div>
+                            <div className="header-left-section">
+                                <p>{user.username}</p>
+                                <button onClick={logout}>
+                                    Log Out
+                                </button>
+                            </div>
+
+                        </header>
+                        <main>
+                            {user ? (
+                                <div>
+                                    <Outlet user={user} />
+
+
+                                    {error && <div className="error">{error}</div>}
+                                </div>
+                            ) : (
+                                <div>
+                                    <p>{error || "You are not authenticated. Please log in."}</p>
+                                    {logout}
+                                </div>
+                            )}
+                        </main>
+                    </div>
+                </div>
+            )}
+        </div>
+    );
 }
 

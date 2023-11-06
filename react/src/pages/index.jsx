@@ -1,5 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import React, { useEffect, useState } from 'react';
+import zeraImage from '../../../zera.jpg';
 
 export default function Index() {
     const Navigate = useNavigate();
@@ -23,13 +24,15 @@ Navigate('/dashboard')
                 <div className="loading-spinner">Index...</div>
             </div>
         ) : (
-        <header className="index-header">
-                    <div>
-                <button><Link to="/dashboard">Dashboard</Link></button>
-                <button><Link to="/dashboard">Dashboard</Link></button>
+        <div className="index-header">
+                    <div className="index-card">
+                        <img src={zeraImage} className="index-image"></img>
+                        <p>Effortlessy Organize Your Task with<br />Our Task <span>Management App</span></p>
+
+                <button className="index-btn"><Link to="/signup" className="index-btn-child">Get started</Link></button>
                     </div>
                   
-                </header>
+                </div>
         )}
       </div>
     );

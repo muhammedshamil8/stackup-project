@@ -70,7 +70,7 @@ function Login() {
                 {error && <div className="error">{error}</div>}
 
                 <p className="message">
-                    Not Registered? <a onClick={handleLinkClick}>Create an account</a>
+                    Not Registered? <a className="link" onClick={handleLinkClick}>Create an account</a>
                 </p>
             </form>
         </div>

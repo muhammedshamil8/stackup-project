@@ -8,6 +8,7 @@ import GuestLayout from "./components/GuestLayout.jsx";
 import Dashboard from "./pages/dashboard.jsx";
 import { AuthProvider } from "./AuthContext.jsx";
 import Index from "./pages/index.jsx";
+import CreateTask from "./pages/createTask.jsx";
 
 const router = createBrowserRouter([
     {
@@ -32,7 +33,12 @@ const router = createBrowserRouter([
             {
                 path: '/users',
                 element:<AuthProvider><Users /></AuthProvider>
+           },
+            {
+                path: '/addtask',
+                element: <AuthProvider><CreateTask /></AuthProvider>
            }
+        
         ]
     },
     {

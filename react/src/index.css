@@ -188,11 +188,11 @@ table > tbody > tr > td {
     background-color: #5b08a7;
     padding: 1rem
 }
-@media (rotation:landscape){
+/* @media (rotation:landscape){
   .display{
 
   }
-}
+} */
 #defaultLayout aside > a {
     display: block;
     padding: 0.75rem 1rem;
@@ -223,7 +223,10 @@ table > tbody > tr > td {
 #defaultLayout main {
     padding: 2rem;
 }
-
+.header-left-section{
+    display: flex;
+    gap: 10px;
+}
 .animated {
     -webkit-animation-duration: 1s;
     animation-duration: 1s;
@@ -296,3 +299,52 @@ table > tbody > tr > td {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
 }
+.link{
+    cursor: pointer;
+}
+.index {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f6f6f6; 
+  }
+  
+  .index-card {
+    width: 350px;
+    /* background-color: #5f2222; */
+    border-radius: 0.5rem;
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+    padding: 1.25rem 1.5rem;
+    margin-top: 0.5rem;
+    text-align: center; 
+  }
+  
+  .index-card > p {
+margin:10px;
+padding: 5px;
+  }
+  .index-card > p > span {
+    color: blue;
+  }
+  
+  .index-image {
+    width: 200px;
+
+  }
+  .index-btn{
+    border: none;
+    border-radius: 8px;
+    padding: 10px;
+    width: 100%;
+    background-color: #46436E;
+    color: white;
+cursor: pointer;
+    
+  }
+  .index-btn-child{
+    text-decoration: none;
+    color: white;
+
+
+  }

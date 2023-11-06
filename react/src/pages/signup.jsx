@@ -72,7 +72,7 @@ function Signup() {
                 />
                 <button className="btn btn-block">Signup</button>
                 <p className="message">
-                    Already Registered? <a  onClick={handleLinkClick}>Sign in</a>
+                    Already Registered? <a className="link"  onClick={handleLinkClick}>Sign in</a>
                 </p>
             </form>
         </div>
