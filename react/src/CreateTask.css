@@ -1,0 +1,81 @@
+.cTask-card {
+    background-color: #fff;
+    border-radius: 0.5rem;
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 1rem;
+  }
+  
+  label {
+    display: block;
+    margin-top: 0.5rem;
+  }
+  
+  input[type="text"],
+  input[type="date"],
+  select,
+  textarea {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #e6e6e6;
+    margin-top: 0.25rem;
+    border-radius: 0.25rem;
+  }
+  
+  .add-button {
+    background-color: #5b08a7;
+    color: #fff;
+    padding: 0.5rem 1rem;
+    border: none;
+    cursor: pointer;
+    margin-top: 1rem;
+  }
+  
+  .project-section {
+    margin-top: 1rem;
+    display: none;
+  }
+  
+  .project-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+  
+  .create-project {
+    margin-top: 1rem;
+    display: none;
+  }
+  /* .create-projectshow {
+    margin-top: 1rem;
+    display: initial;
+  } */
+  
+  .create-project input {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #e6e6e6;
+    border-radius: 0.25rem;
+    margin-top: 0.25rem;
+  }
+  
+  .add-button + .create-project {
+    margin-top: 1rem;
+  }
+  
+  h3 {
+    margin-top: 1rem;
+  }
+  
+  p {
+    margin: 0.5rem 0;
+    display: flex;
+    align-items: center;
+  }
+  
+  label {
+    margin: 0 0.25rem;
+    cursor: pointer;
+    color: #5b08a7;
+  }
+  

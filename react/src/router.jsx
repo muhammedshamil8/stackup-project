@@ -9,6 +9,10 @@ import Dashboard from "./pages/dashboard.jsx";
 import { AuthProvider } from "./AuthContext.jsx";
 import Index from "./pages/index.jsx";
 import CreateTask from "./pages/createTask.jsx";
+import Taskdone from "./pages/taskdone.jsx";
+import Todolist from "./pages/todolist.jsx";
+import Onprogress from "./pages/taskonprogress.jsx";
+import Project from "./pages/project.jsx";
 
 const router = createBrowserRouter([
     {
@@ -37,7 +41,23 @@ const router = createBrowserRouter([
             {
                 path: '/addtask',
                 element: <AuthProvider><CreateTask /></AuthProvider>
-           }
+           },
+            {
+                path: '/taskdone',
+                element: <AuthProvider><Taskdone/></AuthProvider>
+           },
+            {
+                path: '/todolist',
+                element: <AuthProvider><Todolist/></AuthProvider>
+           },
+            {
+                path: '/taskonprogress',
+                element: <AuthProvider><Onprogress/></AuthProvider>
+           },
+            {
+                path: '/project',
+                element: <AuthProvider><Project /></AuthProvider>
+           },
         
         ]
     },

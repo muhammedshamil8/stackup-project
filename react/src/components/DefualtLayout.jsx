@@ -64,7 +64,10 @@ export default function DefaultLayout() {
                 <div id="defaultLayout">
                     <aside>
                         <Link to="/dashboard">Dashboard</Link>
-                        <Link to="/users">Tasks</Link>
+                        <Link to="/taskdone">Task done</Link>
+                        <Link to="/taskonprogress">Task progress</Link>
+                        <Link to="/todolist">Task list</Link>
+                        <Link to="/project">Task project</Link>
                         <Link to="/addtask">Create Task</Link>
                         <Link to="/users">Profile</Link>
                     </aside>
