@@ -193,17 +193,24 @@ ul li a span{
   position: relative;
   padding: px;
   width: 100%;
+  
 }
 .task-list{
-  background:transparent;
+  background-color: white;
   display: flex;
   width: 100%;
   margin-top: 25px;
   justify-items: center;
-
+  
+  
 }
-.task-list a{
-  font-size: 24px;
+.task-list li{
+  background:transparent;
+  
+  display: flex;
+  gap: 10px;
+  
+
 }
 .material-symbols-outlined{
   font-size: large;
