@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Profile</title>
+    <style>
+        body {
+            font-family: poppins, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #46436E;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+        }
+        section {
+            max-width: 600px;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 50%;
+        }
+        button {
+            background-color: #46436E;
+            color: #fff;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Your Name</h1>
+    </header>
+    <section>
+        <img src="/zera.jpg" style="width: 100px;">
+
+        <h2>Contact Information</h2>
+        <p>Name: Your Name</p>
+        <p>Phone: Your Phone Number</p>
+        <p>Email: your@email.com</p>
+        <p>Age: Your Age</p>
+        <p>Gender: Your Gender</p>
+
+        <button onclick="logout()">Logout</button>
+        <button onclick="openSettings()">Settings</button>
+    </section>
+
+    <script>
+        function logout() {
+            // Add logout functionality here
+            alert("Logging out...");
+        }
+
+        function openSettings() {
+            // Add settings page navigation or functionality here
+            alert("Opening settings...");
+        }
+    </script>
+</body>
+</html>
