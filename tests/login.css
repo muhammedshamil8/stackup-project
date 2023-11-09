@@ -10,18 +10,18 @@ body{
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background: url('background.jpg') no-repeat;
+    background-color: #847fc9;
     background-size: cover;
     background-position: center;
 }
 
 .wrapper {
     width: 420px;
-    background:transparent;
+    background-color:white;
     border: 2px solid rgba(255, 255, 255, 2);
     backdrop-filter: blur(20px);
     box-shadow: 0 0 10px rgba(0, 0, 0, .2 );
-    color:white;
+    color:#46436E;
     border-radius: 10px;
     padding: 30px 40px;
 }
@@ -38,17 +38,13 @@ body{
     .input-box input{
         width: 100%;
         height: 100%;
-        background: transparent;
-        border: none;
-        outline: none;
-        border: 2px solid rgba(255, 255, 255, .2);
-        border-radius: 40px;
+        border-radius: 10px;
         font-size: 16px;
         padding: 20px 45px 20px 20px;
-        color: rgb(255, 255, 255);
+        border-color:rgba(97, 67, 161, 0.2);
     }
     .input-box input::placeholder{
-        color: white;
+        color: rgb(111, 105, 111);
     }
 
     .input-box i{
@@ -67,29 +63,30 @@ body{
     }
 
 .remember-forgot label input {
-    accent-color: #ffffff;
+    accent-color: #46436E ;
 }
 
 .remember-forgot a {
-    color: #ffffff;
+    color: #847fc9;
     text-decoration: none;
 }
 
 .remember-forgot a:hover {
     text-decoration: underline;
-    color: rgb(212, 255, 255);
+    color: rgb(193, 164, 218);
 }
 
 .wrapper .btn {
+    background-color: #46436E;
     width: 100%;
     height: 45px;
     border: none;
     outline: none;
-    border-radius: 40px;
+    border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, .1 );
     cursor: pointer;
     font-size: 16px;
-    color: #333;
+    color: white;
     font-weight: 600;
 }
 
@@ -101,13 +98,13 @@ body{
 }
 
 .register-link a {
-    color: #ffffff;
+    color: #847fc9;
     text-decoration: none;
-    font-weight: 600;
+    font-weight: 300;
 }
 
 .register-link a:hover  {
     text-decoration: underline;
-    color: rgb(212, 255, 255);
-    font-weight:650;
+    color: rgb(218, 188, 227);
+    font-weight:450;
 }
