@@ -70,6 +70,9 @@ ul li{
   margin-left: 62px;
   margin-top: 27px;
   font-size: 14px;
+  background-color: rgba(70, 36, 36, 0.2);
+  padding: 10px;
+  border-radius: 5px;
 }
 
 ul li a{
@@ -193,12 +196,10 @@ ul li a span{
 }
 .task-list{
   background:transparent;
-  background-color: rgba(70, 36, 36, 0.2);
   display: flex;
   width: 100%;
   margin-top: 25px;
   justify-items: center;
-  gap: 1000px;
 
 }
 .task-list a{
