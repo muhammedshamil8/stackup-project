@@ -203,12 +203,12 @@ text-transform: capitalize;
 
     .task-list {
         display: flex;
-        gap: 10px;
         color: #fff;
-        background-color: red;
         justify-content: center;
         align-items: start;
         flex-direction: column;
+    margin-left: 0px;
     margin: 0px;
+    padding-left: 0;
     }
 }

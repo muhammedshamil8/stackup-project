@@ -7,7 +7,7 @@
 ## Team Members
 1. Shamil [profile](https://github.com/muhammedshamil8)
 2. Shifna  [profile](https://github.com/shifnashirin)
-3. Dayyan [profile](https://github.com/Dayyan404)
+3. Dayyan [profile](https://github.com/Dayyan404) & othere account [profile](https://github.com/minhajp4323)
 4. Dheena [profile](https://github.com/dheenanasrin)
 
 ## Team ID
@@ -16,12 +16,15 @@
 other will updated soon!
 
 ## Link to product walkthrough
+
 [link to video]
 ## How it Works ?
+
 1. Explaining the working of project
 2. Embed video of project demo
 ## Libraries used
-Library Name - Version
+React.js: v18.2.0
+php: vanilla
 ## How to configure
 Instructions for setting up project
 ## How to Run
