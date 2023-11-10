@@ -117,13 +117,36 @@ function Todo() {
       }
     }
   };
+  const getPriorityClass = (priority) => {
+    switch (priority) {
+      case 1:
+        return "low";
+      case 2:
+        return "medium";
+      case 3:
+        return "high";
+      default:
+        return "";
+    }
+  };
 
+  const getPriorityLabel = (priority) => {
+    switch (priority) {
+      case 1:
+        return "Low";
+      case 2:
+        return "Medium";
+      case 3:
+        return "High";
+      default:
+        return "";
+    }
+  };
   return (
     <div>
       {isLoading && <div>Loading...</div>}
       {message && <div>{message}</div>}
       <h2>Task Details</h2>
-      <p>Task ID: {taskId}</p>
 
       {isEditing ? (
         <>
@@ -177,6 +200,10 @@ function Todo() {
           <p>Description: {taskDetails.description}</p>
           <p>Start Date: {taskDetails.start_date}</p>
           <p>End Date: {taskDetails.end_date}</p>
+          <p>Priority:  <div className={`priority ${getPriorityClass(taskDetails.priority)}`}>
+            {getPriorityLabel(taskDetails.priority)}
+          </div></p>
+
           <br />
           <button onClick={handleEditClick}>Edit</button>
         </>

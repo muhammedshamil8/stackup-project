@@ -175,6 +175,7 @@ const handleInputChange = (e) => {
         <label>Date of Birth:</label>
         <input
           name="DOB"
+          type='date'
           value={userData.DOB  || ''}
           onChange={handleInputChange}
           disabled={!isEditing}

@@ -128,20 +128,34 @@ export default function Dashboard() {
           
         </div>
       )}
-      
+
       <div className="parent-card">
-    {Array.isArray(projectOptions) && projectOptions.map((project, index) => (
-        <Link to="/project" className="project-card" key={project.project_id} style={{
-          background: `linear-gradient(45deg, ${projectColors[index % projectColors.length]}, ${projectColors[index % projectColors.length]})`,
-      }}>
-            <div className="project-open" >
-                <div>
-                    <p style={{ color: '#fff', margin: 0 }}>{project.project_name}</p>
-                </div>
-            </div>
-        </Link>
-    ))}
+<div>
+<h2>Projects</h2>
+
 </div>
+  {Array.isArray(projectOptions) && projectOptions.length > 0 ? (
+    projectOptions.map((project, index) => (
+      <Link
+        to="/project"
+        className="project-card"
+        key={project.project_id}
+        style={{
+          background: `linear-gradient(45deg, ${projectColors[index % projectColors.length]}, ${projectColors[index % projectColors.length]})`,
+        }}
+      >
+        <div className="project-open">
+          <div>
+            <p style={{ color: '#fff', margin: 0 }}>{project.project_name}</p>
+          </div>
+        </div>
+      </Link>
+    ))
+  ) : (
+    <div>No project data avialable</div>
+  )}
+</div>
+
 
 <div className="task-card">
   

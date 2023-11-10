@@ -1,0 +1,25 @@
+body{
+  background-color: white;
+     font-family:'Poppins', sans-serif;
+
+}
+
+.container{
+  background-color: white;
+    width: 700px;
+    height: 700px ;
+    margin:650px;
+    margin-bottom:20px;
+    margin-top: -727px; 
+    text-align: justify;
+    
+  }
+  .container1{
+        margin-left: 100px;
+        margin-top: 25px;
+       
+      }
+h1{
+  font-size: 36px;
+  font-weight: bold;
+}
