@@ -26,7 +26,6 @@ font-weight: 700;
 font-size: 25px;
 }
 .task-list>li {
-    background-color: rgba(70, 36, 36, 0.2);
     padding: 10px;
     list-style: none;
     border-radius: 5px;
@@ -39,6 +38,10 @@ font-size: 25px;
     color: #000;
     
 }
+.task-list>li:hover {
+background-color: rgba(70, 36, 36, 0.2);
+}
+
 .task-list>li > span{
     background-color: #46436E;
     color: #fff;
@@ -91,6 +94,7 @@ background-color: rgb(206, 54, 54);
 .list-buttons {
 display: flex;
 gap: 8px;
+flex-wrap: wrap;
 }
 .list-buttons > button{
     padding: 0px 10px;
