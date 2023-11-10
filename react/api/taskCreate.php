@@ -3,7 +3,7 @@ session_start();
 
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Headers: *");
-
+// adding to project stuff balance...
 include 'db_connect.php';
 $user_id = $_GET['userId'];
 try {

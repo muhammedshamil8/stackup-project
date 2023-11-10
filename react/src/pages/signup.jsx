@@ -49,6 +49,7 @@ function Signup() {
                     name="username"
                     placeholder="Full name"
                     onChange={handleChange}
+                    className="input"
                 />
                 <input
                     type="email"

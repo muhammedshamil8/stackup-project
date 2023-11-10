@@ -75,7 +75,7 @@ export default function DefaultLayout() {
         <div >
             {isLoading ? (
                 <div className="overlay">
-                    <div className="loading-spinner">...</div>
+                    <div className="loading-spinner"></div>
                 </div>
             ) : (
                 <div id="defaultLayout">
@@ -86,15 +86,16 @@ export default function DefaultLayout() {
                                 <div>
                                     <img src={nop} className="profile-image"/>
                                 </div>
-                                <div>
+                                <div className="profile-info">
                                     <p>{user.username}</p>
                                     <p>{user.profession}</p>
                                 </div>
                             </div>
                             <div className="header-center-section">
-                            <Link to="/dashboard" className="center-child">Dashboard</Link>
+                            <Link to="/dashboard" className="center-child">Home</Link>
                         <Link to="/addtask" className="center-child">Create Task</Link>
                         <Link to="/users" className="center-child">Profile</Link>
+                        <Link to="/calender" className="center-child">calender</Link>
                             </div>
                             <div className="header-left-section">
                                 <button onClick={logout}>
@@ -119,7 +120,16 @@ export default function DefaultLayout() {
                                 </div>
                             )}
                         </main>
+                       
                     </div>
+                    <footer>
+                        <div className="header-center-section">
+                            <Link to="/dashboard" className="center-child">Home</Link>
+                        <Link to="/addtask" className="center-child">Create Task</Link>
+                        <Link to="/calender" className="center-child">calender</Link>
+                        <Link to="/users" className="center-child">Profile</Link>
+                            </div>
+                        </footer>
                 </div>
             )}
         </div>

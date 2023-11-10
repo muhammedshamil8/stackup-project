@@ -44,7 +44,7 @@
   
   .create-project {
     margin-top: 1rem;
-    display: none;
+    display: initial;
   }
   /* .create-projectshow {
     margin-top: 1rem;
@@ -78,4 +78,9 @@
     cursor: pointer;
     color: #5b08a7;
   }
-  
+  .active{
+    display: initial;
+  }
+  .hide{
+    display: none;
+  }

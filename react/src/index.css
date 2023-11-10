@@ -36,6 +36,23 @@ input {
 input:focus {
     border-color: #5b08a7;
 }
+.input {
+    outline: 0;
+    background: #ffffff;
+    width: 100%;
+    border: 3px solid #e6e6e6;
+    margin: 0 0 15px;
+    padding: 15px;
+    box-sizing: border-box;
+    font-size: 14px;
+    transition: all 0.3s;
+    height: 50px;
+}
+
+.input:focus {
+    border-color: #5b08a7;
+}
+
 
 .btn,
 .btn-add,
@@ -220,6 +237,20 @@ table > tbody > tr > td {
     justify-content: space-between;
     align-items: center;
 }
+#defaultLayout footer {
+    height: 50px;
+    background-color: white;
+    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px; 
+    position: fixed; 
+    bottom: 0;
+    width: 100%; 
+    z-index: 1000; 
+}
+
 
 #defaultLayout main {
     padding: 2rem;
@@ -229,9 +260,25 @@ table > tbody > tr > td {
     justify-content: center;
     align-items: center;
     gap: 10px;
+    margin: 5px;
 }
 .profile-image{
-    width: 30px;
+    width: 50px;
+    border-radius: 50%;
+
+}
+.profile-info {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    
+}
+.profile-info > p{
+  margin: 0px;
+  font-weight: 600;
+}
+.profile-info :last-child{
+    color: grey;
 }
 .header-center-section{
     display: flex;
@@ -240,14 +287,33 @@ table > tbody > tr > td {
     gap: 10px;
 }
 .center-child{
-    color: white;
+    color: rgb(3, 3, 3);
     text-decoration: none;
     padding: 10px;
-    background-color: grey;
+    border-radius: 10px;
+    font-weight: 600;
+}
+.center-child:hover{
+    background-color: #847FC9;
+    
 }
 .header-left-section{
     display: flex;
     gap: 10px;
+    margin: 5px;
+}
+.header-left-section :first-child{
+   border:none;
+   padding: 8px;
+   border-radius: 5px;
+   background-color: #5b08a7;
+   color: rgb(255, 255, 255);
+   font-weight: 600;
+   cursor: pointer;
+}
+.header-left-section :first-child:hover{
+    background-color: #847FC9;
+    color: red;
 }
 .animated {
     -webkit-animation-duration: 1s;
@@ -370,12 +436,37 @@ cursor: pointer;
 
 
   }
+  #defaultLayout footer {
+    display: none;
+}
+.form-buttons{
+display: flex;
+align-items: center;
+justify-content: center;
 
+}
+.add-button{
+margin: 10px;
+}
+.project-page{
+background-image: url(../public/photon.svg);
+background-repeat: no-repeat;
+background-size: cover;
+padding: 50px;
+}
   @media (max-width:700px) {
     body{
         background-color: red;
+        padding-bottom:  20px;
     }
-    .header-center-section{
+    header > .header-center-section{
         display: none;
+    }
+   
+    #defaultLayout footer {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+
     }
   }

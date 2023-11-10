@@ -1,64 +1,74 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import '../CreateTask.css'; // Import your CSS file
 
-export default function CreateTask() {
+const CreateTask = () => {
+  const userId = localStorage.getItem('userId');
+
+  const [projectInputs, setProjectInputs] = useState({
+    projectName: '',
+  });
+  const [projectOptions, setProjectOptions] = useState([]);
+
+
+  useEffect(() => {
+    axios.get(`http://localhost:9000/api/createProject.php?userId=${userId}`)
+      .then((response) => {
+        if (Array.isArray(response.data.projects)) {
+          setProjectOptions(response.data.projects);
+        } else {
+          console.error('Invalid projects format in the response:', response.data.projects);
+        }
+      })
+      .catch((error) => {
+        console.error('Error fetching projects:', error);
+      });
+  }, [userId]);
+  
+
+
+
   const [inputs, setInputs] = useState({
     title: '',
     startDate: '',
     endDate: '',
     taskType: '',
-    priority: '1', // Default priority value
+    priority: '1',
     description: '',
+    selectedProject: '',
   });
-  
-  //   const [isCreatingProject, setCreatingProject] = useState(false);
-  //   const [customTaskType, setCustomTaskType] = useState('');
-  //   const [selectedTaskType, setSelectedTaskType] = useState('low');
-  //   const [selectedPriority, setSelectedPriority] = useState('low');
 
-  //   function addProject() {
-  //     setCreatingProject(true);
-  //   }
+  const [showTaskForm, setShowTaskForm] = useState(false);
+  const [showProjectForm, setShowProjectForm] = useState(false);
 
-  //   function cancelProject() {
-  //     setCreatingProject(false);
-  //   }
-
-  // function createProject() {
-  //     document.querySelector('.create-project').style.display = 'initial'
-  // }
-  // function cancelcreateProject() {
-  //     document.querySelector('.create-project').style.display = 'none'
-  // }
-  // function addProject() {
-  //     document.querySelector('.project-section').style.display = 'initial'
-  // }
-  // function cancelProject() {
-  //     document.querySelector('.project-section').style.display = 'none'
-  // }
-  const Navigate = useNavigate();
   const [errors, setErrors] = useState({});
+
 
   const handleChange = (event) => {
     const { name, value } = event.target;
-
-    // Check if the input is the date input
+  
     if (name === 'startDate' || name === 'endDate') {
-      // Handle date input separately
       setInputs((prevInputs) => ({
         ...prevInputs,
         [name]: value,
       }));
+    } else if (name === 'project') {
+      // Handle project input separately
+      setInputs((prevInputs) => ({
+        ...prevInputs,
+        selectedProject: value,
+      }));
     } else {
-      // Handle other inputs as usual
       setInputs((prevInputs) => ({
         ...prevInputs,
         [name]: value,
       }));
     }
   };
+  
+
+
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -83,139 +93,228 @@ export default function CreateTask() {
         });
     }
   };
+  
 
+  const handleProjectSubmit = (event) => {
+    event.preventDefault();
+    setErrors({}); // Clear any previous errors
+
+    // Move the API request logic here
+    const userId = localStorage.getItem('userId');
+    if (userId) {
+
+      axios
+        .post(`http://localhost:9000/api/createProject.php?userId=${userId}`, projectInputs)
+        .then((response) => {
+          if (response.data.status === 0) {
+            setErrors({ message: response.data.error });
+          } else {
+            setErrors({ message: response.data.message });
+            projectInputs.projectName = '';
+            setTimeout(() => {
+              window.location.reload();
+          }, 2000);
+            // Additional logic for project creation success
+          }
+        
+        })
+        .catch((error) => {
+          console.error(error);
+          if (error.response && error.response.data && error.response.data.status === 0) {
+            setErrors({ message: error.response.data.error });
+          } else {
+          console.error(error);
+
+            setErrors({ message: 'An error occurred while creating the project.' });
+          }
+        });
+    }
+  };
+
+
+  function handleAddToProject(event) {
+    // Prevent the default form submission
+    event.preventDefault();
+
+    // Show the project section or perform any other logic you want
+    // setCreatingProject(true);
+    document.querySelector('.project-section').style.display = 'initial';
+  }
+  function cancelProject(event) {
+    event.preventDefault();
+
+    // setCreatingProject(false);
+
+    document.querySelector('.project-section').style.display = 'none'
+  }
+
+  const cancelTask = () => {
+    // Reset the form fields to their initial values
+    setInputs({
+      title: '',
+      startDate: '',
+      endDate: '',
+      taskType: '',
+      priority: '1',
+      description: '',
+    selectedProject: '',
+    });
+
+    // Toggle the visibility of the task form
+    setShowTaskForm((prevShowTaskForm) => !prevShowTaskForm);
+
+    // Hide the project form
+    setShowProjectForm(false);
+  };
+  const Projectcancel = () => {
+    // Reset the form fields to their initial values
+    setInputs({
+
+    });
+
+    // Toggle the visibility of the task form
+    setShowProjectForm((prevshowProjectForm) => !prevshowProjectForm);
+
+    // Hide the project form
+    setShowTaskForm(false);
+  };
   return (
     <div className="cTask-card">
-      <h1>Create Task</h1>
       {errors.message && <div className="error">{errors.message}</div>}
 
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="title" >Task Name</label>
-        <input
-          type="text"
-          id="title"
-          name="title"
-          value={inputs.title}
-          onChange={handleChange}
-          placeholder="eg- index"
-        />
-
-        <label htmlFor="startDate">Start Date</label>
-        <input
-          type="date"
-          id="startDate"
-          name="startDate"
-          value={inputs.startDate}
-          onChange={handleChange}
-        />
-
-        <label htmlFor="endDate">End Date</label>
-        <input
-          type="date"
-          id="endDate"
-          name="endDate"
-          value={inputs.endDate}
-          onChange={handleChange}
-        />
-
-        {/* <label htmlFor="customTaskType">Task Type</label>
-      {isCreatingProject ? (
-        <input
-          type="text"
-          id="customTaskType"
-          placeholder="Enter custom task type"
-          value={customTaskType}
-          onChange={(e) => setCustomTaskType(e.target.value)}
-        />
-      ) : (
-        <select
-          id="selectedTaskType"
-          value={selectedTaskType}
-          onChange={(e) => setSelectedTaskType(e.target.value)}
-        >
-          <option value="low">Low</option>
-          <option value="medium">Medium</option>
-          <option value="high">High</option>
-        </select>
-      )}
-
-      <label htmlFor="priority">Priority</label>
-      <select
-        id="priority"
-        value={selectedPriority}
-        onChange={(e) => setSelectedPriority(e.target.value)}
-      >
-        <option value="low">Low</option>
-        <option value="medium">Medium</option>
-        <option value="high">High</option>
-      </select> */}
-        <label htmlFor="taskType" >Task Type</label>
-        <input
-          type="text"
-          id="taskType"
-          name="taskType"
-          value={inputs.taskType}
-          onChange={handleChange}
-          placeholder="eg- designing"
-        />
-
-        <label htmlFor="priority">Priority</label>
-        <select
-          id="priority"
-          name="priority"
-          value={inputs.priority}
-          onChange={handleChange}
-        >
-          <option value="1">Low</option>
-          <option value="2">Medium</option>
-          <option value="3">High</option>
-        </select>
-
-
-        <label htmlFor="description">Description</label>
-        <textarea
-          id="description"
-          name="description"
-          value={inputs.description}
-          onChange={handleChange}
-          rows="3"
-          placeholder="eg- stackup project ..."
-        />
-
-        {/* <button className="add-button" onClick={addProject}>Add to Project</button> */}
-
-        {/* <div className="project-section">
-                <input type="search" placeholder="Search Projects" />
-                <div className="project-list">
-                    <div>Project 1</div>
-                    <div>Project 2</div>
-                </div>
-                <button className="add-button" onClick={createProject}>
-                    +
-                </button>
-
-
-
-                <div className={`create-project`}>
-                    <h1>Create Project</h1>
-                    <input type="text" placeholder="Project Name" />
-                    <button className="add-button" onClick={cancelcreateProject}>
-                        Cancel
-                    </button>
-                </div>
-
-                <h3>Add Teams</h3>
-                <input type="search" placeholder="Search Members" />
-                <p>Member 1</p>
-                <label>+</label>
-                <button className="add-button" onClick={cancelProject}>
-                    Cancel
-                </button>
-            </div> */}
-        <button className="add-button" type="submit">
-          Create Task
+      <div className="form-buttons">
+        <button className={`add-button task-btn `} onClick={cancelTask}>
+          {showTaskForm ? 'Cancel Create Task' : 'Create Task'}
         </button>
-      </form>
+        <button className={`add-button project-btn `} onClick={Projectcancel}>
+          {showProjectForm ? 'Cancel Create project' : 'Create project'}
+        </button>
+      </div>
+
+      {showTaskForm && (
+        <form onSubmit={handleSubmit} className={` ${showTaskForm ? 'active' : 'hide'}`}>
+          <h1>Create Task</h1>
+
+          <label htmlFor="title" >Task Name</label>
+          <input
+            type="text"
+            id="title"
+            name="title"
+            value={inputs.title}
+            onChange={handleChange}
+            placeholder="eg- index"
+          />
+
+          <label htmlFor="startDate">Start Date</label>
+          <input
+            type="date"
+            id="startDate"
+            name="startDate"
+            value={inputs.startDate}
+            onChange={handleChange}
+          />
+
+          <label htmlFor="endDate">End Date</label>
+          <input
+            type="date"
+            id="endDate"
+            name="endDate"
+            value={inputs.endDate}
+            onChange={handleChange}
+          />
+
+
+          <label htmlFor="taskType" >Task Type</label>
+          <input
+            type="text"
+            id="taskType"
+            name="taskType"
+            value={inputs.taskType}
+            onChange={handleChange}
+            placeholder="eg- designing"
+          />
+
+          <label htmlFor="priority">Priority</label>
+          <select
+            id="priority"
+            name="priority"
+            value={inputs.priority}
+            onChange={handleChange}
+          >
+            <option value="1">Low</option>
+            <option value="2">Medium</option>
+            <option value="3">High</option>
+          </select>
+
+
+          <label htmlFor="description">Description</label>
+          <textarea
+            id="description"
+            name="description"
+            value={inputs.description}
+            onChange={handleChange}
+            rows="3"
+            placeholder="eg- stackup project ..."
+          />
+
+          <button className="add-button" onClick={(e) => handleAddToProject(e)}>
+            Add to Project
+          </button>
+
+
+          <div className="project-section">
+            <label htmlFor="project">Project</label>
+            <p>now adding to project not completed</p>
+            <select
+              id="project"
+              name="project"
+              value={inputs.selectedProject}
+              onChange={handleChange}
+            >
+              <option value="">Select a project</option>
+              {Array.isArray(projectOptions) && projectOptions.map((project) => (
+  <option key={project.project_id} value={project.project_id}>
+    {project.project_name}
+  </option>
+))}
+
+
+            </select>
+
+
+            <button className="add-button" onClick={cancelProject}>
+              Cancel
+            </button>
+          </div>
+          <br />
+          <button className="add-button" type="submit">
+            Submit
+          </button>
+        </form>
+      )}
+      {showProjectForm && (
+        <form onSubmit={handleProjectSubmit} className={` ${showProjectForm ? 'active' : 'hide'}`}>
+          <h1>Create Project</h1>
+
+          <div className={`create-project`}>
+            <input
+              type="text"
+              placeholder="Project Name"
+              value={projectInputs.projectName}
+              onChange={(e) => setProjectInputs({ ...projectInputs, projectName: e.target.value })}
+            />
+
+          </div>
+
+          <h3>You can Add Team members in project page</h3>
+
+          <button className="add-button" type="submit">
+            Submit
+          </button>
+        </form>
+      )}
     </div>
   );
-}
+};
+
+export default CreateTask;

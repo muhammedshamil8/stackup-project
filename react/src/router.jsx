@@ -13,6 +13,8 @@ import Taskdone from "./pages/taskdone.jsx";
 import Todolist from "./pages/todolist.jsx";
 import Onprogress from "./pages/taskonprogress.jsx";
 import Project from "./pages/project.jsx";
+import Calendar from "./pages/calender.jsx";
+import Todo from "./pages/todo.jsx";
 
 const router = createBrowserRouter([
     {
@@ -57,6 +59,14 @@ const router = createBrowserRouter([
             {
                 path: '/project',
                 element: <AuthProvider><Project /></AuthProvider>
+           },
+            {
+                path: '/calender',
+                element: <AuthProvider><Calendar /></AuthProvider>
+           },
+            {
+                path: '/todo/:taskId',
+                element: <AuthProvider><Todo /></AuthProvider>
            },
         
         ]
