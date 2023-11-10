@@ -16,9 +16,10 @@ try {
 
                 if (empty($task->title) || empty($task->startDate) || empty($task->endDate)) {
                     echo json_encode(['status' => 0, 'message' => 'All fields must be filled']);
-                } elseif (strlen($task->title) < 5 &&  strlen($task->title) > 10) {
-                    echo json_encode(['status' => 0, 'message' => 'Task title must contain at least 5 characters']);
-                } else {
+                } elseif (strlen($task->title) < 5 || strlen($task->title) > 15) {
+                    echo json_encode(['status' => 0, 'message' => 'Task title must contain between 5 and 15 characters']);
+                }
+                 else {
                     $checkTaskQuery = "SELECT user_id FROM event WHERE user_id = ? AND task_name = ?";
                     $checkTaskStmt = $conn->prepare($checkTaskQuery);
                     $checkTaskStmt->bind_param('is', $user_id, $task->title);

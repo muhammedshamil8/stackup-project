@@ -1,6 +1,9 @@
 import { Link, useNavigate, Outlet } from "react-router-dom";
 import React, { useEffect, useState } from 'react';
 import axios from "axios";
+import boyImage from '../../public/boy.webp';
+import girlImage from '../../public/girl.webp';
+import defualtImage from '../../public/defualt.webp';
 
 export default function DefaultLayout() {
     const Navigate = useNavigate();
@@ -14,6 +17,7 @@ export default function DefaultLayout() {
             setLoading(false); // Set loading to false after the delay
         }, 1500); // Adjust the delay time as needed
     }, []);
+   
 
     useEffect(() => {
         const userId = localStorage.getItem('userId');
@@ -22,6 +26,8 @@ export default function DefaultLayout() {
                 .then(function (response) {
                     if (response.data.username) {
                         setUser(response.data);
+                       
+                        
                     } else {
                         setError("Username not found. Please log in.");
                     }
@@ -53,31 +59,44 @@ export default function DefaultLayout() {
                 console.error("Logout error: " + error);
             });
     }
+    let nop = "";
 
+    if (user && user.pronounce !== null) {
+      if (user.pronounce === 0) {
+        nop = defualtImage;
+      } else if (user.pronounce === 1) {
+        nop = boyImage;
+      } else if (user.pronounce === 2) {
+        nop = girlImage;
+      }
+    }
+     
     return (
         <div >
             {isLoading ? (
                 <div className="overlay">
-                    <div className="loading-spinner">Index...</div>
+                    <div className="loading-spinner">...</div>
                 </div>
             ) : (
                 <div id="defaultLayout">
-                    <aside>
-                        <Link to="/dashboard">Dashboard</Link>
-                        <Link to="/taskdone">Task done</Link>
-                        <Link to="/taskonprogress">Task progress</Link>
-                        <Link to="/todolist">Task list</Link>
-                        <Link to="/project">Task project</Link>
-                        <Link to="/addtask">Create Task</Link>
-                        <Link to="/users">Profile</Link>
-                    </aside>
+                   
                     <div className="content">
                         <header>
-                            <div>
-                                Header
+                            <div className="header-right-section">
+                                <div>
+                                    <img src={nop} className="profile-image"/>
+                                </div>
+                                <div>
+                                    <p>{user.username}</p>
+                                    <p>{user.profession}</p>
+                                </div>
+                            </div>
+                            <div className="header-center-section">
+                            <Link to="/dashboard" className="center-child">Dashboard</Link>
+                        <Link to="/addtask" className="center-child">Create Task</Link>
+                        <Link to="/users" className="center-child">Profile</Link>
                             </div>
                             <div className="header-left-section">
-                                <p>{user.username}</p>
                                 <button onClick={logout}>
                                     Log Out
                                 </button>
@@ -87,6 +106,7 @@ export default function DefaultLayout() {
                         <main>
                             {user ? (
                                 <div>
+
                                     <Outlet user={user} />
 
 

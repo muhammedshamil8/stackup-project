@@ -18,11 +18,19 @@
   }
   
   .user-info {
+    display: none;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .user-details {
     display: flex;
     flex-direction: column;
     gap: 10px;
   }
-  
+  .notEditing{
+    display: flex;
+    flex-direction: column;
+  }
   .user-info input {
     width: 100%;
     padding: 10px;
@@ -38,6 +46,7 @@
   .error-message {
     color: red;
     margin-top: 10px;
+    display: flex;
   }
   
   .logout-button {
