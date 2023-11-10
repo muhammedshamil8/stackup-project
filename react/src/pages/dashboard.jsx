@@ -10,6 +10,8 @@ export default function Dashboard() {
   const [user, setUser] = useState(null);
   const [error, setError] = useState(null);
   const [projectOptions, setProjectOptions] = useState([]);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [searchResults, setSearchResults] = useState([]);
 
   useEffect(() => {
     const userId = localStorage.getItem('userId');
@@ -55,6 +57,20 @@ export default function Dashboard() {
       });
   }, [userId]);
 
+  const handleSearch = () => {
+    // Make a request to search for tasks based on the searchTerm
+    axios.get(`http://localhost:9000/api/tasks.php?userId=${userId}&searchTerm=${searchTerm}`)
+      .then((response) => {
+        if (response.data.status === 1 && Array.isArray(response.data.tasks)) {
+          setSearchResults(response.data.tasks);
+        } else {
+          console.error('Error fetching search results:', response.data.message);
+        }
+      })
+      .catch((error) => {
+        console.error('Error fetching search results:', error);
+      });
+  };
 
   // let image = "";
 
@@ -67,15 +83,51 @@ export default function Dashboard() {
   //     image = "hello girl";
   //   }
   // }
+  const handleOpenClick = (taskId) => {
+    // Use the navigate function to go to the "/todo" route with the taskId as a parameter
+    Navigate(`/todo/${taskId}`);
+  };
+  const clearSearchResults = () => {
+    setSearchTerm(''); // Clear the search term
+    setSearchResults([]); // Clear the search results
+  };
   const projectColors = ['#0fb62b', '#007bff', '#e44d26', '#ffcc29', '#673ab7'];
   return (
     <div className="dashboard">
 
-      {/* <p>{image}</p> */}
-      <div  className="search">
-      <input type="search" placeholder="Search Task" className="search-bar"/>
-      <button className="search-btn"><img src={SearchIcon} className="searchIcon"/></button>
+<div className="search">
+        <input
+          type="search"
+          placeholder="Search Task"
+          className="search-bar"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          onKeyUp={handleSearch}
+        />
+        <button className="search-btn" onClick={handleSearch}>
+          <img src={SearchIcon} className="searchIcon" alt="Search Icon" />
+        </button>
       </div>
+
+      {/* Display search results */}
+      {searchResults.length > 0 && (
+        
+        <div className="search-results">
+          <button className="clear-search-btn" onClick={clearSearchResults}>
+      Clear Search Results
+    </button>
+          <h3>Search Results</h3>
+          <ul>
+  {searchResults.map((result) => (
+    <div key={result.task_id}>
+      <li className="search-p">{result.task_name}&nbsp; <Link to={`/todo/${result.task_id}`} className="search-open">Open</Link></li>
+      
+    </div>
+  ))}
+</ul>
+          
+        </div>
+      )}
       
       <div className="parent-card">
     {Array.isArray(projectOptions) && projectOptions.map((project, index) => (

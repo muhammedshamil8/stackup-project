@@ -200,7 +200,21 @@ text-transform: capitalize;
     margin: 2px;
     margin-left: -5px;
 }
-
+.search-p{
+    margin: 10px;
+}
+.search-open{
+text-decoration: none;
+color: #46436E;
+background-color: #ddd;
+border-radius: 5px;
+padding: 3px;
+transition: all 0.3s;
+}
+.search-open:hover{
+    background-color: #46436E;
+    color: #fff;
+}
 
 @media  (max-width:700px) 
  {
