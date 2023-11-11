@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import './calendar.css';
 
 const weekdays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
@@ -62,16 +62,23 @@ const Calendar = () => {
   };
 
   return (
-    <div className="calender-body">
-    <div className="calendar">
-      <div className="header">
-        <span id="prev" onClick={previousMonth}>&#9665;</span>&nbsp;
-        <span id="month-year"></span>&nbsp;
-        <span id="next" onClick={nextMonth}>&#9655;</span>
+    <div>
+      <div className="calender-body">
+        <div className="calendar">
+          <div className="header">
+            <span id="prev" onClick={previousMonth}>&#9665;</span>&nbsp;
+            <span id="month-year"></span>&nbsp;
+            <span id="next" onClick={nextMonth}>&#9655;</span>
+          </div>
+          <div className="days" id="calendar-days"></div>
+        </div>
       </div>
-      <div className="days" id="calendar-days"></div>
+      <p>coming soon ..! <br />
+        New Features :-
+        task will show on calender and we can check  task  deadline  date
+      </p>
     </div>
-    </div>
+
   );
 };
 

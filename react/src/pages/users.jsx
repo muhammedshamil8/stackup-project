@@ -136,7 +136,7 @@ const handleInputChange = (e) => {
   }
   return (
     <div className="user-profile">
-      <h1>Profile</h1>
+      <h1>My Profile</h1>
       <button className="edit-button" onClick={handleEditClick}>
         {isEditing ? 'Cancel' : 'Edit'}
       </button>
@@ -202,7 +202,7 @@ const handleInputChange = (e) => {
         />
 
         {isEditing && (
-          <button className="save-button" type='submit'>
+          <button className="btn-edit" type='submit'>
             Save
           </button>
 
@@ -211,13 +211,13 @@ const handleInputChange = (e) => {
       </form>
       {user && (
         <div className={`user-details ${isEditing ? 'editing' : ''}`}>
-          <p>Username:&nbsp; {user.username}</p>
-          <p>Full Name:&nbsp; {user.fullname}</p>
-          <p>Email:&nbsp; {user.email}</p>
-          <p>Mobile Number:&nbsp; {user.phonenumber}</p>
-          <p>Pronounce:&nbsp; {pronounce} </p>
-          <p>Date of Birth:&nbsp; {user.DOB}</p>
-          <p>Profession:&nbsp; {user.profession}</p>
+          <p>Username:&nbsp; <span>{user.username}</span></p>
+          <p>Full Name:&nbsp; <span>{user.fullname}</span></p>
+          <p>Email:&nbsp; <span>{user.email}</span></p>
+          <p>Mobile Number:&nbsp; <span>{user.phonenumber}</span></p>
+          <p>Pronounce:&nbsp; <span>{pronounce}</span> </p>
+          <p>Date of Birth:&nbsp; <span>{user.DOB}</span></p>
+          <p>Profession:&nbsp; <span>{user.profession}</span></p>
         </div>
       )}
 

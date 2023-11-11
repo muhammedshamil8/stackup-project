@@ -1,11 +1,28 @@
 .cTask-card {
-    background-color: #fff;
+    /* background-color: #fff; */
     border-radius: 0.5rem;
     box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
     padding: 1.25rem 1.5rem;
     margin-bottom: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgb(196, 196, 196);
+    max-width: 600px;
+    margin: auto;
+
   }
-  
+  .submit{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .heading{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
   label {
     display: block;
     margin-top: 0.5rem;
@@ -57,6 +74,7 @@
     border: 1px solid #e6e6e6;
     border-radius: 0.25rem;
     margin-top: 0.25rem;
+    
   }
   
   .add-button + .create-project {
@@ -78,9 +96,27 @@
     cursor: pointer;
     color: #5b08a7;
   }
-  .active{
-    display: initial;
+  .active1{
+    /* margin: auto; */
+    padding: 10px;
+    /* box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.1); */
+    max-width: 1000px;
+    padding: 20px;
+    /* display: flex; */
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
   }
   .hide{
     display: none;
+  }
+  h1{
+    margin: auto;
+  }
+  .active1 > h1{
+    margin: auto;
+    text-align: center;
+    align-items: center;
+    margin-bottom: 10px;
+
   }

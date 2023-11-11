@@ -25,7 +25,7 @@ const CreateTask = () => {
         console.error('Error fetching projects:', error);
       });
   }, [userId]);
-  
+
 
 
 
@@ -47,7 +47,7 @@ const CreateTask = () => {
 
   const handleChange = (event) => {
     const { name, value } = event.target;
-  
+
     if (name === 'startDate' || name === 'endDate') {
       setInputs((prevInputs) => ({
         ...prevInputs,
@@ -66,7 +66,7 @@ const CreateTask = () => {
       }));
     }
   };
-  
+
 
 
 
@@ -84,7 +84,15 @@ const CreateTask = () => {
             setErrors({ message: response.data.message });
           } else {
             setErrors({ message: response.data.message });
-            // Navigate('/addtask');
+            setInputs({
+              title: '',
+              startDate: '',
+              endDate: '',
+              taskType: '',
+              priority: '1',
+              description: '',
+              selectedProject: '',
+            });
           }
         })
         .catch((error) => {
@@ -93,7 +101,7 @@ const CreateTask = () => {
         });
     }
   };
-  
+
 
   const handleProjectSubmit = (event) => {
     event.preventDefault();
@@ -111,19 +119,19 @@ const CreateTask = () => {
           } else {
             setErrors({ message: response.data.message });
             projectInputs.projectName = '';
-            setTimeout(() => {
-              window.location.reload();
-          }, 2000);
+            //   setTimeout(() => {
+            //     window.location.reload();
+            // }, 2000);
             // Additional logic for project creation success
           }
-        
+
         })
         .catch((error) => {
           console.error(error);
           if (error.response && error.response.data && error.response.data.status === 0) {
             setErrors({ message: error.response.data.error });
           } else {
-          console.error(error);
+            console.error(error);
 
             setErrors({ message: 'An error occurred while creating the project.' });
           }
@@ -157,7 +165,7 @@ const CreateTask = () => {
       taskType: '',
       priority: '1',
       description: '',
-    selectedProject: '',
+      selectedProject: '',
     });
 
     // Toggle the visibility of the task form
@@ -192,8 +200,10 @@ const CreateTask = () => {
       </div>
 
       {showTaskForm && (
-        <form onSubmit={handleSubmit} className={` ${showTaskForm ? 'active' : 'hide'}`}>
-          <h1>Create Task</h1>
+        <form onSubmit={handleSubmit} className={` ${showTaskForm ? 'active1' : 'hide'}`}>
+         <div className='heading'>
+         <h1>Create Task</h1>
+           </div> 
 
           <label htmlFor="title" >Task Name</label>
           <input
@@ -273,10 +283,10 @@ const CreateTask = () => {
             >
               <option value="">Select a project</option>
               {Array.isArray(projectOptions) && projectOptions.map((project) => (
-  <option key={project.project_id} value={project.project_id}>
-    {project.project_name}
-  </option>
-))}
+                <option key={project.project_id} value={project.project_id}>
+                  {project.project_name}
+                </option>
+              ))}
 
 
             </select>
@@ -287,13 +297,16 @@ const CreateTask = () => {
             </button>
           </div>
           <br />
-          <button className="add-button" type="submit">
+<div className='submit'>
+
+          <button className="add-button submit" type="submit">
             Submit
           </button>
+          </div>
         </form>
       )}
       {showProjectForm && (
-        <form onSubmit={handleProjectSubmit} className={` ${showProjectForm ? 'active' : 'hide'}`}>
+        <form onSubmit={handleProjectSubmit} className={` ${showProjectForm ? 'active1' : 'hide'}`}>
           <h1>Create Project</h1>
 
           <div className={`create-project`}>
@@ -307,11 +320,16 @@ const CreateTask = () => {
           </div>
 
           <h3>You can Add Team members in project page</h3>
-
-          <button className="add-button" type="submit">
+<div className='submit'>
+<button className="add-button " type="submit">
             Submit
           </button>
+</div>
+          
         </form>
+      )}
+      {!showTaskForm && !showProjectForm && (
+        <p>You can Create Task and Project from here!.</p>
       )}
     </div>
   );

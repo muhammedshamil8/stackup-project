@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import Returnbtn from '../../public/back.svg'
 
 function Todo() {
   const { taskId } = useParams();
@@ -13,6 +14,7 @@ function Todo() {
   const [updatedDescription, setUpdatedDescription] = useState('');
   const [updatedStartDate, setUpdatedStartDate] = useState('');
   const [updatedEndDate, setUpdatedEndDate] = useState('');
+  const [updatedPriority, setUpdatedPriority] = useState(taskDetails.priority || 1);
   const [isLoading, setLoading] = useState(false);
   const [message, setMessage] = useState('');
 
@@ -20,19 +22,32 @@ function Todo() {
     const fetchTaskDetails = async () => {
       try {
         const response = await axios.get(`http://localhost:9000/api/todo.php?userId=${userId}&taskId=${taskId}`);
-        setTaskDetails(response.data.tasks[0] || {});
-        setUpdatedTaskName(response.data.tasks[0]?.task_name || '');
-        setUpdatedTaskType(response.data.tasks[0]?.task_type || '');
-        setUpdatedDescription(response.data.tasks[0]?.description || '');
-        setUpdatedStartDate(response.data.tasks[0]?.start_date || '');
-        setUpdatedEndDate(response.data.tasks[0]?.end_date || '');
+
+        if (response.data.status === 1 && response.data.tasks.length > 0) {
+          const fetchedTaskId = response.data.tasks[0].task_id;
+
+          setTaskDetails(response.data.tasks[0] || {});
+          setUpdatedTaskName(response.data.tasks[0]?.task_name || '');
+          setUpdatedTaskType(response.data.tasks[0]?.task_type || '');
+          setUpdatedDescription(response.data.tasks[0]?.description || '');
+          setUpdatedStartDate(response.data.tasks[0]?.start_date || '');
+          setUpdatedEndDate(response.data.tasks[0]?.end_date || '');
+          setUpdatedPriority(response.data.tasks[0]?.priority || '');
+        } else {
+          // Invalid taskId or no task found
+          // You can redirect the user or show an error message
+          console.error('Invalid taskId or no task found');
+          // Example: Redirect to the dashboard
+          navigate('/dashboard');
+        }
       } catch (error) {
         console.error('Error fetching task details:', error);
       }
     };
 
     fetchTaskDetails();
-  }, [userId, taskId]);
+  }, [userId, taskId, navigate]);
+
 
   const handleEditClick = () => {
     setIsEditing(true);
@@ -47,6 +62,7 @@ function Todo() {
         updatedTaskName,
         updatedTaskType,
         updatedDescription,
+        updatedPriority,
         updatedStartDate,
         updatedEndDate,
       });
@@ -57,6 +73,7 @@ function Todo() {
           task_name: updatedTaskName,
           task_type: updatedTaskType,
           description: updatedDescription,
+          priority: updatedPriority,
           start_date: updatedStartDate,
           end_date: updatedEndDate,
         }));
@@ -73,9 +90,11 @@ function Todo() {
       }
     } catch (error) {
       console.error('Error updating task:', error);
+      console.error('Response:', error.response);
       setMessage(`Error: ${error.message}`);
       setLoading(false);
     }
+
   };
 
   const handleCancelClick = () => {
@@ -85,6 +104,7 @@ function Todo() {
     setUpdatedDescription(taskDetails.description || '');
     setUpdatedStartDate(taskDetails.start_date || '');
     setUpdatedEndDate(taskDetails.end_date || '');
+    setUpdatedPriority(taskDetails.priority || '');
   };
 
   const handleDeleteClick = async () => {
@@ -143,13 +163,15 @@ function Todo() {
     }
   };
   return (
-    <div>
+    <div className='task-details-parent-card'>
+      <Link to="/dashboard" className='return'><img src={Returnbtn}/></Link>
+
       {isLoading && <div>Loading...</div>}
       {message && <div>{message}</div>}
       <h2>Task Details</h2>
 
       {isEditing ? (
-        <>
+        <div className='task-details-card'>
           <label htmlFor="updatedTaskName">Updated Task Name:</label>
           <input
             type="text"
@@ -173,6 +195,16 @@ function Todo() {
             value={updatedDescription}
             onChange={(e) => setUpdatedDescription(e.target.value)}
           />
+          <label htmlFor="updatedPriority">Updated Priority:</label>
+          <select
+            id="updatedPriority"
+            value={updatedPriority}
+            onChange={(e) => setUpdatedPriority(e.target.value)}
+          >
+            <option value={1}>Low</option>
+            <option value={2}>Medium</option>
+            <option value={3}>High</option>
+          </select>
 
           <label htmlFor="updatedStartDate">Updated Start Date:</label>
           <input
@@ -190,27 +222,32 @@ function Todo() {
             onChange={(e) => setUpdatedEndDate(e.target.value)}
           />
 
-          <button onClick={handleUpdateClick}>Update</button>
-          <button onClick={handleCancelClick}>Cancel</button>
-        </>
+          <button onClick={handleUpdateClick} className='button1'>Update</button>
+          <button onClick={handleCancelClick} className='button2'>Cancel</button>
+        </div>
       ) : (
-        <>
-          <p>Task Name: {taskDetails.task_name}</p>
-          <p>Task Type: {taskDetails.task_type}</p>
-          <p>Description: {taskDetails.description}</p>
-          <p>Start Date: {taskDetails.start_date}</p>
-          <p>End Date: {taskDetails.end_date}</p>
-          <p>Priority:  <div className={`priority ${getPriorityClass(taskDetails.priority)}`}>
+        <div className='task-details-card'>
+
+          <p>Task Name: <span>{taskDetails.task_name}</span></p>
+          <p>Task Type: <span>{taskDetails.task_type}</span></p>
+          <p>Description:<span> {taskDetails.description}</span></p>
+          <p>Start Date: <span>{taskDetails.start_date}</span></p>
+          <p>End Date: <span>{taskDetails.end_date}</span></p>
+          <p>Priority:  <span className={`priority ${getPriorityClass(taskDetails.priority)}`}>
             {getPriorityLabel(taskDetails.priority)}
-          </div></p>
+          </span></p>
 
           <br />
-          <button onClick={handleEditClick}>Edit</button>
-        </>
+          <div className='task-details-buttons'>
+            <button onClick={handleEditClick} className='button1'>Edit</button>
+
+            <button onClick={handleDeleteClick} className='button2'>Delete</button>
+
+          </div>
+
+        </div>
       )}
-      <button onClick={handleDeleteClick}>Delete</button>
       <br />
-      <Link to="/dashboard">Back to Tasks</Link>
     </div>
   );
 }

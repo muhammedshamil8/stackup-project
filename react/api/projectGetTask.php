@@ -4,15 +4,15 @@ session_start();
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Headers: *");
 
-include 'db_connect.php';
+include 'db_connect.php'; 
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     // Fetch tasks for the given user
     $user_id = $_GET['userId'];
-    $task_id = $_GET['taskId'];
-    $getTasksQuery = "SELECT * FROM event WHERE user_id = ? AND task_id = ?";
+    $project_id = $_GET['projectId'];
+    $getTasksQuery = "SELECT * FROM event WHERE user_id = ? AND task_done = 0 AND task_progress = 0 AND project_id = ? ORDER BY priority DESC";
     $getTasksStmt = $conn->prepare($getTasksQuery);
-    $getTasksStmt->bind_param('ii', $user_id, $task_id);
+    $getTasksStmt->bind_param('i', $user_id,$project_id);
     $getTasksStmt->execute();
     $tasksResult = $getTasksStmt->get_result();
 
@@ -26,31 +26,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 } elseif ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Check if it's a request to update task progress or delete task
     $requestData = json_decode(file_get_contents('php://input'), true);
-
+    
     if (isset($requestData['taskId']) && isset($requestData['action'])) {
         $task_id = $requestData['taskId'];
         $action = $requestData['action'];
 
-        if ($action === 'updateTask') {
-            // Update task
-            $updatedTaskName = $requestData['updatedTaskName'];
-            $updatedTaskType = $requestData['updatedTaskType'];
-            $updatedDescription = $requestData['updatedDescription'];
-            $updatedPriority = $requestData['updatedPriority']; // Include updated priority
-            $updatedStartDate = $requestData['updatedStartDate'];
-            $updatedEndDate = $requestData['updatedEndDate'];
+        if ($action === 'updateProgress') {
+            // Update task progress
+            if (isset($requestData['taskProgress'])) {
+                $task_progress = $requestData['taskProgress'];
 
-            $updateTaskQuery = "UPDATE event SET task_name = ?, task_type = ?, description = ?, start_date = ?, end_date = ?, priority = ? WHERE task_id = ?";
-            $updateTaskStmt = $conn->prepare($updateTaskQuery);
-            $updateTaskStmt->bind_param('sssssii', $updatedTaskName, $updatedTaskType, $updatedDescription, $updatedStartDate, $updatedEndDate, $updatedPriority, $task_id);
+                $updateProgressQuery = "UPDATE event SET task_progress = ? WHERE task_id = ?";
+                $updateProgressStmt = $conn->prepare($updateProgressQuery);
+                $updateProgressStmt->bind_param('ii', $task_progress, $task_id);
 
-            // error_log("SQL Query: " . $updateTaskQuery);
-            // error_log("Parameters: " . json_encode([$updatedTaskName, $updatedTaskType, $updatedDescription, $updatedStartDate, $updatedEndDate, $updatedPriority, $task_id]));
-
-            if ($updateTaskStmt->execute()) {
-                echo json_encode(['status' => 1, 'message' => 'Task updated successfully']);
+                if ($updateProgressStmt->execute()) {
+                    echo json_encode(['status' => 1, 'message' => 'Task progress updated successfully']);
+                } else {
+                    echo json_encode(['status' => 0, 'message' => 'Failed to update task progress']);
+                }
             } else {
-                echo json_encode(['status' => 0, 'message' => 'Failed to update task']);
+                echo json_encode(['status' => 0, 'message' => 'Task progress is required']);
             }
         } elseif ($action === 'deleteTask') {
             // Delete task

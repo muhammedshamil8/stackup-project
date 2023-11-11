@@ -100,7 +100,7 @@ const Todolist = () => {
   };
   return (
     <div>
-      <h2>Your Task List</h2>
+      <h2>Task List</h2>
       {tasks.length > 0 ? (
         <div className='todo-list-card'>
           {tasks.map((task) => (
@@ -115,9 +115,9 @@ const Todolist = () => {
               <div className={`priority ${getPriorityClass(task.priority)}`}>
                   {getPriorityLabel(task.priority)}
                 </div>
-                <button onClick={() => handleOpenClick(task.task_id)}>Open</button>
-                <button onClick={() => handleProgressClick(task.task_id)}>Progress</button>
-                <button onClick={() => handleDeleteClick(task.task_id)}>Delete</button>
+                <button onClick={() => handleOpenClick(task.task_id)} className='todo-btn open'>Open</button>
+                <button onClick={() => handleProgressClick(task.task_id)} className='todo-btn move'>Progress</button>
+                <button onClick={() => handleDeleteClick(task.task_id)} className='todo-btn delete'>Delete</button>
               </div>
             </div>
           ))}

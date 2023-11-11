@@ -75,7 +75,7 @@ export default function Taskdone() {
       };
     return (
         <div>
-            <h2>Your Task List</h2>
+            <h2>Task Completed List</h2>
             {tasks.length > 0 ? (
                 <div className='todo-list-card'>
                     {tasks.map(task => (
@@ -94,8 +94,8 @@ export default function Taskdone() {
                                     Done
                                 </span>Completed
                                 </p>
-                                <button onClick={() => handleOpenClick(task.task_id)}>Open</button>
-                                <button onClick={() => handleDeleteClick(task.task_id)}>Delete</button>
+                                <button onClick={() => handleOpenClick(task.task_id)} className='todo-btn open'>Open</button>
+                                <button onClick={() => handleDeleteClick(task.task_id)} className='todo-btn delete'>Delete</button>
                             </div>
 
                         </div>

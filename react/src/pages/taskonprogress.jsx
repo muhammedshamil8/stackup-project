@@ -99,7 +99,7 @@ export default function Onprogress() {
 
   return (
     <div>
-      <h2>Your Progress Task List</h2>
+      <h2>Task Progress List</h2>
       {tasks.length > 0 ? (
         <div className='todo-list-card'>
           {tasks.map(task => (
@@ -113,9 +113,9 @@ export default function Onprogress() {
               <div className={`priority ${getPriorityClass(task.priority)}`}>
                   {getPriorityLabel(task.priority)}
                 </div>
-                <button onClick={() => handleOpenClick(task.task_id)}>Open</button>
-                <button onClick={() => handleDoneClick(task.task_id)}>Done</button>
-                <button onClick={() => handleDeleteClick(task.task_id)}>Delete</button>
+                <button onClick={() => handleOpenClick(task.task_id)} className='todo-btn open'>Open</button>
+                <button onClick={() => handleDoneClick(task.task_id)} className='todo-btn move'>Done</button>
+                <button onClick={() => handleDeleteClick(task.task_id)} className='todo-btn delete'>Delete</button>
 
               </div>
 
