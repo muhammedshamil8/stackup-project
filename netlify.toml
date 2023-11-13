@@ -1,0 +1,3 @@
+[build]
+  command = "npm run build" # or the command to build your project
+  publish = "build"        # the directory where the build artifacts are located
