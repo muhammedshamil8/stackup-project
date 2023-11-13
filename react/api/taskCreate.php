@@ -20,7 +20,7 @@ try {
                     echo json_encode(['status' => 0, 'message' => 'Task title must contain between 5 and 15 characters']);
                 }
                  else {
-                    $checkTaskQuery = "SELECT user_id FROM event WHERE user_id = ? AND task_name = ?";
+                    $checkTaskQuery = "SELECT user_id FROM event WHERE user_id = ? AND task_name = ? ";
                     $checkTaskStmt = $conn->prepare($checkTaskQuery);
                     $checkTaskStmt->bind_param('is', $user_id, $task->title);
                     $checkTaskStmt->execute();
@@ -29,10 +29,17 @@ try {
                     if ($taskResult->num_rows > 0) {
                         echo json_encode(['status' => 0, 'message' => 'Task with the same title already exists for this user']);
                     } else {
-                        $sql = "INSERT INTO event (user_id, task_name, start_date, end_date, task_type, priority, description, task_progress, task_done, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, 0, 0, NOW(), NOW())";
+                        $sql = "INSERT INTO event (user_id, task_name, start_date, end_date, task_type, priority, description, task_progress, task_done, project_id, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, 0, 0, ?, NOW(), NOW())";
                         $stmt = $conn->prepare($sql);
-                        $stmt->bind_param('issssss', $user_id, $task->title, $task->startDate, $task->endDate, $task->taskType, $task->priority, $task->description);
-
+                        
+                        // If selectedProject is empty, bind NULL, otherwise bind the selected project ID
+                        if (empty($task->selectedProject)) {
+                             $task->selectedProject =  null;
+                            $stmt->bind_param('issssisi', $user_id, $task->title, $task->startDate, $task->endDate, $task->taskType, $task->priority, $task->description, $task->selectedProject);
+                        } else {
+                            $stmt->bind_param('issssisi', $user_id, $task->title, $task->startDate, $task->endDate, $task->taskType, $task->priority, $task->description, $task->selectedProject);
+                        }
+                        
                         if ($stmt->execute()) {
                             echo json_encode(['status' => 1, 'message' => 'Task created successfully']);
                         } else {

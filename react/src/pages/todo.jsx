@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams, Link, useNavigate } from 'react-router-dom';
+import { useParams, Link, useNavigate  } from 'react-router-dom';
 import axios from 'axios';
 import Returnbtn from '../../public/back.svg'
 
@@ -18,6 +18,10 @@ function Todo() {
   const [isLoading, setLoading] = useState(false);
   const [message, setMessage] = useState('');
 
+
+ const handleGoBack = () => {
+    navigate(-1); // This is equivalent to calling window.history.back()
+  };
   useEffect(() => {
     const fetchTaskDetails = async () => {
       try {
@@ -164,7 +168,7 @@ function Todo() {
   };
   return (
     <div className='task-details-parent-card'>
-      <Link to="/dashboard" className='return'><img src={Returnbtn}/></Link>
+      <div onClick={handleGoBack} className='return'><img src={Returnbtn}/></div>
 
       {isLoading && <div>Loading...</div>}
       {message && <div>{message}</div>}

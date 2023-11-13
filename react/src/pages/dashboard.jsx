@@ -195,7 +195,7 @@ export default function Dashboard() {
           {Array.isArray(projectOptions) && projectOptions.length > 0 ? (
             projectOptions.map((project, index) => (
               <Link
-                to="/project"
+              to={`/project/${project.project_id}`} 
                 className="project-card"
                 key={project.project_id}
                 style={{
@@ -235,13 +235,13 @@ export default function Dashboard() {
         <h2 className="task-p">My Tasks</h2>
         <ul className="task-list">
 
-          <li>
+        <li>
             <span class="material-symbols-outlined">
-              Done
+              format_list_bulleted
             </span>
-            {/* <img src={taskdone} className="task-logo"/> */}
+            {/* <img src={tasklist} className="task-logo"/> */}
 
-            <Link to="/taskdone" className="list-done">Task done</Link>
+            <Link to="/todolist" className="list-done">Task list</Link>
           </li>
 
           <li>
@@ -253,13 +253,14 @@ export default function Dashboard() {
             <Link to="/taskonprogress" className="list-done">Task progress</Link>
           </li>
 
+        
           <li>
             <span class="material-symbols-outlined">
-              format_list_bulleted
+              Done
             </span>
-            {/* <img src={tasklist} className="task-logo"/> */}
+            {/* <img src={taskdone} className="task-logo"/> */}
 
-            <Link to="/todolist" className="list-done">Task list</Link>
+            <Link to="/taskdone" className="list-done">Task done</Link>
           </li>
 
         </ul>

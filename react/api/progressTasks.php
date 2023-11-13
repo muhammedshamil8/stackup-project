@@ -9,7 +9,7 @@ include 'db_connect.php';
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     // Fetch tasks for the given user
     $user_id = $_GET['userId'];
-    $getTasksQuery = "SELECT * FROM event WHERE user_id = ? AND task_progress = 1 ORDER BY priority DESC";
+    $getTasksQuery = "SELECT * FROM event WHERE user_id = ? AND task_progress = 1 AND project_id IS NULL ORDER BY priority DESC";
     $getTasksStmt = $conn->prepare($getTasksQuery);
     $getTasksStmt->bind_param('i', $user_id);
     $getTasksStmt->execute();
@@ -36,7 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                 $task_done = $requestData['taskDone'];
                 $task_progress = $requestData['taskProgress'];
 
-                $updateProgressQuery = "UPDATE event SET task_done = ? , task_progress = ? WHERE task_id = ?";
+                $updateProgressQuery = "UPDATE event SET task_done = ? , task_progress = ?  WHERE task_id = ? AND project_id IS NULL";
                 $updateProgressStmt = $conn->prepare($updateProgressQuery);
                 $updateProgressStmt->bind_param('iii', $task_done,$task_progress, $task_id);
 
@@ -50,7 +50,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             }
         } elseif ($action === 'deleteTask') {
             // Delete task
-            $deleteTaskQuery = "DELETE FROM event WHERE task_id = ?";
+            $deleteTaskQuery = "DELETE FROM event WHERE task_id = ? AND project_id IS NULL";
             $deleteTaskStmt = $conn->prepare($deleteTaskQuery);
             $deleteTaskStmt->bind_param('i', $task_id);
 

@@ -9,6 +9,8 @@ import calender from '../../public/calender.svg';
 import profile from '../../public/profile.svg';
 import addTask from '../../public/add.svg';
 import LodingImg from '../../public/logo@2x.png'
+
+
 export default function DefaultLayout() {
     const Navigate = useNavigate();
     const location = useLocation();
@@ -27,13 +29,11 @@ export default function DefaultLayout() {
         const body = document.body;
 
         if (darkMode) {
-            // If dark mode is currently active, switch to light mode
-            body.style.backgroundColor = '#fff'; // Change to your light mode background color
-            body.style.color = '#333'; // Change to your light mode text color
+            body.style.backgroundColor = '#fff'; 
+            body.style.color = '#333';
         } else {
-            // If dark mode is not active, switch to dark mode
-            body.style.backgroundColor = '#333'; // Change to your dark mode background color
-            body.style.color = '#fff'; // Change to your dark mode text color
+            body.style.backgroundColor = '#333'; 
+            body.style.color = '#fff'; 
         }
     };
 
@@ -71,6 +71,14 @@ export default function DefaultLayout() {
         }
     }, []);
 
+    function about(){
+        Navigate("/about");
+        
+    }
+    function contact(){
+        Navigate("/contact");
+
+    }
 
     function logout() {
         axios.get("http://localhost:9000/api/logout.php")
@@ -148,8 +156,8 @@ export default function DefaultLayout() {
                                         <button className="nav-button-child" onClick={toggleDarkMode}>
                                             {darkMode ? 'Light Mode' : 'Dark Mode'}
                                         </button>
-                                        <button className="nav-button-child"> About us</button>
-                                        <button className="nav-button-child">Connect us</button>
+                                        <button className="nav-button-child" onClick={about}> About us</button>
+                                        <button className="nav-button-child" onClick={contact}>Connect us</button>
                                         <button className="nav-button-child" onClick={logout}>Log out </button>
                                     </div>
                                 )}
@@ -160,7 +168,7 @@ export default function DefaultLayout() {
 
                         <main>
                             {user ? (
-                                <div>
+                                <div className="main-body">
 
                                     <Outlet user={user} />
 

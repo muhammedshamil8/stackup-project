@@ -12,9 +12,9 @@ $project_id = $_GET['projectId'];
 try {
     if ($conn) {
         // Fetch tasks for the given user
-        $getTasksQuery = "SELECT * FROM event WHERE user_id = ? AND task_done = 1 AND project_id = ?";
+        $getTasksQuery = "SELECT * FROM event WHERE user_id = ? AND task_done = 1 AND project_id = ? ";
         $getTasksStmt = $conn->prepare($getTasksQuery);
-        $getTasksStmt->bind_param('i', $user_id,$project_id);
+        $getTasksStmt->bind_param('ii', $user_id,$project_id);
         $getTasksStmt->execute();
         $tasksResult = $getTasksStmt->get_result();
 

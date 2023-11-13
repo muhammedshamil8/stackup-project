@@ -9,7 +9,7 @@ include 'db_connect.php';
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     // Fetch tasks for the given user
     $user_id = $_GET['userId'];
-    $getTasksQuery = "SELECT * FROM event WHERE user_id = ? AND task_done = 0 AND task_progress = 0 ORDER BY priority DESC";
+    $getTasksQuery = "SELECT * FROM event WHERE user_id = ? AND task_done = 0 AND task_progress = 0 AND project_id IS NULL ORDER BY priority DESC";
     $getTasksStmt = $conn->prepare($getTasksQuery);
     $getTasksStmt->bind_param('i', $user_id);
     $getTasksStmt->execute();

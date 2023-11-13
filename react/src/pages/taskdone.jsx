@@ -102,7 +102,10 @@ export default function Taskdone() {
                     ))}
                 </div>
             ) : (
-                <p>No Completed tasks available.</p>
+                <div className='todo-list-card'>
+
+                <p className='card-child'>No Completed tasks available. </p>
+                </div>
             )}
         </div>
     );

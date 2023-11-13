@@ -123,7 +123,10 @@ const Todolist = () => {
           ))}
         </div>
       ) : (
-        <p>No tasks available.</p>
+        <div className='todo-list-card'>
+
+        <p className='card-child'>No  tasks available. </p>
+        </div>
       )}
     </div>
   );

@@ -39,6 +39,7 @@ try {
             $data = json_decode(file_get_contents('php://input'), true);
 
             $newProjectName = $data['projectName'];
+            $newprojectDescription = $data['projectDescription'];
 
             // Check if the project_name is provided
             if (!isset($newProjectName)) {
@@ -67,25 +68,26 @@ if (strlen($newProjectName) < 5 || strlen($newProjectName) > 15) {
 }
     
 // Insert into the project table
-$insertQuery = "INSERT INTO project (user_id, project_name) VALUES (?, ?)";
+$insertQuery = "INSERT INTO project (user_id, project_name,project_description) VALUES (?, ?,?)";
 $insertStmt = $conn->prepare($insertQuery);
-$insertStmt->bind_param('is', $user_id, $newProjectName);
+$insertStmt->bind_param('iss', $user_id, $newProjectName,$newprojectDescription);
 
 if ($insertStmt->execute()) {
     // Retrieve the auto-generated project_id
     $newProjectId = $conn->insert_id;
-
-    // Update the event table with the new project_id
-    $updateEventQuery = "UPDATE event SET project_id = ? WHERE user_id = ?";
-    $updateEventStmt = $conn->prepare($updateEventQuery);
-    $updateEventStmt->bind_param('ii', $newProjectId, $user_id);
-
-    if ($updateEventStmt->execute()) {
         echo json_encode(['status' => 1, 'message' => 'Project Created Successfully']);
-    } else {
-        http_response_code(500);
-        echo json_encode(['status' => 0, 'error' => 'Failed to update event table']);
-    }
+
+    // // Update the event table with the new project_id
+    // $updateEventQuery = "UPDATE event SET project_id = ? WHERE user_id = ?";
+    // $updateEventStmt = $conn->prepare($updateEventQuery);
+    // $updateEventStmt->bind_param('ii', $newProjectId, $user_id);
+
+    // if ($updateEventStmt->execute()) {
+    //     echo json_encode(['status' => 1, 'message' => 'Project Created Successfully']);
+    // } else {
+    //     http_response_code(500);
+    //     echo json_encode(['status' => 0, 'error' => 'Failed to update event table']);
+    // }
 } else {
     http_response_code(500);
     echo json_encode(['status' => 0, 'error' => 'Failed to insert into project table']);

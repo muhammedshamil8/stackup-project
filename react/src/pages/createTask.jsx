@@ -8,6 +8,7 @@ const CreateTask = () => {
 
   const [projectInputs, setProjectInputs] = useState({
     projectName: '',
+    projectDescription: '',
   });
   const [projectOptions, setProjectOptions] = useState([]);
 
@@ -53,7 +54,7 @@ const CreateTask = () => {
         ...prevInputs,
         [name]: value,
       }));
-    } else if (name === 'project') {
+    } else if (name === 'selectedProject') {
       // Handle project input separately
       setInputs((prevInputs) => ({
         ...prevInputs,
@@ -119,6 +120,7 @@ const CreateTask = () => {
           } else {
             setErrors({ message: response.data.message });
             projectInputs.projectName = '';
+            projectInputs.projectDescription = '';
             //   setTimeout(() => {
             //     window.location.reload();
             // }, 2000);
@@ -191,19 +193,19 @@ const CreateTask = () => {
       {errors.message && <div className="error">{errors.message}</div>}
 
       <div className="form-buttons">
-        <button className={`add-button task-btn `} onClick={cancelTask}>
-          {showTaskForm ? 'Cancel Create Task' : 'Create Task'}
+        <button className={showTaskForm ? 'index-btn' : 'add-button task-btn' } onClick={cancelTask}>
+          {showTaskForm ? 'Cancel Task' : 'Create Task'}
         </button>
-        <button className={`add-button project-btn `} onClick={Projectcancel}>
-          {showProjectForm ? 'Cancel Create project' : 'Create project'}
+        <button className={showProjectForm ? 'index-btn' : 'add-button project-btn' } onClick={Projectcancel}>
+          {showProjectForm ? 'Cancel project' : 'Create project'}
         </button>
       </div>
 
       {showTaskForm && (
         <form onSubmit={handleSubmit} className={` ${showTaskForm ? 'active1' : 'hide'}`}>
-         <div className='heading'>
-         <h1>Create Task</h1>
-           </div> 
+          <div className='heading'>
+            <h1>Create Task</h1>
+          </div>
 
           <label htmlFor="title" >Task Name</label>
           <input
@@ -264,7 +266,7 @@ const CreateTask = () => {
             value={inputs.description}
             onChange={handleChange}
             rows="3"
-            placeholder="eg- stackup project ..."
+            placeholder="eg- stackup designing ..."
           />
 
           <button className="add-button" onClick={(e) => handleAddToProject(e)}>
@@ -273,11 +275,10 @@ const CreateTask = () => {
 
 
           <div className="project-section">
-            <label htmlFor="project">Project</label>
-            <p>now adding to project not completed</p>
+            <label htmlFor="selectedProject">Project</label>
             <select
-              id="project"
-              name="project"
+              id="selectedProject"
+              name="selectedProject"
               value={inputs.selectedProject}
               onChange={handleChange}
             >
@@ -287,21 +288,18 @@ const CreateTask = () => {
                   {project.project_name}
                 </option>
               ))}
-
-
             </select>
-
 
             <button className="add-button" onClick={cancelProject}>
               Cancel
             </button>
           </div>
           <br />
-<div className='submit'>
+          <div className='submit'>
 
-          <button className="add-button submit" type="submit">
-            Submit
-          </button>
+            <button className="add-button submit" type="submit">
+              Submit
+            </button>
           </div>
         </form>
       )}
@@ -314,18 +312,28 @@ const CreateTask = () => {
               type="text"
               placeholder="Project Name"
               value={projectInputs.projectName}
-              onChange={(e) => setProjectInputs({ ...projectInputs, projectName: e.target.value })}
+              onChange={(e) => setProjectInputs(prevInputs => ({ ...prevInputs, projectName: e.target.value }))}
             />
+            <label htmlFor="description">Description</label>
+            <textarea
+              id="projectDescription"
+              name="projectDescription"
+              value={projectInputs.projectDescription}
+              onChange={(e) => setProjectInputs(prevInputs => ({ ...prevInputs, projectDescription: e.target.value }))}
+              rows="3"
+              placeholder="eg- stackup project ..."
+            />
+
 
           </div>
 
           <h3>You can Add Team members in project page</h3>
-<div className='submit'>
-<button className="add-button " type="submit">
-            Submit
-          </button>
-</div>
-          
+          <div className='submit'>
+            <button className="add-button " type="submit">
+              Submit
+            </button>
+          </div>
+
         </form>
       )}
       {!showTaskForm && !showProjectForm && (

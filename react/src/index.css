@@ -31,7 +31,9 @@ body {
     background-color: #f6f6f6;
     overflow-x: hidden;
 }
-
+.main-body{
+padding-top: 70px;
+}
 input {
     outline: 0;
     background: #ffffff;
@@ -82,6 +84,7 @@ input:focus {
     -webkit-transition: all 0.3 ease;
     transition: all 0.3 ease;
     cursor: pointer;
+    border-radius: 5px;
 }
 
 .btn-block {
@@ -276,6 +279,9 @@ table>tbody>tr>td {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    position: fixed;
+    z-index: 999;
+    width: 100%;
 }
 
 #defaultLayout footer {
@@ -557,13 +563,99 @@ table>tbody>tr>td {
 
 .add-button {
     margin: 10px;
+    border-radius: 5px;
 }
 
 .project-page {
-    background-image: url('../public/photon.svg');
+    /* background-image: url('../public/photon.svg'); */
     background-repeat: no-repeat;
     background-size: cover;
-    padding: 50px;
+    /* padding: 50px; */
+    /* background-color: #ddd; */
+    box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    height: 100%;
+    padding-bottom: 50px;
+
+}
+.project-banner{
+     background-image: url('../public/photon.svg');
+     background-repeat: no-repeat;
+     background-size: cover;
+     padding: 70px;
+     height: 70px;
+     align-items: center;
+     text-align: center;
+}
+.project-details {
+    padding: 30px;
+}
+
+.project-banner h1 {
+    margin: 0; /* Remove default margin for h1 */
+}
+.fieldset-container {
+    margin-bottom: 20px;
+    width: 100px !important; /* Set the width to 100% or any other value you prefer */
+    overflow: auto;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    height: fit-content;
+}
+
+.fieldset-container legend {
+    font-weight: bold;
+    margin-bottom: 10px; /* Add margin below legend for spacing */
+}
+
+.project-description,
+.project-description-edit textarea {
+    width: calc(100% - 20px); /* Subtract the padding from the width to prevent horizontal overflow */
+    margin: 10px 0; /* Add margin for better spacing */
+}
+
+.action-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.action-buttons > button {
+    border: none;
+    padding: 10px;
+    margin: 5px;
+    border-radius: 5px;
+    background-color: #5b08a7;
+    color: #fff;
+    cursor: pointer;
+}
+
+.action-buttons > button:hover {
+    background-color: #11193b;
+}
+
+/* Add this style to hide the default textarea border */
+textarea {
+    border: none;
+    outline: none;
+    resize: none;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    width: 100%;
+}
+
+/* Add this style to make the textarea focused border color match the button */
+textarea:focus {
+    border-color: #5b08a7;
+}
+.description-p{
+    white-space: pre-line;
+    word-wrap: break-word;
+    display: inline-block;
+    max-width: 100%;
+    line-height: 25px;
+    padding-left: 60px;
 }
 
 @media (max-width:700px) {
@@ -574,7 +666,9 @@ table>tbody>tr>td {
     header>.header-center-section {
         display: none;
     }
-
+    .project-description{
+        margin-left: 10%;
+    }
     #defaultLayout footer {
         height: 55px;
         display: flex;
@@ -807,10 +901,10 @@ table>tbody>tr>td {
   top: 50px;
   left: -150px;
   width: 200px;
-  height: 200px;
+  height: 250px;
   background-color: #fff;
   border: 1px solid #ddd;
-  padding: 10px;
+  padding: 15px 10px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -819,7 +913,7 @@ table>tbody>tr>td {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   transition: 0.3s;
   display: none;
-  z-index: 2;
+  z-index: 9;
 }
 .nav-button-child{
     background-color:#5b08a7;
