@@ -19,7 +19,12 @@ export default function DefaultLayout() {
     const [isLoading, setLoading] = useState(true);
     const [showCard, setShowCard] = useState(false);
     const [darkMode, setDarkMode] = useState(false);
-
+    const api = axios.create({
+        baseURL: 'https://test.shamil.strikerlulu.me',
+    });
+    // const api = axios.create({
+    //     baseURL: 'http://localhost:9000/api',
+    // });
     const toggleCard = () => {
         setShowCard(!showCard);
     };
@@ -47,7 +52,7 @@ export default function DefaultLayout() {
     useEffect(() => {
         const userId = localStorage.getItem('userId');
         if (userId) {
-            axios.get(`https://featuresphere.wuaze.com/api/home.php?userId=${userId}`)
+            api.get(`/home.php?userId=${userId}`)
                 .then(function (response) {
                     if (response.data.username) {
                         setUser(response.data);
@@ -62,7 +67,7 @@ export default function DefaultLayout() {
                     setError("Server error. Unable to fetch user data. Check the network tab for more details.");
                 });
         } else {
-            axios.get("https://featuresphere.wuaze.com/apilogout.php")
+            api.get("/logout.php")
                 .then(function (response) {
                     localStorage.removeItem('userId');
                     Navigate("/login");
@@ -81,7 +86,7 @@ export default function DefaultLayout() {
     }
 
     function logout() {
-        axios.get("https://featuresphere.wuaze.com/api/logout.php")
+        api.get("/logout.php")
             .then(function (response) {
                 localStorage.removeItem('userId');
                 Navigate("/login");

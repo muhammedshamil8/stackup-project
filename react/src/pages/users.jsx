@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useNavigate} from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import './UserProfile.css'; // Import your CSS file
 
@@ -8,7 +8,12 @@ export default function Users() {
   const [user, setUser] = useState(null);
   const [error, setErrors] = useState({});
   const [isEditing, setEditing] = useState(false);
-
+  const api = axios.create({
+    baseURL: 'https://test.shamil.strikerlulu.me',
+  });
+  //   const api = axios.create({
+  //     baseURL: 'http://localhost:9000/api',
+  // });
   const [userData, setUserData] = useState({
     username: '',
     fullname: '',
@@ -22,7 +27,7 @@ export default function Users() {
   useEffect(() => {
     const userId = localStorage.getItem('userId');
     if (userId) {
-      axios.get(`https://featuresphere.wuaze.com/api/profile.php?userId=${userId}`)
+      api.get(`/profile.php?userId=${userId}`)
         .then(function (response) {
           if (response.data.userData) {
             setUser(response.data.userData);
@@ -44,62 +49,62 @@ export default function Users() {
     setEditing(!isEditing);
   };
 
- 
+
   const handleSaveClick = (e) => {
     e.preventDefault();
     setErrors({}); // Clear any previous errors
     const userId = localStorage.getItem('userId');
 
     if (user) {
-        const updatedUserData = {
-            ...userData,
-            email: user.email,
-        };
-        if (userData.phonenumber !== null) {
-          updatedUserData.phonenumber = userData.phonenumber;
+      const updatedUserData = {
+        ...userData,
+        email: user.email,
+      };
+      if (userData.phonenumber !== null) {
+        updatedUserData.phonenumber = userData.phonenumber;
       }
-        axios.post(`https://featuresphere.wuaze.com/api/profile.php?userId=${userId}`, updatedUserData)
-            .then((response) => {
-                setEditing(false);
-                setUser(response.data.userData);
+      api.post(`/profile.php?userId=${userId}`, updatedUserData)
+        .then((response) => {
+          setEditing(false);
+          setUser(response.data.userData);
 
-                // Display success message
-                setErrors({ success: response.data.message });
+          // Display success message
+          setErrors({ success: response.data.message });
 
-                // Reload the page after a successful update
-                if (response.data.status === 1) {
-                    setTimeout(() => {
-                        window.location.reload();
-                    }, 2000);
-                }
-            })
-            .catch(function (error) {
-                console.error('Update error:', error.response.data);
+          // Reload the page after a successful update
+          if (response.data.status === 1) {
+            setTimeout(() => {
+              window.location.reload();
+            }, 2000);
+          }
+        })
+        .catch(function (error) {
+          console.error('Update error:', error.response.data);
 
-                // Display error message
-                if (error.response.data.status === 0) {
-                    setErrors({ update: error.response.data.message });
-                } else if (error.response.data.status === 400) {
-                    setErrors({ update: error.response.data.message });
-                } else {
-                    setErrors({ update: 'Failed to update user. Please try again.' });
-                }
+          // Display error message
+          if (error.response.data.status === 0) {
+            setErrors({ update: error.response.data.message });
+          } else if (error.response.data.status === 400) {
+            setErrors({ update: error.response.data.message });
+          } else {
+            setErrors({ update: 'Failed to update user. Please try again.' });
+          }
 
-                // Introduce a delay before reloading the page
-                setTimeout(() => {
-                    window.location.reload();
-                }, 2500);
-            });
+          // Introduce a delay before reloading the page
+          setTimeout(() => {
+            window.location.reload();
+          }, 2500);
+        });
     }
-};
+  };
 
-const handleInputChange = (e) => {
-  const { name, value } = e.target;
-  setUserData((prevData) => ({
-    ...prevData,
-    [name]: value !== null ? value : '',
-  }));
-};
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setUserData((prevData) => ({
+      ...prevData,
+      [name]: value !== null ? value : '',
+    }));
+  };
 
 
   useEffect(() => {
@@ -112,16 +117,16 @@ const handleInputChange = (e) => {
   }, [isEditing]);
 
   function logout() {
-    axios.get("https://featuresphere.wuaze.com/api/logout.php")
-        .then(function (response) {
-            // Handle logout success
-            localStorage.removeItem('userId'); // Remove 'userId' from localStorage
-            Navigate("/login"); // Redirect to the login page
-        })
-        .catch(function (error) {
-            console.error("Logout error: " + error);
-        });
-}
+    api.get("/logout.php")
+      .then(function (response) {
+        // Handle logout success
+        localStorage.removeItem('userId'); // Remove 'userId' from localStorage
+        Navigate("/login"); // Redirect to the login page
+      })
+      .catch(function (error) {
+        console.error("Logout error: " + error);
+      });
+  }
 
   let pronounce = "";
 
@@ -176,7 +181,7 @@ const handleInputChange = (e) => {
         <input
           name="DOB"
           type='date'
-          value={userData.DOB  || ''}
+          value={userData.DOB || ''}
           onChange={handleInputChange}
           disabled={!isEditing}
         />
@@ -207,7 +212,7 @@ const handleInputChange = (e) => {
           </button>
 
         )}
-    
+
       </form>
       {user && (
         <div className={`user-details ${isEditing ? 'editing' : ''}`}>
@@ -221,13 +226,13 @@ const handleInputChange = (e) => {
         </div>
       )}
 
-{error && Object.keys(error).length > 0 && (
-  <div className="error-message">
-    {Object.values(error).map((error, index) => (
-      <p key={index}>{error}</p>
-    ))}
-  </div>
-)}
+      {error && Object.keys(error).length > 0 && (
+        <div className="error-message">
+          {Object.values(error).map((error, index) => (
+            <p key={index}>{error}</p>
+          ))}
+        </div>
+      )}
 
       <button className="logout-button" onClick={logout}>Log Out</button>
     </div>

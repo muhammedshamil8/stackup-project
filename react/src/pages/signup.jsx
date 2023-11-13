@@ -8,8 +8,12 @@ function Signup() {
     const [isFormVisible, setFormVisible] = useState(true);
     const [inputs, setInputs] = useState({});
     const [errors, setErrors] = useState({});
+    const api = axios.create({
+        baseURL: 'https://test.shamil.strikerlulu.me',
+    });
+
     // const api = axios.create({
-    //     baseURL: 'https://featuresphere.wuaze.com/api',
+    //     baseURL: 'http://localhost:9000/api',
     // });
     
     const handleChange = (event) => {
@@ -22,7 +26,7 @@ function Signup() {
         event.preventDefault();
         setErrors({}); 
 
-        axios.post(`https://featuresphere.wuaze.com/api/signup.php`, inputs).then(function (response) {
+        api.post(`/signup.php`, inputs).then(function (response) {
             if (response.data.status === 0) {
                 setErrors({ message: response.data.message });
             } else {

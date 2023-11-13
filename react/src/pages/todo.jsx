@@ -17,7 +17,12 @@ function Todo() {
   const [updatedPriority, setUpdatedPriority] = useState(taskDetails.priority || 1);
   const [isLoading, setLoading] = useState(false);
   const [message, setMessage] = useState('');
-
+  const api = axios.create({
+    baseURL: 'https://test.shamil.strikerlulu.me',
+});
+  //   const api = axios.create({
+  //     baseURL: 'http://localhost:9000/api',
+  // });
 
  const handleGoBack = () => {
     navigate(-1); // This is equivalent to calling window.history.back()
@@ -25,7 +30,7 @@ function Todo() {
   useEffect(() => {
     const fetchTaskDetails = async () => {
       try {
-        const response = await axios.get(`https://featuresphere.wuaze.com/api/todo.php?userId=${userId}&taskId=${taskId}`);
+        const response = await api.get(`/todo.php?userId=${userId}&taskId=${taskId}`);
 
         if (response.data.status === 1 && response.data.tasks.length > 0) {
           const fetchedTaskId = response.data.tasks[0].task_id;
@@ -60,7 +65,7 @@ function Todo() {
   const handleUpdateClick = async () => {
     try {
       setLoading(true);
-      const response = await axios.post(`https://featuresphere.wuaze.com/api/todo.php?userId=${userId}&taskId=${taskId}`, {
+      const response = await api.post(`/todo.php?userId=${userId}&taskId=${taskId}`, {
         action: 'updateTask',
         taskId,
         updatedTaskName,
@@ -117,7 +122,7 @@ function Todo() {
     if (isConfirmed) {
       try {
         setLoading(true);
-        const response = await axios.post('https://featuresphere.wuaze.com/api/todo.php', {
+        const response = await api.post('/todo.php', {
           action: 'deleteTask',
           taskId,
         });

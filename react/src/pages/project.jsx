@@ -17,7 +17,12 @@ export default function Project() {
   const [teamMembers, setTeamMembers] = useState([]);
   const [projectDescription, setProjectDescription] = useState('');
   const navigate = useNavigate();
-
+  const api = axios.create({
+    baseURL: 'https://test.shamil.strikerlulu.me',
+  });
+  //   const api = axios.create({
+  //     baseURL: 'http://localhost:9000/api',
+  // });
 
   const handleEdit = () => {
     setEditMode(!editMode);
@@ -29,7 +34,7 @@ export default function Project() {
 
   const fetchProject = async () => {
     try {
-      const response = await axios.get(`https://featuresphere.wuaze.com/api/getprojectTasks.php?userId=${userId}&projectId=${projectId}`);
+      const response = await api.get(`/getprojectTasks.php?userId=${userId}&projectId=${projectId}`);
 
       if (response.data.status === 1) {
         setProjectDetails(response.data.projectDetails);
@@ -48,7 +53,7 @@ export default function Project() {
 
   const handleTeamSearch = async (searchTerm) => {
     try {
-      const response = await axios.get(`https://featuresphere.wuaze.com/api/members.php?searchTerm=${searchTerm}`);
+      const response = await api.get(`/members.php?searchTerm=${searchTerm}`);
       setTeamSuggestions(response.data.teams);
     } catch (error) {
       console.error('Error fetching team suggestions:', error);
@@ -75,14 +80,14 @@ export default function Project() {
 
   const handleDeleteProject = async () => {
     const isConfirmed = window.confirm('Are you sure you want to delete this Project?');
-  
+
     if (isConfirmed) {
       try {
-        const response = await axios.post('https://featuresphere.wuaze.com/api/getprojectTasks.php', {
+        const response = await api.post('/getprojectTasks.php', {
           action: 'deleteProject',
           projectId: projectId,
         });
-  
+
         if (response.data.status === 1) {
           console.log('Project deleted successfully');
           navigate('/dashboard');
@@ -97,11 +102,11 @@ export default function Project() {
       }
     }
   };
-  
+
 
   const handleUpdateProject = async () => {
     try {
-      const response = await axios.post('https://featuresphere.wuaze.com/api/getprojectTasks.php', {
+      const response = await api.post('/getprojectTasks.php', {
         action: 'updateProject',
         projectId: projectId,
         projectDescription: editedProjectDescription,
@@ -130,11 +135,11 @@ export default function Project() {
 
       <div className="project-details">
         {/* <fieldset className="fieldset-container"> */}
-        <legend style={{wordWrap: 'break-word'}}>
+        <legend style={{ wordWrap: 'break-word' }}>
           <strong>Project Description:</strong>
         </legend>
-{editMode ? (
-<div className='project-description-edit'>
+        {editMode ? (
+          <div className='project-description-edit'>
 
             <textarea
               type="text"
@@ -142,19 +147,19 @@ export default function Project() {
               value={editedProjectDescription}
               onChange={(e) => setEditedProjectDescription(e.target.value)}
             />
-</div>
+          </div>
 
-          ) : (
-<div > 
-  <p className='description-p'>
-  {projectDetails[0]?.project_description}
+        ) : (
+          <div >
+            <p className='description-p'>
+              {projectDetails[0]?.project_description}
 
-  </p>
+            </p>
 
-</div>
+          </div>
 
-          )}
-          {/* </fieldset> */}
+        )}
+        {/* </fieldset> */}
         <div className="action-buttons">
           {!editMode && <button onClick={handleEdit}>Edit</button>}
           {editMode && (
@@ -165,7 +170,7 @@ export default function Project() {
           )}
           <button onClick={handleDeleteProject}>Delete Project</button>
         </div>
-<hr />
+        <hr />
         {/* Add Teams Section */}
         <p style={{ margin: '30px' }}>Add team member on process</p>
 
@@ -202,31 +207,31 @@ export default function Project() {
           
         </div> */}
 
-      <div>
-        <h2>Project Tasks</h2>
+        <div>
+          <h2>Project Tasks</h2>
 
-        {/* Navigation Links */}
-        <ul className="task-list">
-          <li>
-            <span className="material-symbols-outlined">format_list_bulleted</span>
-            <Link to={`/projectTodolist/${projectId}`} className="list-done">
-              Task list
-            </Link>
-          </li>
-          <li>
-            <span className="material-symbols-outlined">sync</span>
-            <Link to={`/projectTodoprogress/${projectId}`} className="list-done">
-              Task progress
-            </Link>
-          </li>
-          <li>
-            <span className="material-symbols-outlined">Done</span>
-            <Link to={`/projectTododone/${projectId}`} className="list-done">
-              Task done
-            </Link>
-          </li>
-        </ul>
-      </div>
+          {/* Navigation Links */}
+          <ul className="task-list">
+            <li>
+              <span className="material-symbols-outlined">format_list_bulleted</span>
+              <Link to={`/projectTodolist/${projectId}`} className="list-done">
+                Task list
+              </Link>
+            </li>
+            <li>
+              <span className="material-symbols-outlined">sync</span>
+              <Link to={`/projectTodoprogress/${projectId}`} className="list-done">
+                Task progress
+              </Link>
+            </li>
+            <li>
+              <span className="material-symbols-outlined">Done</span>
+              <Link to={`/projectTododone/${projectId}`} className="list-done">
+                Task done
+              </Link>
+            </li>
+          </ul>
+        </div>
       </div>
 
     </div>

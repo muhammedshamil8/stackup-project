@@ -7,7 +7,12 @@ function Login() {
     const [isFormVisible, setFormVisible] = useState(true);
     const [inputs, setInputs] = useState({ email: "", password: "" });
     const [error, setError] = useState(null);
-   
+    const api = axios.create({
+        baseURL: 'https://featuresphere.wuaze.com/api',
+    });
+    // const api = axios.create({
+    //     baseURL: 'http://localhost:9000/api',
+    // });
     const handleChange = (event) => {
         const name = event.target.name;
         const value = event.target.value;
@@ -18,8 +23,8 @@ function Login() {
         event.preventDefault();
 
         // Sending a POST request to the login API 
-        axios
-            .post("https://featuresphere.wuaze.com/api/login.php", inputs)
+        api
+            .post("/login.php", inputs)
             .then(function (response) {
                 if (response.data.status === 1) {
                     // Successful login, redirect to a dashboard or home page

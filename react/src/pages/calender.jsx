@@ -73,7 +73,7 @@ const Calendar = () => {
           <div className="days" id="calendar-days"></div>
         </div>
       </div>
-      <p>coming soon ..! <br />
+      <p style={{margin: 'auto'}}>coming soon ..! <br />
         New Features :-
         task will show on calender and we can check  task  deadline  date
       </p>

@@ -15,11 +15,16 @@ export default function Dashboard() {
   const [projectOptions, setProjectOptions] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [searchResults, setSearchResults] = useState([]);
-
+const api = axios.create({
+        baseURL: 'https://featuresphere.wuaze.com/api',
+    });
+  //   const api = axios.create({
+  //     baseURL: 'http://localhost:9000/api',
+  // });
   useEffect(() => {
     const userId = localStorage.getItem('userId');
     if (userId) {
-      axios.get(`https://featuresphere.wuaze.com/api/home.php?userId=${userId}`)
+      api.get(`/home.php?userId=${userId}`)
         .then(function (response) {
           if (response.data.username) {
             setUser(response.data);
@@ -34,7 +39,7 @@ export default function Dashboard() {
           setError("Server error. Unable to fetch user data. Check the network tab for more details.");
         });
     } else {
-      axios.get("https://featuresphere.wuaze.com/api/logout.php")
+      api.get("/logout.php")
         .then(function (response) {
           // Handle logout success
           localStorage.removeItem('userId'); // Remove 'userId' from localStorage
@@ -47,7 +52,7 @@ export default function Dashboard() {
 
   useEffect(() => {
 
-    axios.get(`https://featuresphere.wuaze.com/api/createProject.php?userId=${userId}`)
+    api.get(`/createProject.php?userId=${userId}`)
       .then((response) => {
         if (Array.isArray(response.data.projects)) {
           setProjectOptions(response.data.projects);
@@ -64,7 +69,7 @@ export default function Dashboard() {
     // Check if the search term is empty
     if (searchTerm.trim() !== '') {
       // Make a request to search for tasks based on the searchTerm
-      axios.get(`https://featuresphere.wuaze.com/api/tasks.php?userId=${userId}&searchTerm=${searchTerm}`)
+      api.get(`/tasks.php?userId=${userId}&searchTerm=${searchTerm}`)
         .then((response) => {
           if (response.data.status === 1 && Array.isArray(response.data.tasks)) {
             setSearchResults(response.data.tasks);

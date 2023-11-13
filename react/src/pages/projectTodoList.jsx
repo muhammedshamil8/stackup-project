@@ -2,37 +2,42 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './task-page.css';
-import { Link, useNavigate,useParams} from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 
 const ProjectTodo = () => {
-  const {projectId} = useParams();
+  const { projectId } = useParams();
   const navigate = useNavigate();
 
   const [tasks, setTasks] = useState([]);
   const userId = localStorage.getItem('userId');
-
+  const api = axios.create({
+    baseURL: 'https://test.shamil.strikerlulu.me',
+  });
+  //   const api = axios.create({
+  //     baseURL: 'http://localhost:9000/api',
+  // });
   useEffect(() => {
     const fetchTasks = async () => {
       try {
-        const response = await axios.get(`https://featuresphere.wuaze.com/api/projectGetTask.php?userId=${userId}&projectId=${projectId}`);
+        const response = await api.get(`/projectGetTask.php?userId=${userId}&projectId=${projectId}`);
         setTasks(response.data.tasks || []);
       } catch (error) {
         console.error('Error fetching tasks:', error);
       }
     };
-  
+
     if (userId) {
       fetchTasks();
     }
   }, [userId]);
-  
+
 
   const handleProgressClick = async (taskId) => {
     const isConfirmed = window.confirm('Sure..! Move this task to progress list.');
 
     if (isConfirmed) {
       try {
-        const response = await axios.post('https://featuresphere.wuaze.com/api/projectGetTask.php?userId=${userId}&projectId=${projectId}', {
+        const response = await api.post('/projectGetTask.php?userId=${userId}&projectId=${projectId}', {
           action: 'updateProgress',
           taskId,
           taskProgress: 1,
@@ -40,7 +45,7 @@ const ProjectTodo = () => {
 
         if (response.data.status === 1) {
           // Re-fetch tasks after successful update
-          const updatedTasks = await axios.get(`https://featuresphere.wuaze.com/api/projectGetTask.php?userId=${userId}&projectId=${projectId}`);
+          const updatedTasks = await api.get(`/projectGetTask.php?userId=${userId}&projectId=${projectId}`);
           setTasks(updatedTasks.data.tasks || []);
         } else {
           console.error('Error updating task progress:', response.data.message);
@@ -57,7 +62,7 @@ const ProjectTodo = () => {
 
     if (isConfirmed) {
       try {
-        const response = await axios.post('https://featuresphere.wuaze.com/api/projectGetTask.php?userId=${userId}&projectId=${projectId}', {
+        const response = await api.post('/projectGetTask.php?userId=${userId}&projectId=${projectId}', {
           action: 'deleteTask',
           taskId,
         });
@@ -128,7 +133,7 @@ const ProjectTodo = () => {
       ) : (
         <div className='todo-list-card'>
 
-        <p className='card-child'>No todo tasks available. </p>
+          <p className='card-child'>No todo tasks available. </p>
         </div>
       )}
     </div>

@@ -7,10 +7,16 @@ export default function Onprogress() {
   const [tasks, setTasks] = useState([]);
   const userId = localStorage.getItem('userId');
   const navigate = useNavigate();
+  const api = axios.create({
+    baseURL: 'https://test.shamil.strikerlulu.me',
+});
+  //   const api = axios.create({
+  //     baseURL: 'http://localhost:9000/api',
+  // });
   useEffect(() => {
     const fetchTasks = async () => {
       try {
-        const response = await axios.get(`https://featuresphere.wuaze.com/api/progressTasks.php?userId=${userId}`);
+        const response = await api.get(`/progressTasks.php?userId=${userId}`);
         // console.log('Response from API:', response.data);
         setTasks(response.data.tasks ? response.data.tasks : []);
       } catch (error) {
@@ -27,7 +33,7 @@ export default function Onprogress() {
 
     if (isConfirmed) {
       try {
-        const response = await axios.post('https://featuresphere.wuaze.com/api/progressTasks.php', {
+        const response = await api.post('/progressTasks.php', {
           action: 'updateProgress',
           taskId,
           taskDone: 1,
@@ -36,7 +42,7 @@ export default function Onprogress() {
 
         if (response.data.status === 1) {
           // Re-fetch tasks after successful update
-          const updatedTasks = await axios.get(`https://featuresphere.wuaze.com/api/progressTasks.php?userId=${userId}`);
+          const updatedTasks = await api.get(`/progressTasks.php?userId=${userId}`);
           setTasks(updatedTasks.data.tasks || []);
         } else {
           console.error('Error updating task progress:', response.data.message);
@@ -52,7 +58,7 @@ export default function Onprogress() {
 
     if (isConfirmed) {
       try {
-        const response = await axios.post('https://featuresphere.wuaze.com/api/getTasks.php', {
+        const response = await api.post('/getTasks.php', {
           action: 'deleteTask',
           taskId,
         });

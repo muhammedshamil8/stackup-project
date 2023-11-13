@@ -5,7 +5,12 @@ import '../CreateTask.css'; // Import your CSS file
 
 const CreateTask = () => {
   const userId = localStorage.getItem('userId');
-
+const api = axios.create({
+        baseURL: 'https://featuresphere.wuaze.com/api',
+    });
+  //   const api = axios.create({
+  //     baseURL: 'http://localhost:9000/api',
+  // });
   const [projectInputs, setProjectInputs] = useState({
     projectName: '',
     projectDescription: '',
@@ -14,7 +19,7 @@ const CreateTask = () => {
 
 
   useEffect(() => {
-    axios.get(`https://featuresphere.wuaze.com/api/createProject.php?userId=${userId}`)
+    api.get(`/createProject.php?userId=${userId}`)
       .then((response) => {
         if (Array.isArray(response.data.projects)) {
           setProjectOptions(response.data.projects);
@@ -78,8 +83,8 @@ const CreateTask = () => {
     // Move the API request logic here
     const userId = localStorage.getItem('userId');
     if (userId) {
-      axios
-        .post(`https://featuresphere.wuaze.com/api/taskCreate.php?userId=${userId}`, inputs)
+      api
+        .post(`/taskCreate.php?userId=${userId}`, inputs)
         .then((response) => {
           if (response.data.status === 0) {
             setErrors({ message: response.data.message });
@@ -112,8 +117,8 @@ const CreateTask = () => {
     const userId = localStorage.getItem('userId');
     if (userId) {
 
-      axios
-        .post(`https://featuresphere.wuaze.com/api//createProject.php?userId=${userId}`, projectInputs)
+      api
+        .post(`/createProject.php?userId=${userId}`, projectInputs)
         .then((response) => {
           if (response.data.status === 0) {
             setErrors({ message: response.data.error });

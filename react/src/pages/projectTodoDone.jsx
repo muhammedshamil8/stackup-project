@@ -10,11 +10,16 @@ const ProjectTodoDone = () => {
 
   const [tasks, setTasks] = useState([]);
   const userId = localStorage.getItem('userId');
-
+  const api = axios.create({
+    baseURL: 'https://test.shamil.strikerlulu.me',
+  });
+  //   const api = axios.create({
+  //     baseURL: 'http://localhost:9000/api',
+  // });
   useEffect(() => {
     const fetchTasks = async () => {
       try {
-        const response = await axios.get(`https://featuresphere.wuaze.com/api/projectDoneTask.php?userId=${userId}&projectId=${projectId}`);
+        const response = await api.get(`/projectDoneTask.php?userId=${userId}&projectId=${projectId}`);
         setTasks(response.data.tasks || []);
       } catch (error) {
         console.error('Error fetching tasks:', error);
@@ -34,7 +39,7 @@ const ProjectTodoDone = () => {
 
     if (isConfirmed) {
       try {
-        const response = await axios.post('https://featuresphere.wuaze.com/api/projectGetTask.php?userId=${userId}&projectId=${projectId}', {
+        const response = await api.post('/projectGetTask.php?userId=${userId}&projectId=${projectId}', {
           action: 'deleteTask',
           taskId,
         });
@@ -108,7 +113,7 @@ const ProjectTodoDone = () => {
       ) : (
         <div className='todo-list-card'>
 
-        <p className='card-child'>No Completed tasks available. </p>
+          <p className='card-child'>No Completed tasks available. </p>
         </div>
       )}
     </div>
