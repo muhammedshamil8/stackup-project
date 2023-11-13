@@ -3,6 +3,9 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 function Signup() {
+    const api = axios.create({
+        baseURL: 'https://featuresphere.wuaze.com/api',
+    });
     const Navigate = useNavigate();
     const [isFormVisible, setFormVisible] = useState(true);
     const [inputs, setInputs] = useState({});
@@ -19,7 +22,7 @@ function Signup() {
         event.preventDefault();
         setErrors({}); // Clear any previous errors
 
-        axios.post('http://featuresphere.wuaze.com/api/signup.php', inputs).then(function (response) {
+        api.post(`/signup.php`, inputs).then(function (response) {
             if (response.data.status === 0) {
                 setErrors({ message: response.data.message });
             } else {

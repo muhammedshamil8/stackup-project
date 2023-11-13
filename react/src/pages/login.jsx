@@ -19,7 +19,7 @@ function Login() {
 
         // Sending a POST request to the login API 
         axios
-            .post("http://featuresphere.wuaze.com/api/login.php", inputs)
+            .post("https://featuresphere.wuaze.com/api/login.php", inputs)
             .then(function (response) {
                 if (response.data.status === 1) {
                     // Successful login, redirect to a dashboard or home page
