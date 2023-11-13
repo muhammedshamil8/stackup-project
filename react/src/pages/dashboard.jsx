@@ -15,12 +15,21 @@ export default function Dashboard() {
   const [projectOptions, setProjectOptions] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [searchResults, setSearchResults] = useState([]);
+  const [darkMode, setDarkMode] = useState(false);
+
   const api = axios.create({
     baseURL: 'https://test.shamil.strikerlulu.me',
   });
   //   const api = axios.create({
   //     baseURL: 'http://localhost:9000/api',
   // });
+
+  const toggleDarkMode = () => {
+    setDarkMode(!darkMode);
+    const body = document.body;
+    const header = document.body.querySelector('header');
+   
+};
   useEffect(() => {
     const userId = localStorage.getItem('userId');
     if (userId) {
@@ -147,7 +156,7 @@ export default function Dashboard() {
         <input
           type="search"
           placeholder="Search Task"
-          className="search-bar"
+          className={`search-bar ${darkMode ? 'dark-mode' : ''}`}
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
           onKeyUp={handleSearch}
@@ -235,7 +244,7 @@ export default function Dashboard() {
       </div>
 
 
-      <div className="task-card">
+      <div className={`task-card ${darkMode ? 'dark-mode' : ''}`}>
 
         <h2 className="task-p">My Tasks</h2>
         <ul className="task-list">

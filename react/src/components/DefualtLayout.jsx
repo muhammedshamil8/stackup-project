@@ -19,6 +19,9 @@ export default function DefaultLayout() {
     const [isLoading, setLoading] = useState(true);
     const [showCard, setShowCard] = useState(false);
     const [darkMode, setDarkMode] = useState(false);
+    // const [darkMode, setDarkMode] = useState(
+    //     localStorage.getItem('darkMode') === 'true'
+    //   );
     const api = axios.create({
         baseURL: 'https://test.shamil.strikerlulu.me',
     });
@@ -32,13 +35,17 @@ export default function DefaultLayout() {
     const toggleDarkMode = () => {
         setDarkMode(!darkMode);
         const body = document.body;
-
+        const header = document.body.querySelector('header');
         if (darkMode) {
             body.style.backgroundColor = '#fff'; 
-            body.style.color = '#333';
+            body.style.color = '#1a1a1a';
+            header.style.backgroundColor = '#fff'; 
+            header.style.color = '#1a1a1a';
         } else {
             body.style.backgroundColor = '#333'; 
             body.style.color = '#fff'; 
+            header.style.backgroundColor = '#1a1a1a'; 
+            header.style.color = '#fff'; 
         }
     };
 
@@ -117,17 +124,17 @@ export default function DefaultLayout() {
                 <div id="defaultLayout">
 
                     <div className="content">
-                        <header>
+                        <header className={`${darkMode ? 'dark-mode' : ''}`}>
                             <div className="header-right-section">
                                 <div>
                                     <img src={nop} className="profile-image" />
                                 </div>
-                                <div className="profile-info">
+                                <div className={`profile-info ${darkMode ? 'dark-mode' : ''}`}>
                                     <p>{user.username}</p>
                                     <p>{user.profession}</p>
                                 </div>
                             </div>
-                            <div className="header-center-section">
+                            <div className={`header-center-section ${darkMode ? 'dark-mode' : ''}`}>
                                 <NavLink to="/dashboard" className={`center-child ${location.pathname === '/dashboard' ? 'active-link' : ''}`}>
                                     Home
                                 </NavLink>
@@ -191,7 +198,7 @@ export default function DefaultLayout() {
 
                     </div>
                     <footer>
-                        <div className="header-center-section-mobile">
+                        <div className={`header-center-section-mobile ${darkMode ? 'dark-mode' : ''}`}>
                             <NavLink to="/dashboard" className={`center-child-mobile ${location.pathname === '/dashboard' ? 'active-link-mobile' : ''}`}>
                                 <img src={home} />
                             </NavLink>

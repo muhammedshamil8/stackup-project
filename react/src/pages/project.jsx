@@ -70,12 +70,13 @@ export default function Project() {
     setTeamMembers([...teamMembers, selectedTeam]);
   };
   const handleAddTeamMember = async () => {
-    try {
-      console.log('Team members:', teamMembers);
-      // Implement logic to add team members to the project
-    } catch (error) {
-      console.error('Error adding team member:', error);
-    }
+    alert('Add team member function on process');
+    // try {
+    //   console.log('Team members:', teamMembers);
+    //   // Implement logic to add team members to the project
+    // } catch (error) {
+    //   console.error('Error adding team member:', error);
+    // }
   };
 
   const handleDeleteProject = async () => {
@@ -172,8 +173,7 @@ export default function Project() {
         </div>
         <hr />
         {/* Add Teams Section */}
-        <p style={{ margin: '30px' }}>Add team member on process</p>
-
+        <button onClick={handleAddTeamMember} style={{ margin: '30px' }}className='create-cancel-btn'>Add Teams </button>
         {/* <div className="add-teams-section">
           <input
             type="text"

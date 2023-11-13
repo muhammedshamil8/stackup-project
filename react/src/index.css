@@ -454,13 +454,20 @@ table>tbody>tr>td {
         transform: translateX(300px);
     }
 }
-
-.error {
+.error-message {
     color: red;
     text-align: center;
     margin-bottom: 7px;
     font-size: 18px;
-}
+  }
+  
+  .success-message {
+    color: green;
+    text-align: center;
+    margin-bottom: 7px;
+    font-size: 18px;
+  }
+
 
 /* Add these styles to your loading section or container */
 .loading-container {
@@ -592,6 +599,16 @@ margin: auto;
     background-color: #46436E;
     color: white;
     cursor: pointer;
+
+}
+.create-cancel-btn {
+    color: #fff;
+    padding: 8px 10px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    margin-top: 1rem;
+    background-color: #46436E;
 
 }
 
@@ -1024,3 +1041,8 @@ Adjust styles for the Dark Mode button
   background-color: #333; Change to your dark mode button background color
   color: #fff; Change to your dark mode button text color
 } */
+
+.dark-mode{
+    background-color: #1a1a1a !important;
+    color: #f6f6f6 !important;
+}

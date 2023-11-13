@@ -195,13 +195,21 @@ const CreateTask = () => {
   };
   return (
     <div className="cTask-card">
-      {errors.message && <div className="error">{errors.message}</div>}
-
+      {/* {errors.message && <div className="error">{errors.message}</div>} */}
+      {errors && Object.keys(errors).length > 0 && (
+  <div className="error-message">
+    {Object.entries(errors).map(([key, value], index) => (
+      <p key={index} className={key === 'success' ? 'success-message' : ''}>
+        {value}
+      </p>
+    ))}
+        </div>
+      )}
       <div className="form-buttons">
-        <button className={showTaskForm ? 'index-btn' : 'add-button task-btn' } onClick={cancelTask}>
+        <button className={showTaskForm ? 'create-cancel-btn' : 'add-button task-btn' } onClick={cancelTask}>
           {showTaskForm ? 'Cancel Task' : 'Create Task'}
         </button>
-        <button className={showProjectForm ? 'index-btn' : 'add-button project-btn' } onClick={Projectcancel}>
+        <button className={showProjectForm ? 'create-cancel-btn' : 'add-button project-btn' } onClick={Projectcancel}>
           {showProjectForm ? 'Cancel project' : 'Create project'}
         </button>
       </div>

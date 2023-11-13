@@ -226,14 +226,16 @@ export default function Users() {
         </div>
       )}
 
-      {error && Object.keys(error).length > 0 && (
-        <div className="error-message">
-          {Object.values(error).map((error, index) => (
-            <p key={index}>{error}</p>
-          ))}
+{error && Object.keys(error).length > 0 && (
+  <div className="error-message">
+    {Object.entries(error).map(([key, value], index) => (
+      <p key={index} className={key === 'success' ? 'success-message' : ''}>
+        {value}
+      </p>
+    ))}
         </div>
       )}
-
+<br />
       <button className="logout-button" onClick={logout}>Log Out</button>
     </div>
   );
