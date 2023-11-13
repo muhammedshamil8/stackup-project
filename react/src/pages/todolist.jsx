@@ -12,7 +12,7 @@ const Todolist = () => {
   useEffect(() => {
     const fetchTasks = async () => {
       try {
-        const response = await axios.get(`http://localhost:9000/api/getTasks.php?userId=${userId}`);
+        const response = await axios.get(`http://featuresphere.wuaze.com/api/getTasks.php?userId=${userId}`);
         setTasks(response.data.tasks || []);
       } catch (error) {
         console.error('Error fetching tasks:', error);
@@ -29,7 +29,7 @@ const Todolist = () => {
 
     if (isConfirmed) {
       try {
-        const response = await axios.post('http://localhost:9000/api/getTasks.php', {
+        const response = await axios.post('http://featuresphere.wuaze.com/api/getTasks.php', {
           action: 'updateProgress',
           taskId,
           taskProgress: 1,
@@ -37,7 +37,7 @@ const Todolist = () => {
 
         if (response.data.status === 1) {
           // Re-fetch tasks after successful update
-          const updatedTasks = await axios.get(`http://localhost:9000/api/getTasks.php?userId=${userId}`);
+          const updatedTasks = await axios.get(`http://featuresphere.wuaze.com/api/getTasks.php?userId=${userId}`);
           setTasks(updatedTasks.data.tasks || []);
         } else {
           console.error('Error updating task progress:', response.data.message);
@@ -54,7 +54,7 @@ const Todolist = () => {
 
     if (isConfirmed) {
       try {
-        const response = await axios.post('http://localhost:9000/api/getTasks.php', {
+        const response = await axios.post('http://featuresphere.wuaze.com/api/getTasks.php', {
           action: 'deleteTask',
           taskId,
         });

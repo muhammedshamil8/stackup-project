@@ -29,7 +29,7 @@ export default function Project() {
 
   const fetchProject = async () => {
     try {
-      const response = await axios.get(`http://localhost:9000/api/getprojectTasks.php?userId=${userId}&projectId=${projectId}`);
+      const response = await axios.get(`http://featuresphere.wuaze.com/api/getprojectTasks.php?userId=${userId}&projectId=${projectId}`);
 
       if (response.data.status === 1) {
         setProjectDetails(response.data.projectDetails);
@@ -48,7 +48,7 @@ export default function Project() {
 
   const handleTeamSearch = async (searchTerm) => {
     try {
-      const response = await axios.get(`http://localhost:9000/api/members.php?searchTerm=${searchTerm}`);
+      const response = await axios.get(`http://featuresphere.wuaze.com/api/members.php?searchTerm=${searchTerm}`);
       setTeamSuggestions(response.data.teams);
     } catch (error) {
       console.error('Error fetching team suggestions:', error);
@@ -78,7 +78,7 @@ export default function Project() {
   
     if (isConfirmed) {
       try {
-        const response = await axios.post('http://localhost:9000/api/getprojectTasks.php', {
+        const response = await axios.post('http://featuresphere.wuaze.com/api/getprojectTasks.php', {
           action: 'deleteProject',
           projectId: projectId,
         });
@@ -101,7 +101,7 @@ export default function Project() {
 
   const handleUpdateProject = async () => {
     try {
-      const response = await axios.post('http://localhost:9000/api/getprojectTasks.php', {
+      const response = await axios.post('http://featuresphere.wuaze.com/api/getprojectTasks.php', {
         action: 'updateProject',
         projectId: projectId,
         projectDescription: editedProjectDescription,

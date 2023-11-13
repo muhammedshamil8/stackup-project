@@ -19,7 +19,7 @@ export default function Dashboard() {
   useEffect(() => {
     const userId = localStorage.getItem('userId');
     if (userId) {
-      axios.get(`http://localhost:9000/api/home.php?userId=${userId}`)
+      axios.get(`http://featuresphere.wuaze.com/api/home.php?userId=${userId}`)
         .then(function (response) {
           if (response.data.username) {
             setUser(response.data);
@@ -34,7 +34,7 @@ export default function Dashboard() {
           setError("Server error. Unable to fetch user data. Check the network tab for more details.");
         });
     } else {
-      axios.get("http://localhost:9000/api/logout.php")
+      axios.get("http://featuresphere.wuaze.com/api/logout.php")
         .then(function (response) {
           // Handle logout success
           localStorage.removeItem('userId'); // Remove 'userId' from localStorage
@@ -47,7 +47,7 @@ export default function Dashboard() {
 
   useEffect(() => {
 
-    axios.get(`http://localhost:9000/api/createProject.php?userId=${userId}`)
+    axios.get(`http://featuresphere.wuaze.com/api/createProject.php?userId=${userId}`)
       .then((response) => {
         if (Array.isArray(response.data.projects)) {
           setProjectOptions(response.data.projects);
@@ -64,7 +64,7 @@ export default function Dashboard() {
     // Check if the search term is empty
     if (searchTerm.trim() !== '') {
       // Make a request to search for tasks based on the searchTerm
-      axios.get(`http://localhost:9000/api/tasks.php?userId=${userId}&searchTerm=${searchTerm}`)
+      axios.get(`http://featuresphere.wuaze.com/api/tasks.php?userId=${userId}&searchTerm=${searchTerm}`)
         .then((response) => {
           if (response.data.status === 1 && Array.isArray(response.data.tasks)) {
             setSearchResults(response.data.tasks);

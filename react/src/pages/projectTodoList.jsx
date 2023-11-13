@@ -14,7 +14,7 @@ const ProjectTodo = () => {
   useEffect(() => {
     const fetchTasks = async () => {
       try {
-        const response = await axios.get(`http://localhost:9000/api/projectGetTask.php?userId=${userId}&projectId=${projectId}`);
+        const response = await axios.get(`http://featuresphere.wuaze.com/api/projectGetTask.php?userId=${userId}&projectId=${projectId}`);
         setTasks(response.data.tasks || []);
       } catch (error) {
         console.error('Error fetching tasks:', error);
@@ -32,7 +32,7 @@ const ProjectTodo = () => {
 
     if (isConfirmed) {
       try {
-        const response = await axios.post('http://localhost:9000/api/projectGetTask.php?userId=${userId}&projectId=${projectId}', {
+        const response = await axios.post('http://featuresphere.wuaze.com/api/projectGetTask.php?userId=${userId}&projectId=${projectId}', {
           action: 'updateProgress',
           taskId,
           taskProgress: 1,
@@ -40,7 +40,7 @@ const ProjectTodo = () => {
 
         if (response.data.status === 1) {
           // Re-fetch tasks after successful update
-          const updatedTasks = await axios.get(`http://localhost:9000/api/projectGetTask.php?userId=${userId}&projectId=${projectId}`);
+          const updatedTasks = await axios.get(`http://featuresphere.wuaze.com/api/projectGetTask.php?userId=${userId}&projectId=${projectId}`);
           setTasks(updatedTasks.data.tasks || []);
         } else {
           console.error('Error updating task progress:', response.data.message);
@@ -57,7 +57,7 @@ const ProjectTodo = () => {
 
     if (isConfirmed) {
       try {
-        const response = await axios.post('http://localhost:9000/api/projectGetTask.php?userId=${userId}&projectId=${projectId}', {
+        const response = await axios.post('http://featuresphere.wuaze.com/api/projectGetTask.php?userId=${userId}&projectId=${projectId}', {
           action: 'deleteTask',
           taskId,
         });

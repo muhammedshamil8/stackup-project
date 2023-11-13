@@ -14,7 +14,7 @@ const ProjectTodoDone = () => {
   useEffect(() => {
     const fetchTasks = async () => {
       try {
-        const response = await axios.get(`http://localhost:9000/api/projectDoneTask.php?userId=${userId}&projectId=${projectId}`);
+        const response = await axios.get(`http://featuresphere.wuaze.com/api/projectDoneTask.php?userId=${userId}&projectId=${projectId}`);
         setTasks(response.data.tasks || []);
       } catch (error) {
         console.error('Error fetching tasks:', error);
@@ -34,7 +34,7 @@ const ProjectTodoDone = () => {
 
     if (isConfirmed) {
       try {
-        const response = await axios.post('http://localhost:9000/api/projectGetTask.php?userId=${userId}&projectId=${projectId}', {
+        const response = await axios.post('http://featuresphere.wuaze.com/api/projectGetTask.php?userId=${userId}&projectId=${projectId}', {
           action: 'deleteTask',
           taskId,
         });

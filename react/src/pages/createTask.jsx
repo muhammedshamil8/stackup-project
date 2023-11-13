@@ -14,7 +14,7 @@ const CreateTask = () => {
 
 
   useEffect(() => {
-    axios.get(`http://localhost:9000/api/createProject.php?userId=${userId}`)
+    axios.get(`http://featuresphere.wuaze.com/api/createProject.php?userId=${userId}`)
       .then((response) => {
         if (Array.isArray(response.data.projects)) {
           setProjectOptions(response.data.projects);
@@ -79,7 +79,7 @@ const CreateTask = () => {
     const userId = localStorage.getItem('userId');
     if (userId) {
       axios
-        .post(`http://localhost:9000/api/taskCreate.php?userId=${userId}`, inputs)
+        .post(`http://featuresphere.wuaze.com/api/taskCreate.php?userId=${userId}`, inputs)
         .then((response) => {
           if (response.data.status === 0) {
             setErrors({ message: response.data.message });
@@ -113,7 +113,7 @@ const CreateTask = () => {
     if (userId) {
 
       axios
-        .post(`http://localhost:9000/api/createProject.php?userId=${userId}`, projectInputs)
+        .post(`http://featuresphere.wuaze.com/api//createProject.php?userId=${userId}`, projectInputs)
         .then((response) => {
           if (response.data.status === 0) {
             setErrors({ message: response.data.error });

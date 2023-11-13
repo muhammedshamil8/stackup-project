@@ -19,7 +19,7 @@ function Signup() {
         event.preventDefault();
         setErrors({}); // Clear any previous errors
 
-        axios.post('http://localhost:9000/api/signup.php', inputs).then(function (response) {
+        axios.post('http://featuresphere.wuaze.com/api/signup.php', inputs).then(function (response) {
             if (response.data.status === 0) {
                 setErrors({ message: response.data.message });
             } else {

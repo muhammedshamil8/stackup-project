@@ -22,7 +22,7 @@ export default function Users() {
   useEffect(() => {
     const userId = localStorage.getItem('userId');
     if (userId) {
-      axios.get(`http://localhost:9000/api/profile.php?userId=${userId}`)
+      axios.get(`http://featuresphere.wuaze.com/api/profile.php?userId=${userId}`)
         .then(function (response) {
           if (response.data.userData) {
             setUser(response.data.userData);
@@ -58,7 +58,7 @@ export default function Users() {
         if (userData.phonenumber !== null) {
           updatedUserData.phonenumber = userData.phonenumber;
       }
-        axios.post(`http://localhost:9000/api/profile.php?userId=${userId}`, updatedUserData)
+        axios.post(`http://featuresphere.wuaze.com/api/profile.php?userId=${userId}`, updatedUserData)
             .then((response) => {
                 setEditing(false);
                 setUser(response.data.userData);
@@ -112,7 +112,7 @@ const handleInputChange = (e) => {
   }, [isEditing]);
 
   function logout() {
-    axios.get("http://localhost:9000/api/logout.php")
+    axios.get("http://featuresphere.wuaze.com/api/logout.php")
         .then(function (response) {
             // Handle logout success
             localStorage.removeItem('userId'); // Remove 'userId' from localStorage
