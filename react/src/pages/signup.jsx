@@ -3,14 +3,14 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 function Signup() {
-    const api = axios.create({
-        baseURL: 'https://featuresphere.wuaze.com/api',
-    });
+   
     const Navigate = useNavigate();
     const [isFormVisible, setFormVisible] = useState(true);
     const [inputs, setInputs] = useState({});
     const [errors, setErrors] = useState({});
-
+    // const api = axios.create({
+    //     baseURL: 'https://featuresphere.wuaze.com/api',
+    // });
     
     const handleChange = (event) => {
         const name = event.target.name;
@@ -20,9 +20,9 @@ function Signup() {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        setErrors({}); // Clear any previous errors
+        setErrors({}); 
 
-        api.post(`/signup.php`, inputs).then(function (response) {
+        axios.post(`https://featuresphere.wuaze.com/api/signup.php`, inputs).then(function (response) {
             if (response.data.status === 0) {
                 setErrors({ message: response.data.message });
             } else {
@@ -67,6 +67,7 @@ function Signup() {
                     name="password"
                     placeholder="Password"
                     onChange={handleChange}
+                    autoComplete="new-password"
                 />
                 <input
                     type="password"
@@ -74,6 +75,7 @@ function Signup() {
                     name="passwordConfirm"
                     placeholder="Confirm Password"
                     onChange={handleChange}
+                    autoComplete="new-password"
                 />
                 <button className="btn btn-block">Signup</button>
                 <p className="message">

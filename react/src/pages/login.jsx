@@ -7,7 +7,7 @@ function Login() {
     const [isFormVisible, setFormVisible] = useState(true);
     const [inputs, setInputs] = useState({ email: "", password: "" });
     const [error, setError] = useState(null);
-
+   
     const handleChange = (event) => {
         const name = event.target.name;
         const value = event.target.value;
@@ -64,6 +64,7 @@ function Login() {
                     name="password"
                     placeholder="Password"
                     onChange={handleChange}
+                    autoComplete="new-password"
                 />
                 <button className="btn btn-block">Login</button>
 

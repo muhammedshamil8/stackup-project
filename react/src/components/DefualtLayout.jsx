@@ -47,7 +47,7 @@ export default function DefaultLayout() {
     useEffect(() => {
         const userId = localStorage.getItem('userId');
         if (userId) {
-            axios.get(`http://localhost:9000/api/home.php?userId=${userId}`)
+            axios.get(`https://featuresphere.wuaze.com/api/home.php?userId=${userId}`)
                 .then(function (response) {
                     if (response.data.username) {
                         setUser(response.data);
@@ -62,7 +62,7 @@ export default function DefaultLayout() {
                     setError("Server error. Unable to fetch user data. Check the network tab for more details.");
                 });
         } else {
-            axios.get("http://localhost:9000/api/logout.php")
+            axios.get("https://featuresphere.wuaze.com/api/http://localhost:9000/api/logout.php")
                 .then(function (response) {
                     localStorage.removeItem('userId');
                     Navigate("/login");
@@ -81,7 +81,7 @@ export default function DefaultLayout() {
     }
 
     function logout() {
-        axios.get("http://localhost:9000/api/logout.php")
+        axios.get("https://featuresphere.wuaze.com/api/logout.php")
             .then(function (response) {
                 localStorage.removeItem('userId');
                 Navigate("/login");

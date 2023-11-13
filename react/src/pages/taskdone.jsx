@@ -11,7 +11,7 @@ export default function Taskdone() {
     useEffect(() => {
         const fetchTasks = async () => {
             try {
-                const response = await axios.get(`http://featuresphere.wuaze.com/api/doneTasks.php?userId=${userId}`);
+                const response = await axios.get(`https://featuresphere.wuaze.com/api/doneTasks.php?userId=${userId}`);
                 setTasks(response.data.tasks ? response.data.tasks : []);
             } catch (error) {
                 console.error('Error fetching tasks:', error);
@@ -28,7 +28,7 @@ export default function Taskdone() {
 
         if (isConfirmed) {
             try {
-                const response = await axios.post('http://featuresphere.wuaze.com/api/getTasks.php', {
+                const response = await axios.post('https://featuresphere.wuaze.com/api/getTasks.php', {
                     action: 'deleteTask',
                     taskId,
                 });

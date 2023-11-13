@@ -14,7 +14,7 @@ const ProjectTodoProgress = () => {
   useEffect(() => {
     const fetchTasks = async () => {
       try {
-        const response = await axios.get(`http://featuresphere.wuaze.com/api/projectProgressTask.php?userId=${userId}&projectId=${projectId}`);
+        const response = await axios.get(`https://featuresphere.wuaze.com/api/projectProgressTask.php?userId=${userId}&projectId=${projectId}`);
         setTasks(response.data.tasks || []);
       } catch (error) {
         console.error('Error fetching tasks:', error);
@@ -32,7 +32,7 @@ const ProjectTodoProgress = () => {
 
     if (isConfirmed) {
       try {
-        const response = await axios.post(`http://featuresphere.wuaze.com/api/projectProgressTask.php?userId=${userId}&projectId=${projectId}`, {
+        const response = await axios.post(`https://featuresphere.wuaze.com/api/projectProgressTask.php?userId=${userId}&projectId=${projectId}`, {
           action: 'updateProgress',
           taskId,
           taskDone: 1,
@@ -41,7 +41,7 @@ const ProjectTodoProgress = () => {
 
         if (response.data.status === 1) {
           // Re-fetch tasks after successful update
-          const updatedTasks = await axios.get(`http://featuresphere.wuaze.com/api/projectProgressTask.php?userId=${userId}&projectId=${projectId}`);
+          const updatedTasks = await axios.get(`https://featuresphere.wuaze.com/api/projectProgressTask.php?userId=${userId}&projectId=${projectId}`);
           setTasks(updatedTasks.data.tasks || []);
         } else {
           console.error('Error updating task progress:', response.data.message);
@@ -58,7 +58,7 @@ const ProjectTodoProgress = () => {
 
     if (isConfirmed) {
       try {
-        const response = await axios.post('http://featuresphere.wuaze.com/api/projectGetTask.php?userId=${userId}&projectId=${projectId}', {
+        const response = await axios.post('https://featuresphere.wuaze.com/api/projectGetTask.php?userId=${userId}&projectId=${projectId}', {
 
           action: 'deleteTask',
           taskId,
