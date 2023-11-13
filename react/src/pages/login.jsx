@@ -8,8 +8,8 @@ function Login() {
     const [inputs, setInputs] = useState({ email: "", password: "" });
     const [error, setError] = useState(null);
     const api = axios.create({
-        baseURL: 'https://featuresphere.wuaze.com/api',
-    });
+        baseURL: 'https://test.shamil.strikerlulu.me',
+      });
     // const api = axios.create({
     //     baseURL: 'http://localhost:9000/api',
     // });

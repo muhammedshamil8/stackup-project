@@ -1,5 +1,23 @@
--- Database: `task-managment-app`
+-- Database: `task_managment_app`
 
+--
+-- Table structure for table `users`
+--
+
+CREATE TABLE `users` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `username` varchar(100) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `password` varchar(100) NOT NULL,
+  `fullname` varchar(50) DEFAULT NULL,
+  `DOB` date DEFAULT NULL,
+  `pronounce` int NOT NULL DEFAULT '0',
+  `phonenumber` int DEFAULT NULL,
+  `profession` varchar(50) DEFAULT NULL,
+  `create_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `update_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+);
 --
 -- Table structure for table `event`
 --
@@ -58,22 +76,5 @@ CREATE TABLE `project_user_association` (
   CONSTRAINT `project_user_association_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
 );
 
---
--- Table structure for table `users`
---
 
-CREATE TABLE `users` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `username` varchar(100) NOT NULL,
-  `email` varchar(100) NOT NULL,
-  `password` varchar(100) NOT NULL,
-  `fullname` varchar(50) DEFAULT NULL,
-  `DOB` date DEFAULT NULL,
-  `pronounce` int NOT NULL DEFAULT '0',
-  `phonenumber` int DEFAULT NULL,
-  `profession` varchar(50) DEFAULT NULL,
-  `create_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `update_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`)
-);
 

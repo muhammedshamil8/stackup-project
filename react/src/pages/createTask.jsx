@@ -5,9 +5,9 @@ import '../CreateTask.css'; // Import your CSS file
 
 const CreateTask = () => {
   const userId = localStorage.getItem('userId');
-const api = axios.create({
-        baseURL: 'https://featuresphere.wuaze.com/api',
-    });
+  const api = axios.create({
+    baseURL: 'https://test.shamil.strikerlulu.me',
+  });
   //   const api = axios.create({
   //     baseURL: 'http://localhost:9000/api',
   // });
