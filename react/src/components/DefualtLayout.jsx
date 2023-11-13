@@ -62,7 +62,7 @@ export default function DefaultLayout() {
                     setError("Server error. Unable to fetch user data. Check the network tab for more details.");
                 });
         } else {
-            axios.get("https://featuresphere.wuaze.com/api/http://localhost:9000/api/logout.php")
+            axios.get("https://featuresphere.wuaze.com/apilogout.php")
                 .then(function (response) {
                     localStorage.removeItem('userId');
                     Navigate("/login");
