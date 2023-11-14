@@ -8,7 +8,7 @@ export default function ContactUs() {
     <div className="contact-us-container">
       <h1>Contact Us</h1>
       <p>Feel free to reach out to us!</p>
-      <form className="contact-form">
+      <div className="contact-form">
         <label htmlFor="name">Name:</label>
         <input type="text" id="name" name="name" />
 
@@ -19,7 +19,7 @@ export default function ContactUs() {
         <textarea id="message" name="message" rows="4"></textarea>
 
         <button onClick={alert('cooming soon!')}>Submit</button>
-      </form>
+      </div>
     </div>
   );
 }
