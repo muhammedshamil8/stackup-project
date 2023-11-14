@@ -23,6 +23,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    color: #000 !important;
   }
   label {
     display: block;
@@ -63,6 +64,7 @@
   .create-project {
     margin-top: 1rem;
     display: initial;
+
   }
   /* .create-projectshow {
     margin-top: 1rem;
