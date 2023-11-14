@@ -19,9 +19,9 @@
 
 ## Product Walkthrough
 
-[Watch the Product Walkthrough Video](link-to-video) will upload
+Watch the Product Walkthrough Video [go live](link-to-video) will upload
 
-[Watch the Product Walkthrough live-site](https://featuresphere.vercel.app/)
+Watch the Product Walkthrough live-site [go live](https://featuresphere.vercel.app/)
 
 ## How It Works
 
@@ -83,23 +83,23 @@ if you using docker >
 
 Before running the project, make sure you have Docker installed on your machine. If not, download and install Docker from [here](https://www.docker.com/get-started).
 
-4. [Watch the Product Running  Video](link-to-video) will upload
+4. Watch the Product Running  Video [go live](link-to-video) will upload
 
 
 **Update API Endpoint:**
 
 During local development, you'll need to update the API endpoint in your React app to point to your local server. 
 which all jsx files Axios is set up.
- from
+- from :-
     const api = axios.create({
         baseURL: 'https://test.shamil.strikerlulu.me',
     }); 
-  to 
+- to :-
      const api = axios.create({
        baseURL: 'http://localhost:9000/api',
    });
 
-**Explore the App:**
+## Explore the App:
 
 Interact with the app, create tasks, and experience the task management functionalities
 
