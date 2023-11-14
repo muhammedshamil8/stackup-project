@@ -1,8 +1,8 @@
 ![StackUp Banner](https://tinkerhub.frappe.cloud/files/stackup%20banner.jpeg)
 
-# Task Management App
+# featuresphere[Task Management App]
 
-**Task Management App** :-
+**Description** :-
 
                      A simple app where a user can create an account and create todos in that account, 
                      these to-dos can be updated or deleted and will be saved to a user’s account.
@@ -19,7 +19,7 @@
 
 ## Product Walkthrough
 
-Watch the Product Walkthrough Video [go live](link-to-video) will upload
+Watch the Product Walkthrough Video [go live](https://drive.google.com/file/d/1lHow4-X5oN25hs8ocK5iNwxGKWJ5nYIH/view?usp=drive_link) 
 
 Watch the Product Walkthrough live-site [go live](https://featuresphere.vercel.app/)
 
@@ -85,7 +85,7 @@ if you using docker >
 
 Before running the project, make sure you have Docker installed on your machine. If not, download and install Docker from [here](https://www.docker.com/get-started).
 
-4. Watch the Product Running  Video [go live](link-to-video) will upload
+4. Watch the Product Running  Video [go live](https://drive.google.com/file/d/1B1_xH9tdb8P6xZ35HiXIeTukchL1o5gK/view?usp=drive_link) 
 
 
 **Update API Endpoint:**
@@ -93,13 +93,20 @@ Before running the project, make sure you have Docker installed on your machine.
 During local development, you'll need to update the API endpoint in your React app to point to your local server. 
 which all jsx files Axios is set up.
 - from :-
+
+
+    ```bash
     const api = axios.create({
         baseURL: 'https://test.shamil.strikerlulu.me',
     }); 
+
 - to :-
+
+    ```bash
      const api = axios.create({
        baseURL: 'http://localhost:9000/api',
    });
+
 
 ## Explore the App:
 
