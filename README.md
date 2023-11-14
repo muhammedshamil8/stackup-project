@@ -26,6 +26,8 @@ Watch the Product Walkthrough live-site [go live](https://featuresphere.vercel.a
 ## How It Works
 
 1. **Project Overview:**
+   * featuresphere
+2. **Project Overview:**
 
 The Task Management App offers a user-friendly interface for efficient task organization. Key features include:
 
@@ -36,7 +38,7 @@ The Task Management App offers a user-friendly interface for efficient task orga
 
 Experience seamless task management and enhance your productivity with our app!
 
-2. **Project Demo:**
+3. **Project Demo:**
    - Check out the video demo for a quick overview of the app's features and functionality.
 ## Feature Coming Things
 

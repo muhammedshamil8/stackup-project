@@ -454,11 +454,12 @@ table>tbody>tr>td {
         transform: translateX(300px);
     }
 }
-.error-message {
+.error-message , .error{
     color: red;
     text-align: center;
     margin-bottom: 7px;
     font-size: 18px;
+    margin: auto;
   }
   
   .success-message {
@@ -466,6 +467,7 @@ table>tbody>tr>td {
     text-align: center;
     margin-bottom: 7px;
     font-size: 18px;
+    margin: auto;
   }
 
 
