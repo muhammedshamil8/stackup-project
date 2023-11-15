@@ -135,7 +135,7 @@ export default function Project() {
       </div>
 
       <div className="project-details">
-        {/* <fieldset className="fieldset-container"> */}
+        <fieldset className="fieldset-container">
         <legend style={{ wordWrap: 'break-word' }}>
           <strong>Project Description:</strong>
         </legend>
@@ -160,7 +160,7 @@ export default function Project() {
           </div>
 
         )}
-        {/* </fieldset> */}
+        </fieldset>
         <div className="action-buttons">
           {!editMode && <button onClick={handleEdit}>Edit</button>}
           {editMode && (

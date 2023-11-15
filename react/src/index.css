@@ -671,7 +671,7 @@ margin: auto;
 
 .fieldset-container {
     margin-bottom: 20px;
-    width: 100px !important;
+    width: 100% !important;
     /* Set the width to 100% or any other value you prefer */
     overflow: auto;
     border: 1px solid #ccc;
