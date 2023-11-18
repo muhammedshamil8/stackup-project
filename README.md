@@ -21,6 +21,7 @@
 
 Watch the Product Walkthrough Video [go live](https://drive.google.com/file/d/1lHow4-X5oN25hs8ocK5iNwxGKWJ5nYIH/view?usp=drive_link) 
 
+sorry backend server was down
 Watch the Product Walkthrough live-site [go live](https://featuresphere.vercel.app/)
 
 ## How It Works
