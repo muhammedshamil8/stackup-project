@@ -8,7 +8,7 @@
                      these to-dos can be updated or deleted and will be saved to a user’s account.
 
 ## Team Members
-1. Shamil [profile](https://github.com/muhammedshamil8)
+1. Shamil [profile](https://github.com/muhammedshamil8) & second account [profile](https://github.com/strikerlulu)
 2. Shifna  [profile](https://github.com/shifnashirin)
 3. Dayyan [profile](https://github.com/Dayyan404) & second account [profile](https://github.com/minhajp4323)
 4. Dheena [profile](https://github.com/dheenanasrin)
@@ -21,7 +21,7 @@
 
 Watch the Product Walkthrough Video [go live](https://drive.google.com/file/d/1lHow4-X5oN25hs8ocK5iNwxGKWJ5nYIH/view?usp=drive_link) 
 
-sorry backend server was down
+
 Watch the Product Walkthrough live-site [go live](https://featuresphere.vercel.app/)
 
 ## How It Works
@@ -98,7 +98,7 @@ which all jsx files Axios is set up.
 
     ```bash
     const api = axios.create({
-        baseURL: 'https://test.shamil.strikerlulu.me',
+        baseURL: 'https://task-managment-app.k.strikerlulu.me',
     }); 
 
 - to :-

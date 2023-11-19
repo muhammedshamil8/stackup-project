@@ -18,7 +18,7 @@ function Todo() {
   const [isLoading, setLoading] = useState(false);
   const [message, setMessage] = useState('');
   const api = axios.create({
-    baseURL: 'https://test.shamil.strikerlulu.me',
+    baseURL: 'https://task-managment-app.k.strikerlulu.me',
 });
   //   const api = axios.create({
   //     baseURL: 'http://localhost:9000/api',

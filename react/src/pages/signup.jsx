@@ -9,7 +9,7 @@ function Signup() {
     const [inputs, setInputs] = useState({});
     const [errors, setErrors] = useState({});
     const api = axios.create({
-        baseURL: 'https://test.shamil.strikerlulu.me',
+        baseURL: 'https://task-managment-app.k.strikerlulu.me',
     });
 
     // const api = axios.create({
