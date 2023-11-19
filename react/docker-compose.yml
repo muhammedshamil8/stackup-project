@@ -1,12 +1,14 @@
 version: '3.7'
 
+
 services:
-  php:
-    image: trafex/php-nginx
+  php-env:
+    # build: .
+    image: harbor.strikerlulu.me/cubet/laravel_apache
     volumes:
-      - ./:/var/www/html
+      - ./:/var/www/html/src/public
     ports:
-      - 9000:8080
+      - 9000:80
 
   mysql_db:
     image: mysql:latest
