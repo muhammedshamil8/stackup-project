@@ -1,10 +1,16 @@
 version: '3.7'
 
-
+# services:
+#   php:
+#     image: trafex/php-nginx
+#     volumes:
+#       - ./:/var/www/html
+#     ports:
+#       - 9000:8080
 services:
   php-env:
     # build: .
-    image: harbor.strikerlulu.me/cubet/laravel_apache
+    image: harbor.strikerlulu.me/cubet/laravel_apache:latest
     volumes:
       - ./:/var/www/html/src/public
     ports:
@@ -16,7 +22,7 @@ services:
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: task-managment-app
+      MYSQL_DATABASE: task_managment_app
     ports:
       - 3306:3306
     volumes:

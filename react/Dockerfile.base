@@ -1,58 +1,66 @@
 FROM arm64v8/php:8.1-apache
-RUN apt-get update && apt-get install -y  \
-curl  \
-g++  \
-git \
-libbz2-dev \
-libpq-dev \
-libfreetype6-dev \
-libicu-dev \
-libjpeg-dev \
-libonig-dev \
-libzip-dev \
-libmcrypt-dev \
-libpng-dev \
-libreadline-dev \
-sudo \
-unzip \
-zip  && rm -rf /var/lib/apt/lists/*
 
+# Install dependencies
+RUN apt-get update && apt-get install -y \
+    curl \
+    g++ \
+    git \
+    libbz2-dev \
+    libpq-dev \
+    libfreetype6-dev \
+    libicu-dev \
+    libjpeg-dev \
+    libonig-dev \
+    libzip-dev \
+    libmcrypt-dev \
+    libpng-dev \
+    libreadline-dev \
+    sudo \
+    unzip \
+    zip \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install PHP extensions
 RUN docker-php-ext-install \
-bcmath \
-bz2 \
-calendar \
-iconv \
-pdo \
-pdo_pgsql \
-intl \
-mbstring \
-opcache \
-pdo_mysql \
-zip exif
+    bcmath \
+    bz2 \
+    calendar \
+    iconv \
+    pdo \
+    pdo_pgsql \
+    intl \
+    mbstring \
+    opcache \
+    pdo_mysql \
+    zip \
+    exif
 
+# Enable PHP extensions
 RUN docker-php-ext-enable \
-bcmath \
-bz2 \
-calendar \
-iconv \
-pdo \
-pdo_pgsql \
-intl \
-mbstring \
-opcache \
-pdo_mysql \
-zip exif
+    bcmath \
+    bz2 \
+    calendar \
+    iconv \
+    pdo \
+    pdo_pgsql \
+    intl \
+    mbstring \
+    opcache \
+    pdo_mysql \
+    zip \
+    exif
 
+# Configure and install GD extension
 RUN docker-php-ext-configure gd --enable-gd --with-freetype --with-jpeg
-
 RUN docker-php-ext-install gd
 
+# Copy PHP application code
 COPY . /var/www/html/src/public
 
+# Uncomment the following lines if needed
 # RUN apt-get update && apt-get upgrade -y
-
 # RUN pecl install xdebug
 # RUN docker-php-ext-enable xdebug
+
+# Copy a custom PHP configuration file if needed
 # COPY conf/custom.ini /usr/local/etc/php/conf.d/custom.ini
-
-

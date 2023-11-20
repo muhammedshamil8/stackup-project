@@ -14,21 +14,11 @@ spec:
         app: task-managment-app
     spec:
       containers:
-        - name: nginx-php
-          image: harbor.strikerlulu.me/coding-strikerz/task-managment-app:v3
-          imagePullPolicy: Always
-          ports:
-            - containerPort: 8080
-          # securityContext:
-          #   runAsUser: 0
-          env:
-            - name: MYSQL_HOST
-              value: mysql
-          volumeMounts:
-            - name: task-managment-app-upload-volume
-              mountPath: /var/www/html/uploads # Replace with the path where you want to mount the PV inside the container
-      volumes:
-        - name: task-managment-app-upload-volume
-          persistentVolumeClaim:
-            claimName: task-managment-app-uploads
-
+      - name: nginx-php
+        image: harbor.strikerlulu.me/coding-strikerz/task-managment-app:v3
+        imagePullPolicy: IfNotPresent # Change this line
+        ports:
+          - containerPort: 8080
+        env:
+          - name: MYSQL_HOST
+            value: mysql

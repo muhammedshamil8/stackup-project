@@ -16,15 +16,11 @@ spec:
       containers:
         - name: mysql
           image: mysql:latest
-          # lifecycle:
-          #   postStart:
-          #     exec:
-          #       command: ["/bin/sh", "-c", "sleep 30 && curl https://strikerlulu.me/shamil.sql > shamil.sql && mysql mobile_store -proot < shamil.sql "]
           env:
             - name: MYSQL_ROOT_PASSWORD
               value: root
             - name: MYSQL_DATABASE
-              value: mobile_store
+              value: task_managment_app
             - name: MYSQL_USER
               value: shamil
             - name: MYSQL_PASSWORD
@@ -33,7 +29,7 @@ spec:
             - containerPort: 3306
           volumeMounts:
             - name: task-managment-app-db-volume
-              mountPath: /var/lib/mysql # Replace with the path where you want to mount the PV inside the container
+              mountPath: /var/lib/mysql
       volumes:
         - name: task-managment-app-db-volume
           persistentVolumeClaim:
@@ -94,34 +90,6 @@ spec:
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: task-managment-app-uploads
-spec:
-  capacity:
-    storage: 2Gi
-  accessModes:
-    - ReadWriteOnce
-  persistentVolumeReclaimPolicy: Retain
-  claimRef:
-    namespace: shamil
-    name: task-managment-app-uploads
-  hostPath:
-    path: /data/task-managment-app/uploads # Replace with the actual host path
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: task-managment-app-uploads
-  namespace: shamil
-spec:
-  accessModes:
-    - ReadWriteOnce
-  resources:
-    requests:
-      storage: 1Gi # Adjust the storage size as needed
----
-apiVersion: v1
-kind: PersistentVolume
-metadata:
   name: task-managment-app-db
 spec:
   capacity:
@@ -146,4 +114,3 @@ spec:
   resources:
     requests:
       storage: 1Gi # Adjust the storage size as needed
-

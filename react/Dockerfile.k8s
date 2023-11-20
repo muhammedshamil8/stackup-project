@@ -1,11 +1,17 @@
+# Use the trafex/php-nginx:latest base image
 FROM trafex/php-nginx:latest
 
+# Switch to root user temporarily to install packages
 USER root
 
+# Install the php81-pdo_mysql package
 RUN apk add --no-cache php81-pdo_mysql
 
+# Switch back to the 'nobody' user
 USER nobody
 
-COPY . /var/www/html
+# Copy only the necessary files from react/api/ into /var/www/html
+COPY react/api/ /var/www/html
 
+# Set the working directory
 WORKDIR /var/www/html
