@@ -10,7 +10,6 @@ function Login() {
     const api = axios.create({
         baseURL: 'https://task-managment-app.k.strikerlulu.me',
       });
-      task-managment-app.k.strikerlulu.me
     // const api = axios.create({
     //     baseURL: 'http://localhost:9000/api',
     // });
