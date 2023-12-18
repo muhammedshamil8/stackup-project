@@ -1,8 +1,10 @@
 import axios from "axios";
 
+
 const axiosClient = axios.create({
-  baseURL: 'http://localhost:9000/api',
+  baseURL: 'https://featuresphere.wuaze.com/api/',
 })
+// for development ...! or local run  baseURL: 'http://localhost:9000/api',
 // for hosting domain ...!
     //     baseURL: 'https://task-managment-app.k.strikerlulu.me',
   
