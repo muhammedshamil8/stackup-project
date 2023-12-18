@@ -1,14 +1,15 @@
 import { NavLink, useNavigate, useLocation, Outlet } from "react-router-dom";
 import React, { useEffect, useState } from 'react';
 import axios from "axios";
-import boyImage from '../../public/boy.webp';
-import girlImage from '../../public/girl.webp';
-import defualtImage from '../../public/defualt.webp';
-import home from '../../public/home.svg';
-import calender from '../../public/calender.svg';
-import profile from '../../public/profile.svg';
-import addTask from '../../public/add.svg';
-import LodingImg from '../../public/logo@2x.png'
+import boyImage from '../images/boy.webp';
+import girlImage from '../images/girl.webp';
+import defualtImage from '../images/defualt.webp';
+import home from '../images/home.svg';
+import calender from '../images/calender.svg';
+import profile from '../images/profile.svg';
+import addTask from '../images/add.svg';
+import LodingImg from '../images/logo@2x.png'
+import axiosClient from "../axiosClient";
 
 
 export default function DefaultLayout() {
@@ -18,34 +19,36 @@ export default function DefaultLayout() {
     const [error, setError] = useState(null);
     const [isLoading, setLoading] = useState(true);
     const [showCard, setShowCard] = useState(false);
-    const [darkMode, setDarkMode] = useState(false);
-    // const [darkMode, setDarkMode] = useState(
-    //     localStorage.getItem('darkMode') === 'true'
-    //   );
-    const api = axios.create({
-        baseURL: 'https://task-managment-app.k.strikerlulu.me',
-    });
-    // const api = axios.create({
-    //     baseURL: 'http://localhost:9000/api',
-    // });
+    const [darkMode, setDarkMode] = useState(
+        localStorage.getItem('darkMode') === 'true'
+    );
+
     const toggleCard = () => {
         setShowCard(!showCard);
     };
 
+
     const toggleDarkMode = () => {
-        setDarkMode(!darkMode);
+        const appContainer = document.getElementById('defaultLayout');
+        appContainer.classList.toggle('dark-mode');
+      // Toggle darkMode and update state
+  const newDarkModeValue = !darkMode;
+  setDarkMode(newDarkModeValue);
+
+  // Save darkMode preference to local storage
+  localStorage.setItem('darkMode', JSON.stringify(newDarkModeValue));
         const body = document.body;
         const header = document.body.querySelector('header');
         if (darkMode) {
-            body.style.backgroundColor = '#fff'; 
+            body.style.backgroundColor = '#fff';
             body.style.color = '#1a1a1a';
-            header.style.backgroundColor = '#fff'; 
-            header.style.color = '#1a1a1a';
+            header.style.backgroundColor = '#fff';
+            header.style.color = '#fff';
         } else {
-            body.style.backgroundColor = '#333'; 
-            body.style.color = '#fff'; 
-            header.style.backgroundColor = '#1a1a1a'; 
-            header.style.color = '#fff'; 
+            body.style.backgroundColor = '#333';
+            body.style.color = '#fff';
+            header.style.backgroundColor = '#1a1a1a';
+            header.style.color = '#fff';
         }
     };
 
@@ -57,9 +60,13 @@ export default function DefaultLayout() {
 
 
     useEffect(() => {
+        getUser();
+    }, []);
+
+    const getUser = () => {
         const userId = localStorage.getItem('userId');
         if (userId) {
-            api.get(`/home.php?userId=${userId}`)
+            axiosClient.get(`/home.php?userId=${userId}`)
                 .then(function (response) {
                     if (response.data.username) {
                         setUser(response.data);
@@ -72,28 +79,31 @@ export default function DefaultLayout() {
                 .catch(function (error) {
                     console.error("Error: " + error);
                     setError("Server error. Unable to fetch user data. Check the network tab for more details.");
+                    alert("Server error. Unable to fetch user data. Check the network tab for more details. i think backend is down")
+                    localStorage.removeItem('userId');
+                    Navigate("/login");
                 });
         } else {
-            api.get("/logout.php")
+            axiosClient.get("/logout.php")
                 .then(function (response) {
                     localStorage.removeItem('userId');
                     Navigate("/login");
                 })
 
         }
-    }, []);
+    };
 
-    function about(){
+    function about() {
         Navigate("/about");
-        
+
     }
-    function contact(){
+    function contact() {
         Navigate("/contact");
 
     }
 
     function logout() {
-        api.get("/logout.php")
+        axiosClient.get("/logout.php")
             .then(function (response) {
                 localStorage.removeItem('userId');
                 Navigate("/login");
@@ -121,7 +131,7 @@ export default function DefaultLayout() {
                     <img src={LodingImg} className="loading-spinner" />
                 </div>
             ) : (
-                <div id="defaultLayout">
+                <div id="defaultLayout" >
 
                     <div className="content">
                         <header className={`${darkMode ? 'dark-mode' : ''}`}>
@@ -129,22 +139,22 @@ export default function DefaultLayout() {
                                 <div>
                                     <img src={nop} className="profile-image" />
                                 </div>
-                                <div className={`profile-info ${darkMode ? 'dark-mode' : ''}`}>
-                                    <p>{user.username}</p>
-                                    <p>{user.profession}</p>
+                                <div className={`profile-info ${darkMode ? 'dark-mode' : ''} `}>
+                                    <p className={`${darkMode ? 'dark-mode' : ''}`}>{user.username}</p>
+                                    <p className={`${darkMode ? 'dark-mode-down' : ''}`}>{user.profession}</p>
                                 </div>
                             </div>
                             <div className={`header-center-section ${darkMode ? 'dark-mode' : ''}`}>
-                                <NavLink to="/dashboard" className={`center-child ${location.pathname === '/dashboard' ? 'active-link' : ''}`}>
+                                <NavLink to="/dashboard" className={`center-child ${location.pathname === '/dashboard' ? 'active-link' : ''} ${darkMode ? 'dark-mode' : ''}`}>
                                     Home
                                 </NavLink>
-                                <NavLink to="/addtask" className={`center-child ${location.pathname === '/addtask' ? 'active-link' : ''}`}>
+                                <NavLink to="/addtask" className={`center-child ${location.pathname === '/addtask' ? 'active-link' : ''} ${darkMode ? 'dark-mode' : ''}`}>
                                     Create Task
                                 </NavLink>
-                                <NavLink to="/users" className={`center-child ${location.pathname === '/users' ? 'active-link' : ''}`}>
+                                <NavLink to="/users" className={`center-child ${location.pathname === '/users' ? 'active-link' : ''} ${darkMode ? 'dark-mode' : ''}`}>
                                     Profile
                                 </NavLink>
-                                <NavLink to="/calender" className={`center-child ${location.pathname === '/calender' ? 'active-link' : ''}`}>
+                                <NavLink to="/calender" className={`center-child ${location.pathname === '/calender' ? 'active-link' : ''} ${darkMode ? 'dark-mode' : ''}`}>
                                     Calendar
                                 </NavLink>
                             </div>
@@ -178,11 +188,11 @@ export default function DefaultLayout() {
 
                         </header>
 
-                        <main>
+                        <main className={`${darkMode ? 'dark-mode-body' : 'light-mode-body'}`}>
                             {user ? (
                                 <div className="main-body">
 
-                                    <Outlet user={user} />
+                                    <Outlet  context={[darkMode]} />
 
 
                                     {error && <div className="error">{error}</div>}

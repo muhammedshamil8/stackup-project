@@ -1,19 +1,17 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate ,useOutletContext} from "react-router-dom";
 import axios from "axios";
 import './UserProfile.css'; // Import your CSS file
+import axiosClient from "../axiosClient";
+
 
 export default function Users() {
   const Navigate = useNavigate();
   const [user, setUser] = useState(null);
   const [error, setErrors] = useState({});
   const [isEditing, setEditing] = useState(false);
-  const api = axios.create({
-    baseURL: 'https://task-managment-app.k.strikerlulu.me',
-  });
-  //   const api = axios.create({
-  //     baseURL: 'http://localhost:9000/api',
-  // });
+  const [darkMode] = useOutletContext();
+ 
   const [userData, setUserData] = useState({
     username: '',
     fullname: '',
@@ -27,7 +25,7 @@ export default function Users() {
   useEffect(() => {
     const userId = localStorage.getItem('userId');
     if (userId) {
-      api.get(`/profile.php?userId=${userId}`)
+      axiosClient.get(`/profile.php?userId=${userId}`)
         .then(function (response) {
           if (response.data.userData) {
             setUser(response.data.userData);
@@ -63,7 +61,7 @@ export default function Users() {
       if (userData.phonenumber !== null) {
         updatedUserData.phonenumber = userData.phonenumber;
       }
-      api.post(`/profile.php?userId=${userId}`, updatedUserData)
+      axiosClient.post(`/profile.php?userId=${userId}`, updatedUserData)
         .then((response) => {
           setEditing(false);
           setUser(response.data.userData);
@@ -117,7 +115,7 @@ export default function Users() {
   }, [isEditing]);
 
   function logout() {
-    api.get("/logout.php")
+    axiosClient.get("/logout.php")
       .then(function (response) {
         // Handle logout success
         localStorage.removeItem('userId'); // Remove 'userId' from localStorage
@@ -140,7 +138,7 @@ export default function Users() {
     }
   }
   return (
-    <div className="user-profile">
+    <div className={`user-profile ${darkMode ? 'dark-mode-task' : ''}`}>
       <h1>My Profile</h1>
       <button className="edit-button" onClick={handleEditClick}>
         {isEditing ? 'Cancel' : 'Edit'}

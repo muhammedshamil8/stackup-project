@@ -1,6 +1,16 @@
 # Set the base image
 FROM php:8.1-apache
 
+# Enable mod_rewrite
+RUN a2enmod rewrite
+
+# Install MySQLi extension
+RUN docker-php-ext-install mysqli
+
+# Enable the MySQLi extension
+RUN docker-php-ext-enable mysqli
+
+
 # Copy the PHP application code into the container
 COPY api /var/www/html
 
@@ -56,5 +66,8 @@ RUN apt-get update && apt-get install -y \
 RUN pecl install xdebug \
     && docker-php-ext-enable xdebug
 
+
+# Install MySQL client
+RUN apt-get update && apt-get install -y default-mysql-client
 # Optionally, copy a custom PHP configuration file
 # COPY conf/php.ini /usr/local/etc/php/php.ini

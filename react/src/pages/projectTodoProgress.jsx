@@ -3,6 +3,8 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './task-page.css';
 import { Link, useNavigate, useParams } from 'react-router-dom';
+import axiosClient from "../axiosClient";
+
 
 const ProjectTodoProgress = () => {
   const { projectId } = useParams();
@@ -10,16 +12,11 @@ const ProjectTodoProgress = () => {
 
   const [tasks, setTasks] = useState([]);
   const userId = localStorage.getItem('userId');
-  const api = axios.create({
-    baseURL: 'https://task-managment-app.k.strikerlulu.me',
-  });
-  //   const api = axios.create({
-  //     baseURL: 'http://localhost:9000/api',
-  // });
+  
   useEffect(() => {
     const fetchTasks = async () => {
       try {
-        const response = await api.get(`/projectProgressTask.php?userId=${userId}&projectId=${projectId}`);
+        const response = await axiosClient.get(`/projectProgressTask.php?userId=${userId}&projectId=${projectId}`);
         setTasks(response.data.tasks || []);
       } catch (error) {
         console.error('Error fetching tasks:', error);
@@ -37,7 +34,7 @@ const ProjectTodoProgress = () => {
 
     if (isConfirmed) {
       try {
-        const response = await api.post(`/projectProgressTask.php?userId=${userId}&projectId=${projectId}`, {
+        const response = await axiosClient.post(`/projectProgressTask.php?userId=${userId}&projectId=${projectId}`, {
           action: 'updateProgress',
           taskId,
           taskDone: 1,
@@ -46,7 +43,7 @@ const ProjectTodoProgress = () => {
 
         if (response.data.status === 1) {
           // Re-fetch tasks after successful update
-          const updatedTasks = await api.get(`/projectProgressTask.php?userId=${userId}&projectId=${projectId}`);
+          const updatedTasks = await axiosClient.get(`/projectProgressTask.php?userId=${userId}&projectId=${projectId}`);
           setTasks(updatedTasks.data.tasks || []);
         } else {
           console.error('Error updating task progress:', response.data.message);
@@ -63,7 +60,7 @@ const ProjectTodoProgress = () => {
 
     if (isConfirmed) {
       try {
-        const response = await api.post('/projectGetTask.php?userId=${userId}&projectId=${projectId}', {
+        const response = await axiosClient.post('/projectGetTask.php?userId=${userId}&projectId=${projectId}', {
 
           action: 'deleteTask',
           taskId,

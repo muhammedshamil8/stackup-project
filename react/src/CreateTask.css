@@ -14,6 +14,23 @@
     margin: auto;
 
   }
+  .dark-mode-task{
+    background-color: #333333 !important;
+    color: #fff !important;
+  }
+  .dark-mode-task > input ,
+  .dark-mode-task > select,
+  .dark-mode-task > textarea{
+    background-color: #7a7474 !important;
+    color: #fff !important;
+  }
+  .dark-mode-task > label{
+    color: #fff !important;
+  }
+
+ .cTask-card > p{
+  color: #000;
+ }
   .submit{
     display: flex;
     align-items: center;
@@ -40,7 +57,15 @@
     margin-top: 0.25rem;
     border-radius: 0.25rem;
   }
+  .date{
+    cursor: pointer;
+  }
+ 
   
+  /* Change cursor style for calendar icon */
+  input[type="date"]::-webkit-calendar-picker-indicator {
+    cursor: pointer;
+  }
   .add-button {
     background-color: #5b08a7;
     color: #fff;

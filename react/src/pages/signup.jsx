@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import axiosClient from "../axiosClient";
+
 
 function Signup() {
    
@@ -8,13 +10,6 @@ function Signup() {
     const [isFormVisible, setFormVisible] = useState(true);
     const [inputs, setInputs] = useState({});
     const [errors, setErrors] = useState({});
-    const api = axios.create({
-        baseURL: 'https://task-managment-app.k.strikerlulu.me',
-    });
-
-    // const api = axios.create({
-    //     baseURL: 'http://localhost:9000/api',
-    // });
     
     const handleChange = (event) => {
         const name = event.target.name;
@@ -26,7 +21,7 @@ function Signup() {
         event.preventDefault();
         setErrors({}); 
 
-        api.post(`/signup.php`, inputs).then(function (response) {
+        axiosClient.post(`/signup.php`, inputs).then(function (response) {
             if (response.data.status === 0) {
                 setErrors({ message: response.data.message });
             } else {

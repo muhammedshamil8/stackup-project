@@ -1,18 +1,15 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import axiosClient from "../axiosClient";
+
 
 function Login() {
     const Navigate = useNavigate();
     const [isFormVisible, setFormVisible] = useState(true);
     const [inputs, setInputs] = useState({ email: "", password: "" });
     const [error, setError] = useState(null);
-    const api = axios.create({
-        baseURL: 'https://task-managment-app.k.strikerlulu.me',
-      });
-    // const api = axios.create({
-    //     baseURL: 'http://localhost:9000/api',
-    // });
+   
     const handleChange = (event) => {
         const name = event.target.name;
         const value = event.target.value;
@@ -23,7 +20,7 @@ function Login() {
         event.preventDefault();
 
         // Sending a POST request to the login API 
-        api
+        axiosClient
             .post("/login.php", inputs)
             .then(function (response) {
                 if (response.data.status === 1) {

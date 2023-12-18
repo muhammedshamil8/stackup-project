@@ -2,23 +2,20 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './task-page.css';
 import { Link, useNavigate } from 'react-router-dom';
+import axiosClient from "../axiosClient";
+
 
 const Todolist = () => {
   const navigate = useNavigate();
 
   const [tasks, setTasks] = useState([]);
   const userId = localStorage.getItem('userId');
-  const api = axios.create({
-    baseURL: 'https://task-managment-app.k.strikerlulu.me',
-});
-  //   const api = axios.create({
-  //     baseURL: 'http://localhost:9000/api',
-  // });
+
 
   useEffect(() => {
     const fetchTasks = async () => {
       try {
-        const response = await api.get(`/getTasks.php?userId=${userId}`);
+        const response = await axiosClient.get(`/getTasks.php?userId=${userId}`);
         setTasks(response.data.tasks || []);
       } catch (error) {
         console.error('Error fetching tasks:', error);
@@ -35,7 +32,7 @@ const Todolist = () => {
 
     if (isConfirmed) {
       try {
-        const response = await api.post('/getTasks.php', {
+        const response = await axiosClient.post('/getTasks.php', {
           action: 'updateProgress',
           taskId,
           taskProgress: 1,
@@ -43,7 +40,7 @@ const Todolist = () => {
 
         if (response.data.status === 1) {
           // Re-fetch tasks after successful update
-          const updatedTasks = await api.get(`/getTasks.php?userId=${userId}`);
+          const updatedTasks = await axiosClient.get(`/getTasks.php?userId=${userId}`);
           setTasks(updatedTasks.data.tasks || []);
         } else {
           console.error('Error updating task progress:', response.data.message);
@@ -60,7 +57,7 @@ const Todolist = () => {
 
     if (isConfirmed) {
       try {
-        const response = await api.post('/getTasks.php', {
+        const response = await axiosClient.post('/getTasks.php', {
           action: 'deleteTask',
           taskId,
         });

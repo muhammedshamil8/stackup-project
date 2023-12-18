@@ -1,10 +1,14 @@
-import bgImage from '../../public/about.jpg'
+import bgImage from '../images/about.jpg'
+import {useOutletContext} from "react-router-dom";
+
 export default function AboutUS() {
+  const [darkMode] = useOutletContext();
+
     return (
       <div className='about-page'>
          
   <div class="container1">
-    <img src="about.jpg" className='about-image'/>
+    <img src={bgImage} className='about-image'/>
     <h1 >About Us</h1>
 
   </div>

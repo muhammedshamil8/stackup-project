@@ -1,25 +1,27 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate ,useOutletContext } from 'react-router-dom';
 import axios from 'axios';
 import '../CreateTask.css'; // Import your CSS file
+import axiosClient from "../axiosClient";
 
 const CreateTask = () => {
   const userId = localStorage.getItem('userId');
-  const api = axios.create({
-    baseURL: 'https://task-managment-app.k.strikerlulu.me',
-  });
-  //   const api = axios.create({
-  //     baseURL: 'http://localhost:9000/api',
-  // });
+  const [darkMode] = useOutletContext();
+
   const [projectInputs, setProjectInputs] = useState({
     projectName: '',
     projectDescription: '',
   });
+
   const [projectOptions, setProjectOptions] = useState([]);
 
 
   useEffect(() => {
-    api.get(`/createProject.php?userId=${userId}`)
+    ProjectData(userId);
+  }, [userId]);
+
+  function ProjectData(userId) {
+    axiosClient.get(`/createProject.php?userId=${userId}`)
       .then((response) => {
         if (Array.isArray(response.data.projects)) {
           setProjectOptions(response.data.projects);
@@ -30,9 +32,7 @@ const CreateTask = () => {
       .catch((error) => {
         console.error('Error fetching projects:', error);
       });
-  }, [userId]);
-
-
+  };
 
 
   const [inputs, setInputs] = useState({
@@ -83,13 +83,14 @@ const CreateTask = () => {
     // Move the API request logic here
     const userId = localStorage.getItem('userId');
     if (userId) {
-      api
+   ProjectData(userId);
+      axiosClient
         .post(`/taskCreate.php?userId=${userId}`, inputs)
         .then((response) => {
           if (response.data.status === 0) {
             setErrors({ message: response.data.message });
           } else {
-            setErrors({ message: response.data.message });
+            setErrors({ success: response.data.message });
             setInputs({
               title: '',
               startDate: '',
@@ -111,19 +112,19 @@ const CreateTask = () => {
 
   const handleProjectSubmit = (event) => {
     event.preventDefault();
+    const userId = localStorage.getItem('userId');
+    ProjectData(userId);
     setErrors({}); // Clear any previous errors
 
     // Move the API request logic here
-    const userId = localStorage.getItem('userId');
     if (userId) {
-
-      api
+      axiosClient
         .post(`/createProject.php?userId=${userId}`, projectInputs)
         .then((response) => {
           if (response.data.status === 0) {
             setErrors({ message: response.data.error });
           } else {
-            setErrors({ message: response.data.message });
+            setErrors({ success: response.data.message });
             projectInputs.projectName = '';
             projectInputs.projectDescription = '';
             //   setTimeout(() => {
@@ -194,28 +195,28 @@ const CreateTask = () => {
     setShowTaskForm(false);
   };
   return (
-    <div className="cTask-card">
+    <div className={`cTask-card ${darkMode ? 'dark-mode-task' : ''}`}>
       {/* {errors.message && <div className="error">{errors.message}</div>} */}
       {errors && Object.keys(errors).length > 0 && (
-  <div className="error-message">
-    {Object.entries(errors).map(([key, value], index) => (
-      <p key={index} className={key === 'success' ? 'success-message' : ''}>
-        {value}
-      </p>
-    ))}
+        <div className="error-message">
+          {Object.entries(errors).map(([key, value], index) => (
+            <p key={index} className={key === 'success' ? 'success-message' : ''}>
+              {value}
+            </p>
+          ))}
         </div>
       )}
       <div className="form-buttons">
-        <button className={showTaskForm ? 'create-cancel-btn' : 'add-button task-btn' } onClick={cancelTask}>
+        <button className={showTaskForm ? 'create-cancel-btn' : 'add-button task-btn'} onClick={cancelTask}>
           {showTaskForm ? 'Cancel Task' : 'Create Task'}
         </button>
-        <button className={showProjectForm ? 'create-cancel-btn' : 'add-button project-btn' } onClick={Projectcancel}>
+        <button className={showProjectForm ? 'create-cancel-btn' : 'add-button project-btn'} onClick={Projectcancel}>
           {showProjectForm ? 'Cancel project' : 'Create project'}
         </button>
       </div>
 
       {showTaskForm && (
-        <form onSubmit={handleSubmit} className={` ${showTaskForm ? 'active1' : 'hide'}`}>
+        <form onSubmit={handleSubmit} className={` ${showTaskForm ? 'active1' : 'hide'} ${darkMode ? 'dark-mode-task' : ''}`}>
           <div className='heading'>
             <h1>Create Task</h1>
           </div>
@@ -237,6 +238,7 @@ const CreateTask = () => {
             name="startDate"
             value={inputs.startDate}
             onChange={handleChange}
+            className='date'
           />
 
           <label htmlFor="endDate">End Date</label>
@@ -246,6 +248,8 @@ const CreateTask = () => {
             name="endDate"
             value={inputs.endDate}
             onChange={handleChange}
+            className='date'
+
           />
 
 
@@ -287,7 +291,7 @@ const CreateTask = () => {
           </button>
 
 
-          <div className="project-section">
+          <div className={`project-section ${darkMode ? 'dark-mode-task' : ''}`}>
             <label htmlFor="selectedProject">Project</label>
             <select
               id="selectedProject"
@@ -317,10 +321,13 @@ const CreateTask = () => {
         </form>
       )}
       {showProjectForm && (
-        <form onSubmit={handleProjectSubmit} className={` ${showProjectForm ? 'active1' : 'hide'}`}>
-          <h1>Create Project</h1>
+        <form onSubmit={handleProjectSubmit} className={` ${showProjectForm ? 'active1' : 'hide'} ${darkMode ? 'dark-mode-task' : ''}`}>
+          <div className="heading">
 
-          <div className={`create-project`}>
+          <h1>Create Project</h1>
+          </div>
+
+          <div className={`create-project ${darkMode ? 'dark-mode-task' : ''}`}>
             <input
               type="text"
               placeholder="Project Name"

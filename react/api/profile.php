@@ -74,7 +74,7 @@ try {
                 $updateStmt->bind_param('ssssssi', $newUsername, $newPronounce, $newFullname, $newPhonenumber, $newDOB, $newProfession, $user_id);
 
                 if ($updateStmt->execute()) {
-                    echo json_encode(['status' => 1, 'message' => 'User_  Data_  Updated_  Successfully']);
+                    echo json_encode(['status' => 1, 'message' => 'User Data Updated Successfully']);
                 } else {
                     http_response_code(500);
                     echo json_encode(['status' => 0, 'message' => 'Internal Server Error']);

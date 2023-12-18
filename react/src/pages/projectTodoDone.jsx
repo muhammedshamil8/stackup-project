@@ -3,6 +3,8 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './task-page.css';
 import { Link, useNavigate, useParams } from 'react-router-dom';
+import axiosClient from "../axiosClient";
+
 
 const ProjectTodoDone = () => {
   const { projectId } = useParams();
@@ -10,16 +12,11 @@ const ProjectTodoDone = () => {
 
   const [tasks, setTasks] = useState([]);
   const userId = localStorage.getItem('userId');
-  const api = axios.create({
-    baseURL: 'https://task-managment-app.k.strikerlulu.me',
-  });
-  //   const api = axios.create({
-  //     baseURL: 'http://localhost:9000/api',
-  // });
+ 
   useEffect(() => {
     const fetchTasks = async () => {
       try {
-        const response = await api.get(`/projectDoneTask.php?userId=${userId}&projectId=${projectId}`);
+        const response = await axiosClient.get(`/projectDoneTask.php?userId=${userId}&projectId=${projectId}`);
         setTasks(response.data.tasks || []);
       } catch (error) {
         console.error('Error fetching tasks:', error);
@@ -39,7 +36,7 @@ const ProjectTodoDone = () => {
 
     if (isConfirmed) {
       try {
-        const response = await api.post('/projectGetTask.php?userId=${userId}&projectId=${projectId}', {
+        const response = await axiosClient.post('/projectGetTask.php?userId=${userId}&projectId=${projectId}', {
           action: 'deleteTask',
           taskId,
         });

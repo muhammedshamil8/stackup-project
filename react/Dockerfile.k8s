@@ -7,6 +7,9 @@ USER root
 # Install the php81-pdo_mysql package
 RUN apk add --no-cache php81-pdo_mysql
 
+# Enable mod_rewrite
+RUN sed -i 's/AllowOverride None/AllowOverride All/' /etc/nginx/nginx.conf
+
 # Switch back to the 'nobody' user
 USER nobody
 

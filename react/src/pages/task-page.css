@@ -27,6 +27,7 @@
     bottom: 70%;
     font-weight: 700;
     font-size: 25px;
+    color: #000;
 }
 
 .task-list>li {
@@ -146,6 +147,7 @@
     margin-top: 50px;
     font-weight: 700;
     font-size: 25px;
+    color: #000;
 
 }
 
@@ -168,7 +170,7 @@ margin-left: 60px;
     /* background-color: #0fb62b;
      */
     /* Green background */
-    background-image: url('../../public/background.svg');
+    background-image: url('../images/background.svg');
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center center;
@@ -284,8 +286,16 @@ margin-left: 60px;
 }
 
 .search-bar {
+    background-color: #fff;
     border-radius: 15px;
     padding-left: 50px;
+    color: #000;
+}
+.dark-mode-bar{
+    background-color: #2e2d2d;
+    border-radius: 15px;
+    padding-left: 50px;
+    color: #fff;
 }
 
 .search {
@@ -566,4 +576,13 @@ margin-left: 60px;
         margin: 10px;
     }
     
+}
+
+.dark-mode-dashboard{
+    transition: color 0.3s ease-in-out;
+    color: #f3f0f0 !important;
+}
+.light-mode-dashboard{
+    transition: color 0.3s ease-in-out;
+    color: #000 !important;
 }

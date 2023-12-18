@@ -1,6 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import React, { useEffect, useState } from 'react';
-import BgImage from '../../public/task_management_vector.svg'
+import BgImage from '../images/task_management_vector.svg'
 
 
 export default function Index() {
@@ -16,7 +16,6 @@ export default function Index() {
         // Cleanup timeout on unmount
         return () => clearTimeout(loadingTimeout);
     }, []);
-
     const userId = localStorage.getItem('userId');
     if (userId) {
         navigate('/dashboard');

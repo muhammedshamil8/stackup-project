@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import './task-page.css';
+import axiosClient from "../axiosClient";
+
 
 export default function Project() {
   const { projectId } = useParams();
@@ -17,12 +19,7 @@ export default function Project() {
   const [teamMembers, setTeamMembers] = useState([]);
   const [projectDescription, setProjectDescription] = useState('');
   const navigate = useNavigate();
-  const api = axios.create({
-    baseURL: 'https://task-managment-app.k.strikerlulu.me',
-  });
-  //   const api = axios.create({
-  //     baseURL: 'http://localhost:9000/api',
-  // });
+
 
   const handleEdit = () => {
     setEditMode(!editMode);
@@ -34,7 +31,7 @@ export default function Project() {
 
   const fetchProject = async () => {
     try {
-      const response = await api.get(`/getprojectTasks.php?userId=${userId}&projectId=${projectId}`);
+      const response = await axiosClient.get(`/getprojectTasks.php?userId=${userId}&projectId=${projectId}`);
 
       if (response.data.status === 1) {
         setProjectDetails(response.data.projectDetails);
@@ -53,7 +50,7 @@ export default function Project() {
 
   const handleTeamSearch = async (searchTerm) => {
     try {
-      const response = await api.get(`/members.php?searchTerm=${searchTerm}`);
+      const response = await axiosClient.get(`/members.php?searchTerm=${searchTerm}`);
       setTeamSuggestions(response.data.teams);
     } catch (error) {
       console.error('Error fetching team suggestions:', error);
@@ -84,7 +81,7 @@ export default function Project() {
 
     if (isConfirmed) {
       try {
-        const response = await api.post('/getprojectTasks.php', {
+        const response = await axiosClient.post('/getprojectTasks.php', {
           action: 'deleteProject',
           projectId: projectId,
         });
@@ -107,7 +104,7 @@ export default function Project() {
 
   const handleUpdateProject = async () => {
     try {
-      const response = await api.post('/getprojectTasks.php', {
+      const response = await axiosClient.post('/getprojectTasks.php', {
         action: 'updateProject',
         projectId: projectId,
         projectDescription: editedProjectDescription,

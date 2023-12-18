@@ -2,21 +2,18 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './task-page.css';
 import { Link, useNavigate } from 'react-router-dom';
+import axiosClient from "../axiosClient";
+
 
 export default function Taskdone() {
     const [tasks, setTasks] = useState([]);
     const userId = localStorage.getItem('userId');
     const navigate = useNavigate();
-    const api = axios.create({
-        baseURL: 'https://task-managment-app.k.strikerlulu.me',
-    });
-    // const api = axios.create({
-    //     baseURL: 'http://localhost:9000/api',
-    // });
+   
     useEffect(() => {
         const fetchTasks = async () => {
             try {
-                const response = await api.get(`/doneTasks.php?userId=${userId}`);
+                const response = await axiosClient.get(`/doneTasks.php?userId=${userId}`);
                 setTasks(response.data.tasks ? response.data.tasks : []);
             } catch (error) {
                 console.error('Error fetching tasks:', error);
@@ -33,7 +30,7 @@ export default function Taskdone() {
 
         if (isConfirmed) {
             try {
-                const response = await api.post('/getTasks.php', {
+                const response = await axiosClient.post('/getTasks.php', {
                     action: 'deleteTask',
                     taskId,
                 });

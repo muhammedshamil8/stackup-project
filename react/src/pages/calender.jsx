@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react';
+import { useOutletContext } from "react-router-dom";
 import './calendar.css';
 
 const weekdays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
 const Calendar = () => {
+  const [darkMode] = useOutletContext();
+
   const [currentDate, setCurrentDate] = useState(new Date());
 
   const generateCalendar = () => {

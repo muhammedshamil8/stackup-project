@@ -1,7 +1,7 @@
 // NotFound.jsx
 
 import React from 'react';
-// import smileyImage from './smile-image.png'; // Replace with the actual path
+// import smileyImage from '../images/smile-image.png'; // Replace with the actual path
 
 export default function NotFound() {
   return (

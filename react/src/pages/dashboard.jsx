@@ -1,11 +1,13 @@
-import { Link, useNavigate, Outlet } from "react-router-dom";
+import { Link, useNavigate, useOutletContext } from "react-router-dom";
 import React, { useEffect, useState } from 'react';
 import axios from "axios";
 import './task-page.css';
-import SearchIcon from '../../public/search icon.png'
-import tasklist from '../../public/todo.svg';
-import taskdone from '../../public/tododone.svg';
-import taskprogress from '../../public/todoprogress.svg';
+import SearchIcon from '../images/search icon.png'
+import tasklist from '../images/todo.svg';
+import taskdone from '../images/tododone.svg';
+import taskprogress from '../images/todoprogress.svg';
+import axiosClient from "../axiosClient";
+
 
 export default function Dashboard() {
   const userId = localStorage.getItem('userId');
@@ -15,25 +17,12 @@ export default function Dashboard() {
   const [projectOptions, setProjectOptions] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [searchResults, setSearchResults] = useState([]);
-  const [darkMode, setDarkMode] = useState(false);
-
-  const api = axios.create({
-    baseURL: 'https://task-managment-app.k.strikerlulu.me',
-  });
-  //   const api = axios.create({
-  //     baseURL: 'http://localhost:9000/api',
-  // });
-
-  const toggleDarkMode = () => {
-    setDarkMode(!darkMode);
-    const body = document.body;
-    const header = document.body.querySelector('header');
-   
-};
+  const [darkMode] = useOutletContext();
+  // console.log('darkMode in child:', darkMode);
   useEffect(() => {
     const userId = localStorage.getItem('userId');
     if (userId) {
-      api.get(`/home.php?userId=${userId}`)
+      axiosClient.get(`/home.php?userId=${userId}`)
         .then(function (response) {
           if (response.data.username) {
             setUser(response.data);
@@ -48,7 +37,7 @@ export default function Dashboard() {
           setError("Server error. Unable to fetch user data. Check the network tab for more details.");
         });
     } else {
-      api.get("/logout.php")
+      axiosClient.get("/logout.php")
         .then(function (response) {
           // Handle logout success
           localStorage.removeItem('userId'); // Remove 'userId' from localStorage
@@ -61,7 +50,7 @@ export default function Dashboard() {
 
   useEffect(() => {
 
-    api.get(`/createProject.php?userId=${userId}`)
+    axiosClient.get(`/createProject.php?userId=${userId}`)
       .then((response) => {
         if (Array.isArray(response.data.projects)) {
           setProjectOptions(response.data.projects);
@@ -78,7 +67,7 @@ export default function Dashboard() {
     // Check if the search term is empty
     if (searchTerm.trim() !== '') {
       // Make a request to search for tasks based on the searchTerm
-      api.get(`/tasks.php?userId=${userId}&searchTerm=${searchTerm}`)
+      axiosClient.get(`/tasks.php?userId=${userId}&searchTerm=${searchTerm}`)
         .then((response) => {
           if (response.data.status === 1 && Array.isArray(response.data.tasks)) {
             setSearchResults(response.data.tasks);
@@ -150,13 +139,13 @@ export default function Dashboard() {
 
 
   return (
-    <div className="dashboard">
+    <div className={`dashboard ${darkMode ? 'dark-mode-dashboard' : ''}`}>
 
       <div className="search">
         <input
           type="search"
           placeholder="Search Task"
-          className={`search-bar ${darkMode ? 'dark-mode' : ''}`}
+          className={`search-bar ${darkMode ? 'dark-mode-bar' : ''}`}
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
           onKeyUp={handleSearch}
@@ -201,8 +190,8 @@ export default function Dashboard() {
       )}
 
       <div >
-        <div className="project-p">
-          <h2 >Projects</h2>
+        <div >
+          <h2 className={`${darkMode ? 'dark-mode-dashboard' : 'light-mode-dashboard'}`}>Projects</h2>
 
         </div>
         <div className="parent-card">
@@ -244,37 +233,37 @@ export default function Dashboard() {
       </div>
 
 
-      <div className={`task-card ${darkMode ? 'dark-mode' : ''}`}>
+      <div className={`task-card `}>
 
-        <h2 className="task-p">My Tasks</h2>
+        <h2 className={`task-p ${darkMode ? 'dark-mode-dashboard' : 'light-mode-dashboard'}`}>My Tasks</h2>
         <ul className="task-list">
 
         <li>
-            <span class="material-symbols-outlined">
+            <span className="material-symbols-outlined">
               format_list_bulleted
             </span>
             {/* <img src={tasklist} className="task-logo"/> */}
 
-            <Link to="/todolist" className="list-done">Task list</Link>
+            <Link to="/todolist" className={`list-done ${darkMode ? 'dark-mode-dashboard' : 'light-mode-dashboard'}`}>Task list</Link>
           </li>
 
           <li>
-            <span class="material-symbols-outlined">
+            <span className="material-symbols-outlined">
               sync
             </span>
             {/* <img src={taskprogress} className="task-logo"/> */}
 
-            <Link to="/taskonprogress" className="list-done">Task progress</Link>
+            <Link to="/taskonprogress" className={`list-done ${darkMode ? 'dark-mode-dashboard' : 'light-mode-dashboard'}`}>Task progress</Link>
           </li>
 
         
           <li>
-            <span class="material-symbols-outlined">
+            <span className="material-symbols-outlined">
               Done
             </span>
             {/* <img src={taskdone} className="task-logo"/> */}
 
-            <Link to="/taskdone" className="list-done">Task done</Link>
+            <Link to="/taskdone" className={`list-done ${darkMode ? 'dark-mode-dashboard' : 'light-mode-dashboard'}`}>Task done</Link>
           </li>
 
         </ul>
