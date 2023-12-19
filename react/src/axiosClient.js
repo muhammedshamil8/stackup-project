@@ -2,7 +2,7 @@ import axios from "axios";
 
 
 const axiosClient = axios.create({
-  baseURL: 'https://featuresphere.wuaze.com/api/',
+  baseURL: 'https://featuresphere.wuaze.com/',
 })
 // for development ...! or local run  baseURL: 'http://localhost:9000/api',
 // for hosting domain ...!
