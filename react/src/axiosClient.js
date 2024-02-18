@@ -8,7 +8,7 @@ const axiosClient = axios.create({
 // for development ...! or local run  
         // baseURL: 'http://localhost:9000/',
 // for hosting domain ...!
-        baseURL: 'https://task.k.strikerlulu.me',
+        baseURL: 'https://task.k.strikerlulu.me/',
 })
 
   
