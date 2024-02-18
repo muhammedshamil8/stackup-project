@@ -70,6 +70,7 @@ export default function DefaultLayout() {
                 .then(function (response) {
                     if (response.data.username) {
                         setUser(response.data);
+                        console.log(response.data);
 
 
                     } else {

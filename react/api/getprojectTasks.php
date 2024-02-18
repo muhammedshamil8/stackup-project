@@ -1,5 +1,6 @@
 <?php
 session_start();
+echo "getprojectTasks page";
 
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Headers: *");

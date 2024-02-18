@@ -1,6 +1,8 @@
 <?php
 session_start();
 
+echo "Task Create page";
+
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Headers: *");
 // adding to project stuff balance...

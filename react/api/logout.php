@@ -1,7 +1,9 @@
 <?php
 session_start();
 
+echo "Logout page";
 
+// Allow from any origin
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Headers: *");
 // $_SESSION['id'] = 10;

@@ -1,6 +1,8 @@
 <?php
 session_start();
 
+echo "Todo page";
+ echo $_SESSION['id'];
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Headers: *");
 

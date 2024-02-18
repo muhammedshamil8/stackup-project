@@ -1,12 +1,15 @@
 <?php
 session_start();
 
+// Allow from any origin
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Headers: *");
-// echo "Login page";
+
+echo "Login page";
+
 error_log(print_r($_SESSION, true));
 include 'db_connect.php';
-$_SESSION['id'];
+
 try {
     if ($conn) {
         $method = $_SERVER['REQUEST_METHOD'];

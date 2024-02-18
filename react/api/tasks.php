@@ -1,6 +1,8 @@
 <?php
 session_start();
 
+echo "Tasks page";
+
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Headers: *");
 

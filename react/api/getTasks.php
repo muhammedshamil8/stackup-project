@@ -1,6 +1,8 @@
 <?php
 session_start();
 
+echo "Project Details page";
+
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Headers: *");
 

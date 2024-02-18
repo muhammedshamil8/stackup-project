@@ -1,6 +1,8 @@
 <?php
 session_start();
 
+echo "Signup page";
+
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Headers: *");
 

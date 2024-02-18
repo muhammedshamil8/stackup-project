@@ -1,6 +1,8 @@
 <?php
 session_start();
 
+echo "Home page";
+
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Headers: *");
 

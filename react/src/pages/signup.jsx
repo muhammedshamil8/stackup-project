@@ -24,8 +24,10 @@ function Signup() {
         axiosClient.post(`/signup.php`, inputs).then(function (response) {
             if (response.data.status === 0) {
                 setErrors({ message: response.data.message });
-            } else {
+            } else if (response.data.status === 1){
                 Navigate('/login');
+            }else {
+                setErrors({ message: "An error occurred. Please try again later." });
             }
         })
         .catch(function (error) {

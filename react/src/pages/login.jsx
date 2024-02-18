@@ -9,7 +9,7 @@ function Login() {
     const [isFormVisible, setFormVisible] = useState(true);
     const [inputs, setInputs] = useState({ email: "", password: "" });
     const [error, setError] = useState(null);
-   
+
     const handleChange = (event) => {
         const name = event.target.name;
         const value = event.target.value;
@@ -23,15 +23,18 @@ function Login() {
         axiosClient
             .post("/login.php", inputs)
             .then(function (response) {
+
                 if (response.data.status === 1) {
                     // Successful login, redirect to a dashboard or home page
-                     // Store the user ID in localStorage
-            localStorage.setItem('userId', response.data.user_id);
-                        Navigate(`/dashboard`);
+                    // Store the user ID in localStorage
+                    localStorage.setItem('userId', response.data.user_id);
+                    Navigate(`/dashboard`);
 
                     setError(`Login successful. User ID: ${response.data.user_id}`);
 
                 } else {
+                    console.log('working');
+
                     // Display the error message 
                     setError(response.data.message);
                 }
@@ -52,32 +55,32 @@ function Login() {
         <div className={`login-signup-form animated ${isFormVisible ? 'fadeInDown' : 'slideOut'}`}>
 
 
-        <div className="form ">
-            <form onSubmit={handleSubmit}>
-                <h1 className="title">Login into your account</h1>
+            <div className="form ">
+                <form onSubmit={handleSubmit}>
+                    <h1 className="title">Login into your account</h1>
 
-                <input
-                    type="email"
-                    name="email"
-                    placeholder="Email"
-                    onChange={handleChange}
-                />
-                <input
-                    type="password"
-                    name="password"
-                    placeholder="Password"
-                    onChange={handleChange}
-                    autoComplete="new-password"
-                />
-                <button className="btn btn-block">Login</button>
+                    <input
+                        type="email"
+                        name="email"
+                        placeholder="Email"
+                        onChange={handleChange}
+                    />
+                    <input
+                        type="password"
+                        name="password"
+                        placeholder="Password"
+                        onChange={handleChange}
+                        autoComplete="new-password"
+                    />
+                    <button className="btn btn-block">Login</button>
 
-                {error && <div className="error">{error}</div>}
+                    {error && <div className="error">{error}</div>}
 
-                <p className="message">
-                    Not Registered? <a className="link" onClick={handleLinkClick}>Create an account</a>
-                </p>
-            </form>
-        </div>
+                    <p className="message">
+                        Not Registered? <a className="link" onClick={handleLinkClick}>Create an account</a>
+                    </p>
+                </form>
+            </div>
         </div>
     );
 }
