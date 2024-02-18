@@ -41,7 +41,7 @@ function Login() {
             })
             .catch(function (error) {
                 console.error("Error: " + error);
-                alert('An error occurred. Please try again later. i think backend server is down')
+                // alert('An error occurred. Please try again later. i think backend server is down')
             });
     };
     const handleLinkClick = () => {
