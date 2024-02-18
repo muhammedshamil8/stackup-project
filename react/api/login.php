@@ -13,7 +13,11 @@ include 'db_connect.php';
 try {
     if ($conn) {
         $method = $_SERVER['REQUEST_METHOD'];
-
+        header("Access-Control-Allow-Methods: POST, OPTIONS");
+        header("Access-Control-Allow-Headers: Content-Type");
+        header("Access-Control-Max-Age: 86400");
+        header("Content-Length: 0");
+        header("Content-Type: text/plain");
         switch ($method) {
             case "POST":
                 $user = json_decode(file_get_contents('php://input'));
